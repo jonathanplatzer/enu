@@ -51,6 +51,7 @@ public class GamePanel extends JPanel {
         System.out.println(this.getSize());
         
         g2.fillRect(0, 0, 320, 240);
+        g2.fillRect(320, 240, 320, 240);
 //        g2.fillRect((int) Math.round(0*ratio), (int) Math.round(0*ratio), (int) Math.round(320*ratio), (int) Math.round(240*ratio));
 //        
 //        g2.fillRect((int) Math.round(320*ratio), (int) Math.round(240*ratio), (int) Math.round(320*ratio), (int) Math.round(240*ratio));

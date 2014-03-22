@@ -11,13 +11,15 @@ import java.awt.DisplayMode;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 
 /**
  * @author Jonathan Platzer
  * @date 22.03.2014
  */
-public class GameMain extends JFrame {
+public class GameMain extends JFrame implements KeyListener {
 
     private final GraphicsDevice device;
     private DisplayMode displayMode;
@@ -25,6 +27,7 @@ public class GameMain extends JFrame {
 
     public GameMain(GraphicsDevice device) {
         this.device = device;
+        addKeyListener(this);
     }
 
     public void initialize() {
@@ -69,5 +72,24 @@ public class GameMain extends JFrame {
         GraphicsDevice defaultDevice = env.getDefaultScreenDevice();
         GameMain game = new GameMain(defaultDevice);
         game.initialize();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        System.out.println(e.getKeyCode() + " pressed");
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println(e.getKeyCode() + " pressed");
+        
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) { 
+         System.exit(0); 
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println(e.getKeyCode() + " released");
     }
 }
