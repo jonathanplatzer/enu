@@ -33,7 +33,9 @@ public class GamePanel extends JPanel {
         this.setPreferredSize(new Dimension(width, height));
         
        try {
-            img = ImageIO.read(new File("src" + File.separator + "com" + File.separator + "throughothereyes" + File.separator + "enu" + File.separator + "res" + File.separator + "map.png"));
+            img = ImageIO.read(new File("src" + File.separator + "com" + 
+                    File.separator + "throughothereyes" + File.separator + 
+                    "enu" + File.separator + "res" + File.separator + "map_640x480.png"));
         } catch (IOException e) {
             System.out.println("file not found");
         }
