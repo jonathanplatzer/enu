@@ -91,6 +91,7 @@ public class GamePanel extends JPanel {
         switch (GameCore.state) {
             case SPLASH:
                 g2.drawImage(splash, 0, 0, getWidth(), getHeight(), null);
+                g.drawString("FPS: " + Long.toString(GameCore.fps), 0, 10);
                 break;
             case MAINMENU:
 

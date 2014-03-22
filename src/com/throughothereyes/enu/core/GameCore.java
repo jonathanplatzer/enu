@@ -10,6 +10,8 @@ import com.throughothereyes.enu.utils.WindowController;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -20,20 +22,24 @@ import javax.swing.SwingUtilities;
 public class GameCore extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Instances">
-    
     // Constants for the game
-    private final int HEIGHT = 480;
-    private final int WIDTH = 640;
-    private final int BIT_DEPTH = 32;
-    private final int REFRESH_RATE = 60;
-    
+    static final int HEIGHT = 480;
+    static final int WIDTH = 640;
+    static final int BIT_DEPTH = 32;
+    static final int REFRESH_RATE = 60;
+    static final int UPDATE_RATE = 30;
+    static final long UPDATE_PERIOD = (long) 1e9 / UPDATE_RATE;
+
     // Static enum for states of the game
-    public static enum State{
+    static enum State {
+
         SPLASH, MAINMENU, PLAY, PAUSED, GAMEOVER, SHUTDOWN
     }
-    
+
     // Static variable to access the current state of the game
     public static State state;
+
+    public static int fps;
 
     // Instances for fullscreen handling
     private final GraphicsDevice device;
@@ -48,7 +54,6 @@ public class GameCore extends JFrame {
     WindowController windowController;
 
     // </editor-fold>
-    
     public GameCore(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
 
@@ -94,11 +99,31 @@ public class GameCore extends JFrame {
     }
 
     // </editor-fold>
-    
     private void gameLoop() {
         GameCore.state = GameCore.State.SPLASH;
+        long startTime;
+        long deltaTime;
+        long sleepTime;
         while (true) {
+            startTime = System.nanoTime();
+            if (state == State.GAMEOVER) {
+                break;
+            }
+            if (state == State.SPLASH) {
+                update();
+            }
             repaint();
+
+            deltaTime = System.nanoTime() - startTime;
+            sleepTime = (UPDATE_PERIOD - deltaTime) / (long) 1e6;
+            if (sleepTime < 0) {
+                sleepTime = 0;
+            }
+            fps = (int) (1000 / ((deltaTime / (long) 1e6) + sleepTime));
+            try {
+                Thread.sleep(sleepTime);
+            } catch (InterruptedException ex) {
+            }
         }
     }
 
@@ -109,7 +134,7 @@ public class GameCore extends JFrame {
                 gameLoop();
             }
         };
-        
+
         gameThread.start();
     }
 
