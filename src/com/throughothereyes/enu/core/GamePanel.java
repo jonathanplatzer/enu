@@ -14,6 +14,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.print.attribute.standard.Fidelity;
 import javax.swing.JPanel;
@@ -24,10 +25,16 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel {
 
+    BufferedImage img;
     
     public GamePanel(int width, int height)
     {
         this.setSize(width, height);
+        try {
+            img = ImageIO.read(new File("src/com" + File.separator + "throughothereyes" + File.separator + "enu" + File.separator + "res" + File.separator + "test.jpg"));
+        } catch (IOException e) {
+            System.out.println("file not found");
+        }
     }
     
     @Override
@@ -51,6 +58,7 @@ public class GamePanel extends JPanel {
         
         g2.fillRect(0, 0, 320, 240);
         g2.fillRect(320, 240, 320, 240);
+        
 //        g2.fillRect((int) Math.round(0*ratio), (int) Math.round(0*ratio), (int) Math.round(320*ratio), (int) Math.round(240*ratio));
 //        
 //        g2.fillRect((int) Math.round(320*ratio), (int) Math.round(240*ratio), (int) Math.round(320*ratio), (int) Math.round(240*ratio));
