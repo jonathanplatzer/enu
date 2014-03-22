@@ -29,12 +29,7 @@ public class GamePanel extends JPanel {
     
     public GamePanel(int width, int height)
     {
-        this.setSize(width, height);
-        try {
-            img = ImageIO.read(new File("src/com" + File.separator + "throughothereyes" + File.separator + "enu" + File.separator + "res" + File.separator + "test.jpg"));
-        } catch (IOException e) {
-            System.out.println("file not found");
-        }
+        this.setPreferredSize(new Dimension(width, height));
     }
     
     @Override

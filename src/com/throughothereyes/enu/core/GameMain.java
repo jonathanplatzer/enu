@@ -19,7 +19,7 @@ import javax.swing.JFrame;
  * @author Jonathan Platzer
  * @date 22.03.2014
  */
-public class GameMain extends JFrame implements KeyListener {
+public class GameMain extends JFrame {
 
     private final int HEIGHT = 480;
     private final int WIDTH = 640;
@@ -31,16 +31,13 @@ public class GameMain extends JFrame implements KeyListener {
     private DisplayMode gameDisplayMode;
     private GamePanel gamePanel;
 
-    public GameMain(GraphicsDevice device) {
-        this.device = device;
-        addKeyListener(this);
+    public GameMain(GraphicsDevice graphicsDevice) {
+        device = graphicsDevice;
     }
 
-    public void initialize() {
-        setLayout(null);
-        getContentPane().setBackground(Color.BLACK);
+    public void initializeUI() {
         gamePanel = new GamePanel(WIDTH, HEIGHT);
-        getContentPane().add(gamePanel);
+        setContentPane(gamePanel);
         
         if (device.isFullScreenSupported()) {
             setUndecorated(true);
@@ -51,7 +48,6 @@ public class GameMain extends JFrame implements KeyListener {
             device.setDisplayMode(gameDisplayMode);
         } else {
             setResizable(false);
-            getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
             pack();
             setVisible(true);
         }
@@ -62,7 +58,7 @@ public class GameMain extends JFrame implements KeyListener {
     }
 
     public void shutdown() {
-        System.exit(0);
+        
     }
 
     public void update() {
@@ -77,25 +73,6 @@ public class GameMain extends JFrame implements KeyListener {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultDevice = env.getDefaultScreenDevice();
         GameMain game = new GameMain(defaultDevice);
-        game.initialize();
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        System.out.println(e.getKeyCode() + " pressed");
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyCode() + " pressed");
-        
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) { 
-         shutdown();
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        System.out.println(e.getKeyCode() + " released");
+        game.initializeUI();
     }
 }
