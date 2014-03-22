@@ -6,6 +6,7 @@
 package com.throughothereyes.enu.core;
 
 import com.throughothereyes.enu.utils.GameKeyListener;
+import com.throughothereyes.enu.utils.GameWindowListener;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
@@ -40,6 +41,8 @@ public class GameMain extends JFrame {
         addKeyListener(new GameKeyListener(this));
         
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new GameWindowListener(this));
+        
         setVisible(true);
     }
 
@@ -48,7 +51,7 @@ public class GameMain extends JFrame {
         setContentPane(gamePanel);
         setTitle("Europa NON Universalis");
         
-        if (device.isFullScreenSupported()) {
+        if (!device.isFullScreenSupported()) {
             setUndecorated(true);
             setVisible(true);
             originalDisplayMode = device.getDisplayMode();
