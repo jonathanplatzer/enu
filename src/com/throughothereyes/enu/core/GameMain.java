@@ -37,9 +37,21 @@ public class GameMain extends JFrame {
     public GameMain(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
         
-        initializeUI();
+        initialize();
         
         setVisible(true);
+    }
+    
+    private void initialize()
+    {
+        initializeUI();
+        initializeListeners();
+        initializeGame();
+    }
+    
+    private void initializeGame()
+    {
+        
     }
     
     private void initializeListeners()
@@ -76,10 +88,6 @@ public class GameMain extends JFrame {
     }
 
     public void update() {
-
-    }
-
-    public void draw(Graphics2D g2d) {
 
     }
 
