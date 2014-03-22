@@ -31,6 +31,12 @@ public class GamePanel extends JPanel {
     public GamePanel(int width, int height)
     {
         this.setPreferredSize(new Dimension(width, height));
+        
+       try {
+            img = ImageIO.read(new File("src" + File.separator + "com" + File.separator + "throughothereyes" + File.separator + "enu" + File.separator + "res" + File.separator + "map.png"));
+        } catch (IOException e) {
+            System.out.println("file not found");
+        }
     }
     
     @Override
@@ -64,7 +70,7 @@ public class GamePanel extends JPanel {
 //        } catch (IOException e) {
 //            System.out.println("file not found");
 //        }
-//        g2.drawImage(img, 0, 0, this);
+        g2.drawImage(img, 0, 0, getWidth(), getHeight(), null);
         
 //        Dimension size = getSize();
 //        double w = size.getWidth();
