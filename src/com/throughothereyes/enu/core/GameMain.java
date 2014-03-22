@@ -38,6 +38,10 @@ public class GameMain extends JFrame {
     // Panel for drawing the GameObjects
     private GamePanel gamePanel;
 
+    // Instances for Controllers
+    InputController inputController;
+    WindowController windowController;
+    
     public GameMain(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
         
@@ -60,9 +64,11 @@ public class GameMain extends JFrame {
     
     private void initializeListeners()
     {
-        addKeyListener(new InputController(this));
+        inputController = new InputController(this);
+        windowController = new WindowController(this);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowController(this));
+        addKeyListener(inputController);
+        addWindowListener(windowController);
     }
 
     private void initializeUI() {
