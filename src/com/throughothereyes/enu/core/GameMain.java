@@ -24,14 +24,18 @@ import javax.swing.JLabel;
  */
 public class GameMain extends JFrame {
 
+    // Constants for the game
     private final int HEIGHT = 480;
     private final int WIDTH = 640;
     private final int BIT_DEPTH = 32;
     private final int REFRESH_RATE = 60;
 
+    // Instances for fullscreen handling
     private final GraphicsDevice device;
     private DisplayMode originalDisplayMode;
     private DisplayMode gameDisplayMode;
+    
+    // Our custom drawing panel
     private GamePanel gamePanel;
 
     public GameMain(GraphicsDevice graphicsDevice) {
@@ -90,6 +94,8 @@ public class GameMain extends JFrame {
     public void update() {
 
     }
+    
+    private 
 
     public static void main(String[] args) {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
