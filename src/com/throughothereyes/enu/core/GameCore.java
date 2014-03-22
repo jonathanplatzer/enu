@@ -100,17 +100,26 @@ public class GameCore extends JFrame {
 
     // </editor-fold>
     private void gameLoop() {
-        GameCore.state = GameCore.State.SPLASH;
+        // <editor-fold defaultstate="collapsed" desc="A bunch of variables">
         long startTime;
         long deltaTime;
         long sleepTime;
+        long splashStartTime = 0;
+        int splashDisplayTime = (int) (3.5 * 1000);
+
+        if (state == State.SPLASH) {
+            splashStartTime = System.currentTimeMillis();
+        }
+        // </editor-fold>
         while (true) {
             startTime = System.nanoTime();
             if (state == State.GAMEOVER) {
                 break;
             }
             if (state == State.SPLASH) {
-                update();
+                if (splashStartTime + splashDisplayTime < System.currentTimeMillis()) {
+                    state = State.MAINMENU;
+                }
             }
             repaint();
 
@@ -131,6 +140,7 @@ public class GameCore extends JFrame {
         Thread gameThread = new Thread() {
             @Override
             public void run() {
+                GameCore.state = GameCore.State.SPLASH;
                 gameLoop();
             }
         };
