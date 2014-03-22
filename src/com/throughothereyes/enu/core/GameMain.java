@@ -5,6 +5,7 @@
  */
 package com.throughothereyes.enu.core;
 
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,8 +13,11 @@ import java.awt.DisplayMode;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -62,7 +66,7 @@ public class GameMain extends JFrame implements KeyListener {
     }
 
     public void shutdown() {
-
+        System.exit(0);
     }
 
     public void update() {
@@ -88,9 +92,9 @@ public class GameMain extends JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         System.out.println(e.getKeyCode() + " pressed");
-
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            System.exit(0);
+        
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) { 
+         shutdown();
         }
     }
 

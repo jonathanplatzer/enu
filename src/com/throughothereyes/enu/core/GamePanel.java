@@ -23,7 +23,6 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel {
 
-    private float ratio;
     
     public GamePanel(int width, int height)
     {
@@ -36,19 +35,18 @@ public class GamePanel extends JPanel {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        RenderingHints rh
-                       = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
-                                            RenderingHints.VALUE_ANTIALIAS_ON);
-
-        rh.put(RenderingHints.KEY_RENDERING,
-               RenderingHints.VALUE_RENDER_QUALITY);
-
-        g2.setRenderingHints(rh);
-        
+//        RenderingHints rh
+//                       = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+//                                            RenderingHints.VALUE_ANTIALIAS_ON);
+//
+//        rh.put(RenderingHints.KEY_RENDERING,
+//               RenderingHints.VALUE_RENDER_QUALITY);
+//
+//        g2.setRenderingHints(rh);
+//        
         g2.setStroke(new BasicStroke(1));
         g2.setColor(Color.gray);
         g2.setBackground(Color.BLACK);
-        System.out.println(this.getSize());
         
         g2.fillRect(0, 0, 320, 240);
         g2.fillRect(320, 240, 320, 240);
@@ -57,14 +55,14 @@ public class GamePanel extends JPanel {
 //        g2.fillRect((int) Math.round(320*ratio), (int) Math.round(240*ratio), (int) Math.round(320*ratio), (int) Math.round(240*ratio));
 
         
-//        BufferedImage img = null;
-//        try {
-//            img = ImageIO.read(new File("com.throughothereyes.enu.core" + File.separator + "fuck.jpg"));
-//        } catch (IOException e) {
-//            System.out.println("file not found");
-//        }
-//        
-//        g2.drawImage(img, 0, 0, null);
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("com" + File.separator + "throughothereyes" + File.separator + "enu" + File.separator + "res" + File.separator + "test.jpg"));
+        } catch (IOException e) {
+            System.out.println("file not found");
+        }
+        
+        g2.drawImage(img, 0, 0, null);
         
 //        Dimension size = getSize();
 //        double w = size.getWidth();
