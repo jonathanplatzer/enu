@@ -6,7 +6,7 @@
 
 package com.throughothereyes.enu.utils;
 
-import com.throughothereyes.enu.core.GameMain;
+import com.throughothereyes.enu.core.GameCore;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -28,9 +28,9 @@ public class WindowController implements WindowListener{
 
     @Override
     public void windowClosing(WindowEvent e) {
-        if(source instanceof GameMain)
+        if(source instanceof GameCore)
         {
-            ((GameMain)source).shutdown();
+            ((GameCore)source).shutdown();
         }
     }
 

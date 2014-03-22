@@ -14,16 +14,26 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 /**
- * @author Jonathan Platzer
+ * @author jplatzer
  * @date 22.03.2014
  */
-public class GameMain extends JFrame {
+public class GameCore extends JFrame {
 
+    // <editor-fold defaultstate="collapsed" desc="Instances">
+    
     // Constants for the game
     private final int HEIGHT = 480;
     private final int WIDTH = 640;
     private final int BIT_DEPTH = 32;
     private final int REFRESH_RATE = 60;
+    
+    // Static enum for states of the game
+    public static enum State{
+        SPLASH, MAINMENU, PLAY, PAUSED, GAMEOVER, SHUTDOWN
+    }
+    
+    // Static variable to access the current state of the game
+    public static State state;
 
     // Instances for fullscreen handling
     private final GraphicsDevice device;
@@ -36,8 +46,10 @@ public class GameMain extends JFrame {
     // Instances for Controllers
     InputController inputController;
     WindowController windowController;
+
+    // </editor-fold>
     
-    public GameMain(GraphicsDevice graphicsDevice) {
+    public GameCore(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
 
         initialize();
@@ -45,14 +57,14 @@ public class GameMain extends JFrame {
         setVisible(true);
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Initialization">
+    private void initializeGame() {
+
+    }
+
     private void initialize() {
         initializeUI();
         initializeListeners();
-        initializeGame();
-    }
-
-    private void initializeGame() {
-
     }
 
     private void initializeListeners() {
@@ -81,7 +93,27 @@ public class GameMain extends JFrame {
         }
     }
 
+    // </editor-fold>
+    
+    private void gameLoop() {
+        GameCore.state = GameCore.State.SPLASH;
+        while (true) {
+            repaint();
+        }
+    }
+
     public void start() {
+        Thread gameThread = new Thread() {
+            @Override
+            public void run() {
+                gameLoop();
+            }
+        };
+        
+        gameThread.start();
+    }
+
+    public void update() {
 
     }
 
@@ -89,20 +121,18 @@ public class GameMain extends JFrame {
         System.exit(0);
     }
 
-    public void update() {
-
-    }
-
+    // <editor-fold defaultstate="collapsed" desc="Main">
     public static void main(String[] args) {
-
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
                 GraphicsDevice defaultDevice = env.getDefaultScreenDevice();
-                GameMain game = new GameMain(defaultDevice);
+                GameCore game = new GameCore(defaultDevice);
+                game.start();
             }
         });
-
     }
+
+    // </editor-fold>
 }

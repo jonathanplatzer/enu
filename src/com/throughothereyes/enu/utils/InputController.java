@@ -6,7 +6,7 @@
 
 package com.throughothereyes.enu.utils;
 
-import com.throughothereyes.enu.core.GameMain;
+import com.throughothereyes.enu.core.GameCore;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
@@ -35,9 +35,9 @@ public class InputController implements KeyListener{
         System.out.println(e.getKeyCode() + " pressed");
         
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            if(source instanceof GameMain)
+            if(source instanceof GameCore)
             {
-                ((GameMain)source).shutdown();
+                ((GameCore)source).shutdown();
             }
         }
     }

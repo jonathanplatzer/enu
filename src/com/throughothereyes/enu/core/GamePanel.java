@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -20,15 +21,25 @@ import javax.print.attribute.standard.Fidelity;
 import javax.swing.JPanel;
 
 /**
- * @author Jonathan Platzer
+ * @author jplatzer
  * @date 22.03.2014
  */
 public class GamePanel extends JPanel {
 
+    Image splash;
+    
     public GamePanel(int width, int height) {
         this.setPreferredSize(new Dimension(width, height));
+        init();
     }
 
+    private void init() {
+        try {
+            splash = ImageIO.read(new File("src" + File.separator + "com" + File.separator + "throughothereyes" + File.separator + "enu" + File.separator + "res" + File.separator + "toe_splash.png"));
+        } catch (IOException e) {
+            System.out.println("file not found");
+        }
+    }
 //    @Override
 //    public void paint(Graphics g) {
 //        super.paint(g);
@@ -71,12 +82,21 @@ public class GamePanel extends JPanel {
 //            at.rotate(Math.toRadians(deg));
 //            g2.draw(at.createTransformedShape(e));
 //        }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        
+
+        switch (GameCore.state) {
+            case SPLASH:
+                g2.drawImage(splash, 0, 0, getWidth(), getHeight(), null);
+                break;
+            case MAINMENU:
+
+                break;
+        }
+
         // WRITE SOME GRPHICS STUFF ...
     }
 }
-
