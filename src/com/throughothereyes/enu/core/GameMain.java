@@ -35,12 +35,18 @@ public class GameMain extends JFrame {
 
     public GameMain(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
+        
+        initializeUI();
         addKeyListener(new GameKeyListener(this));
+        
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setVisible(true);
     }
 
-    public void initializeUI() {
+    private void initializeUI() {
         gamePanel = new GamePanel(WIDTH, HEIGHT);
         setContentPane(gamePanel);
+        setTitle("Europa NON Universalis");
         
         if (device.isFullScreenSupported()) {
             setUndecorated(true);
@@ -52,7 +58,6 @@ public class GameMain extends JFrame {
         } else {
             setResizable(false);
             pack();
-            setVisible(true);
         }
     }
 
@@ -76,6 +81,5 @@ public class GameMain extends JFrame {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultDevice = env.getDefaultScreenDevice();
         GameMain game = new GameMain(defaultDevice);
-        game.initializeUI();
     }
 }
