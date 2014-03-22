@@ -15,11 +15,13 @@ import javax.swing.JFrame;
  * @author mwahlhuetter
  * @date 22.03.2014
  */
-public class GameKeyListener implements KeyListener{
+public class InputController implements KeyListener{
 
+    
     private Object source;
     
-    public GameKeyListener(Object source) {
+    
+    public InputController(Object source) {
         this.source = source;
     }
     

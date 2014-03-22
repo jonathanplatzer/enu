@@ -14,11 +14,11 @@ import java.awt.event.WindowListener;
  * @author mwahlhuetter
  * @date 22.03.2014
  */
-public class GameWindowListener implements WindowListener{
+public class WindowController implements WindowListener{
 
     private Object source;
     
-    public GameWindowListener(Object source) {
+    public WindowController(Object source) {
         this.source = source;
     }
     
