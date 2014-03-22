@@ -7,6 +7,7 @@ package com.throughothereyes.enu.core;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -24,10 +25,9 @@ public class GamePanel extends JPanel {
 
     private float ratio;
     
-    public GamePanel(int width, int height, float zoomRatio)
+    public GamePanel(int width, int height)
     {
         this.setSize(width, height);
-        this.ratio = zoomRatio;
     }
     
     @Override

@@ -7,6 +7,7 @@ package com.throughothereyes.enu.core;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
@@ -21,8 +22,14 @@ import javax.swing.JFrame;
  */
 public class GameMain extends JFrame implements KeyListener {
 
+    private final int HEIGHT = 480;
+    private final int WIDTH = 640;
+    private final int BIT_DEPTH = 32;
+    private final int REFRESH_RATE = 60;
+
     private final GraphicsDevice device;
-    private DisplayMode displayMode;
+    private DisplayMode originalDisplayMode;
+    private DisplayMode gameDisplayMode;
     private GamePanel gamePanel;
 
     public GameMain(GraphicsDevice device) {
@@ -33,38 +40,37 @@ public class GameMain extends JFrame implements KeyListener {
     public void initialize() {
         if (device.isFullScreenSupported()) {
             setUndecorated(true);
-            setLayout(null);
-            getContentPane().setBackground(Color.BLACK);
-            displayMode = device.getDisplayMode();
+            originalDisplayMode = device.getDisplayMode();
+            gameDisplayMode = new DisplayMode(WIDTH, HEIGHT, originalDisplayMode.getBitDepth(), DisplayMode.REFRESH_RATE_UNKNOWN);
             device.setFullScreenWindow(this);
-            device.setDisplayMode(new DisplayMode(640, 480, 32, 60));
-            int height = 480;//displayMode.getHeight();
-            int width = 640;//(int)Math.round(1.3333333333333*displayMode.getHeight());
-            float zoomRatio = height/480f;
-            gamePanel = new GamePanel(width, height, zoomRatio);
-//            gamePanel.setBounds((displayMode.getWidth() - width) / 2, 0, width, height);
-            add(gamePanel);
-            validate();
-            setVisible(true);
+            device.setDisplayMode(gameDisplayMode);
         } else {
             setResizable(false);
+            getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
         }
+
+        setLayout(null);
+        getContentPane().setBackground(Color.BLACK);
+        gamePanel = new GamePanel(WIDTH, HEIGHT);
+        add(gamePanel);
+        validate();
+        setVisible(true);
     }
 
     public void start() {
-        
+
     }
 
     public void shutdown() {
-        
+
     }
 
     public void update() {
-        
+
     }
 
     public void draw(Graphics2D g2d) {
-        
+
     }
 
     public static void main(String[] args) {
@@ -82,9 +88,9 @@ public class GameMain extends JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         System.out.println(e.getKeyCode() + " pressed");
-        
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) { 
-         System.exit(0); 
+
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
         }
     }
 
