@@ -7,16 +7,11 @@ package com.throughothereyes.enu.core;
 
 import com.throughothereyes.enu.utils.InputController;
 import com.throughothereyes.enu.utils.WindowController;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.DisplayMode;
-import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 /**
  * @author Jonathan Platzer
@@ -34,7 +29,7 @@ public class GameMain extends JFrame {
     private final GraphicsDevice device;
     private DisplayMode originalDisplayMode;
     private DisplayMode gameDisplayMode;
-    
+
     // Panel for drawing the GameObjects
     private GamePanel gamePanel;
 
@@ -44,26 +39,23 @@ public class GameMain extends JFrame {
     
     public GameMain(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
-        
+
         initialize();
-        
+
         setVisible(true);
     }
-    
-    private void initialize()
-    {
+
+    private void initialize() {
         initializeUI();
         initializeListeners();
         initializeGame();
     }
-    
-    private void initializeGame()
-    {
-        
+
+    private void initializeGame() {
+
     }
-    
-    private void initializeListeners()
-    {
+
+    private void initializeListeners() {
         inputController = new InputController(this);
         windowController = new WindowController(this);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -75,7 +67,7 @@ public class GameMain extends JFrame {
         gamePanel = new GamePanel(WIDTH, HEIGHT);
         setContentPane(gamePanel);
         setTitle("Europa NON Universalis");
-        
+
         if (device.isFullScreenSupported()) {
             setUndecorated(true);
             setVisible(true);
@@ -98,12 +90,19 @@ public class GameMain extends JFrame {
     }
 
     public void update() {
-        
+
     }
 
     public static void main(String[] args) {
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice defaultDevice = env.getDefaultScreenDevice();
-        GameMain game = new GameMain(defaultDevice);
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+                GraphicsDevice defaultDevice = env.getDefaultScreenDevice();
+                GameMain game = new GameMain(defaultDevice);
+            }
+        });
+
     }
 }
