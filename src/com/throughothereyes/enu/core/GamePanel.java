@@ -5,6 +5,7 @@
  */
 package com.throughothereyes.enu.core;
 
+import com.throughothereyes.enu.utils.GameKeyListener;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -46,7 +47,7 @@ public class GamePanel extends JPanel {
 //               RenderingHints.VALUE_RENDER_QUALITY);
 //
 //        g2.setRenderingHints(rh);
-//        
+        
         g2.setStroke(new BasicStroke(1));
         g2.setColor(Color.gray);
         g2.setBackground(Color.BLACK);
@@ -58,15 +59,12 @@ public class GamePanel extends JPanel {
 //        
 //        g2.fillRect((int) Math.round(320*ratio), (int) Math.round(240*ratio), (int) Math.round(320*ratio), (int) Math.round(240*ratio));
 
-        
-//        BufferedImage img = null;
 //        try {
-//            img = ImageIO.read(new File("src" + File.separator + "com" + File.separator + "throughothereyes" + File.separator + "enu" + File.separator + "res" + File.separator + "test.jpg"));
+//            img = ImageIO.read(new File("src" + File.separator + "com" + File.separator + "throughothereyes" + File.separator + "enu" + File.separator + "res" + File.separator + "test3.gif"));
 //        } catch (IOException e) {
 //            System.out.println("file not found");
 //        }
-        
-//        g2.drawImage(img, 0, 0, null);
+//        g2.drawImage(img, 0, 0, this);
         
 //        Dimension size = getSize();
 //        double w = size.getWidth();

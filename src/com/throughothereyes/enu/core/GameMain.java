@@ -14,6 +14,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  * @author Jonathan Platzer
@@ -33,6 +34,7 @@ public class GameMain extends JFrame {
 
     public GameMain(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
+        //this.addKeyListener(this);
     }
 
     public void initializeUI() {
