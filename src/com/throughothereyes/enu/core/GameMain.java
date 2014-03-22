@@ -5,6 +5,7 @@
  */
 package com.throughothereyes.enu.core;
 
+import com.throughothereyes.enu.utils.GameKeyListener;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
@@ -34,7 +35,7 @@ public class GameMain extends JFrame {
 
     public GameMain(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
-        //this.addKeyListener(this);
+        addKeyListener(new GameKeyListener(this));
     }
 
     public void initializeUI() {
@@ -60,7 +61,7 @@ public class GameMain extends JFrame {
     }
 
     public void shutdown() {
-        
+        System.exit(0);
     }
 
     public void update() {

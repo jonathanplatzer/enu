@@ -6,8 +6,10 @@
 
 package com.throughothereyes.enu.utils;
 
+import com.throughothereyes.enu.core.GameMain;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.JFrame;
 
 /**
  * @author mwahlhuetter
@@ -15,6 +17,12 @@ import java.awt.event.KeyListener;
  */
 public class GameKeyListener implements KeyListener{
 
+    private Object source;
+    
+    public GameKeyListener(Object source) {
+        this.source = source;
+    }
+    
     @Override
     public void keyTyped(KeyEvent e) {
         System.out.println(e.getKeyCode() + " pressed");
@@ -24,8 +32,11 @@ public class GameKeyListener implements KeyListener{
     public void keyPressed(KeyEvent e) {
         System.out.println(e.getKeyCode() + " pressed");
         
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) { 
-         System.exit(0);
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            if(source instanceof GameMain)
+            {
+                ((GameMain)source).shutdown();
+            }
         }
     }
 
