@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.print.attribute.standard.Fidelity;
 import javax.swing.JPanel;
 
 /**
@@ -55,14 +56,14 @@ public class GamePanel extends JPanel {
 //        g2.fillRect((int) Math.round(320*ratio), (int) Math.round(240*ratio), (int) Math.round(320*ratio), (int) Math.round(240*ratio));
 
         
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("com" + File.separator + "throughothereyes" + File.separator + "enu" + File.separator + "res" + File.separator + "test.jpg"));
-        } catch (IOException e) {
-            System.out.println("file not found");
-        }
+//        BufferedImage img = null;
+//        try {
+//            img = ImageIO.read(new File("src" + File.separator + "com" + File.separator + "throughothereyes" + File.separator + "enu" + File.separator + "res" + File.separator + "test.jpg"));
+//        } catch (IOException e) {
+//            System.out.println("file not found");
+//        }
         
-        g2.drawImage(img, 0, 0, null);
+//        g2.drawImage(img, 0, 0, null);
         
 //        Dimension size = getSize();
 //        double w = size.getWidth();

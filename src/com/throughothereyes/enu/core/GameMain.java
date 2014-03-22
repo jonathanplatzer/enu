@@ -5,19 +5,14 @@
  */
 package com.throughothereyes.enu.core;
 
-import java.awt.AWTException;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -42,8 +37,14 @@ public class GameMain extends JFrame implements KeyListener {
     }
 
     public void initialize() {
+        setLayout(null);
+        getContentPane().setBackground(Color.BLACK);
+        gamePanel = new GamePanel(WIDTH, HEIGHT);
+        getContentPane().add(gamePanel);
+        
         if (device.isFullScreenSupported()) {
             setUndecorated(true);
+            setVisible(true);
             originalDisplayMode = device.getDisplayMode();
             gameDisplayMode = new DisplayMode(WIDTH, HEIGHT, originalDisplayMode.getBitDepth(), DisplayMode.REFRESH_RATE_UNKNOWN);
             device.setFullScreenWindow(this);
@@ -51,14 +52,9 @@ public class GameMain extends JFrame implements KeyListener {
         } else {
             setResizable(false);
             getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
+            pack();
+            setVisible(true);
         }
-
-        setLayout(null);
-        getContentPane().setBackground(Color.BLACK);
-        gamePanel = new GamePanel(WIDTH, HEIGHT);
-        add(gamePanel);
-        validate();
-        setVisible(true);
     }
 
     public void start() {
