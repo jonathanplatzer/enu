@@ -34,11 +34,12 @@ public class GameMain extends JFrame {
             getContentPane().setBackground(Color.BLACK);
             displayMode = device.getDisplayMode();
             device.setFullScreenWindow(this);
-            int height = displayMode.getHeight();
-            int width = (int)Math.round(1.3333333333333*displayMode.getHeight());
+            device.setDisplayMode(new DisplayMode(640, 480, 32, 60));
+            int height = 480;//displayMode.getHeight();
+            int width = 640;//(int)Math.round(1.3333333333333*displayMode.getHeight());
             float zoomRatio = height/480f;
             gamePanel = new GamePanel(width, height, zoomRatio);
-            gamePanel.setBounds((displayMode.getWidth() - width) / 2, 0, width, height);
+//            gamePanel.setBounds((displayMode.getWidth() - width) / 2, 0, width, height);
             add(gamePanel);
             validate();
             setVisible(true);
@@ -48,19 +49,19 @@ public class GameMain extends JFrame {
     }
 
     public void start() {
-
+        
     }
 
     public void shutdown() {
-
+        
     }
 
     public void update() {
-
+        
     }
 
     public void draw(Graphics2D g2d) {
-
+        
     }
 
     public static void main(String[] args) {

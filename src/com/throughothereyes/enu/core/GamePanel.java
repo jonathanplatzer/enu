@@ -10,6 +10,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -45,10 +49,22 @@ public class GamePanel extends JPanel {
         g2.setColor(Color.gray);
         g2.setBackground(Color.BLACK);
         System.out.println(this.getSize());
-        g2.fillRect((int) Math.round(0*ratio), (int) Math.round(0*ratio), (int) Math.round(320*ratio), (int) Math.round(240*ratio));
         
-        g2.fillRect((int) Math.round(320*ratio), (int) Math.round(240*ratio), (int) Math.round(320*ratio), (int) Math.round(240*ratio));
+        g2.fillRect(0, 0, 320, 240);
+//        g2.fillRect((int) Math.round(0*ratio), (int) Math.round(0*ratio), (int) Math.round(320*ratio), (int) Math.round(240*ratio));
+//        
+//        g2.fillRect((int) Math.round(320*ratio), (int) Math.round(240*ratio), (int) Math.round(320*ratio), (int) Math.round(240*ratio));
 
+        
+//        BufferedImage img = null;
+//        try {
+//            img = ImageIO.read(new File("com.throughothereyes.enu.core" + File.separator + "fuck.jpg"));
+//        } catch (IOException e) {
+//            System.out.println("file not found");
+//        }
+//        
+//        g2.drawImage(img, 0, 0, null);
+        
 //        Dimension size = getSize();
 //        double w = size.getWidth();
 //        double h = size.getHeight();
