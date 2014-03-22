@@ -38,12 +38,15 @@ public class GameMain extends JFrame {
         device = graphicsDevice;
         
         initializeUI();
-        addKeyListener(new GameKeyListener(this));
-        
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new GameWindowListener(this));
         
         setVisible(true);
+    }
+    
+    private void initializeListeners()
+    {
+        addKeyListener(new GameKeyListener(this));
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new GameWindowListener(this));
     }
 
     private void initializeUI() {
