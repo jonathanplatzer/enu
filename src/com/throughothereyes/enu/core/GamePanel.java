@@ -5,7 +5,6 @@
  */
 package com.throughothereyes.enu.core;
 
-import com.throughothereyes.enu.utils.GameKeyListener;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,27 +25,15 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel {
 
-    BufferedImage img;
-    
-    public GamePanel(int width, int height)
-    {
+    public GamePanel(int width, int height) {
         this.setPreferredSize(new Dimension(width, height));
-        
-       try {
-            img = ImageIO.read(new File("src" + File.separator + "com" + 
-                    File.separator + "throughothereyes" + File.separator + 
-                    "enu" + File.separator + "res" + File.separator + "map_240x180.png"));
-        } catch (IOException e) {
-            System.out.println("file not found");
-        }
     }
-    
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
 
-        Graphics2D g2 = (Graphics2D) g;
-
+//    @Override
+//    public void paint(Graphics g) {
+//        super.paint(g);
+//
+//        Graphics2D g2 = (Graphics2D) g;
 //        RenderingHints rh
 //                       = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
 //                                            RenderingHints.VALUE_ANTIALIAS_ON);
@@ -55,25 +42,21 @@ public class GamePanel extends JPanel {
 //               RenderingHints.VALUE_RENDER_QUALITY);
 //
 //        g2.setRenderingHints(rh);
-        
-        g2.setStroke(new BasicStroke(1));
-        g2.setColor(Color.gray);
-        g2.setBackground(Color.BLACK);
-        
-        g2.fillRect(0, 0, 320, 240);
-        g2.fillRect(320, 240, 320, 240);
-        
+//        g2.setStroke(new BasicStroke(1));
+//        g2.setColor(Color.gray);
+//        g2.setBackground(Color.BLACK);
+//        
+//        g2.fillRect(0, 0, 320, 240);
+//        g2.fillRect(320, 240, 320, 240);
 //        g2.fillRect((int) Math.round(0*ratio), (int) Math.round(0*ratio), (int) Math.round(320*ratio), (int) Math.round(240*ratio));
 //        
 //        g2.fillRect((int) Math.round(320*ratio), (int) Math.round(240*ratio), (int) Math.round(320*ratio), (int) Math.round(240*ratio));
-
 //        try {
 //            img = ImageIO.read(new File("src" + File.separator + "com" + File.separator + "throughothereyes" + File.separator + "enu" + File.separator + "res" + File.separator + "test3.gif"));
 //        } catch (IOException e) {
 //            System.out.println("file not found");
 //        }
-        g2.drawImage(img, 0, 0, getWidth(), getHeight(), null);
-        
+//        g2.drawImage(img, 0, 0, getWidth(), getHeight(), null);
 //        Dimension size = getSize();
 //        double w = size.getWidth();
 //        double h = size.getHeight();
@@ -88,5 +71,12 @@ public class GamePanel extends JPanel {
 //            at.rotate(Math.toRadians(deg));
 //            g2.draw(at.createTransformedShape(e));
 //        }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        
+        // WRITE SOME GRPHICS STUFF ...
     }
 }
+

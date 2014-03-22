@@ -5,8 +5,8 @@
  */
 package com.throughothereyes.enu.core;
 
-import com.throughothereyes.enu.utils.GameKeyListener;
-import com.throughothereyes.enu.utils.GameWindowListener;
+import com.throughothereyes.enu.utils.InputController;
+import com.throughothereyes.enu.utils.WindowController;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
@@ -35,7 +35,7 @@ public class GameMain extends JFrame {
     private DisplayMode originalDisplayMode;
     private DisplayMode gameDisplayMode;
     
-    // Our custom drawing panel
+    // Panel for drawing the GameObjects
     private GamePanel gamePanel;
 
     public GameMain(GraphicsDevice graphicsDevice) {
@@ -60,9 +60,9 @@ public class GameMain extends JFrame {
     
     private void initializeListeners()
     {
-        addKeyListener(new GameKeyListener(this));
+        addKeyListener(new InputController(this));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new GameWindowListener(this));
+        addWindowListener(new WindowController(this));
     }
 
     private void initializeUI() {
@@ -94,8 +94,6 @@ public class GameMain extends JFrame {
     public void update() {
         
     }
-    
-    private 
 
     public static void main(String[] args) {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
