@@ -115,8 +115,8 @@ public class GamePanel extends JPanel {
 
     private String time() {
         long timeInMilliSeconds = System.currentTimeMillis() - GameCore.startTime;
-        long seconds = timeInMilliSeconds / 1000;
-        long minutes = seconds / 60;
+        long seconds = timeInMilliSeconds / 1000 % 60;
+        long minutes = timeInMilliSeconds / 1000 /60;
         long hours = minutes / 60;
         long days = hours / 24;
         return String.format("TIME RUNNING: %02d:%02d:%02d:%03d", hours,minutes,seconds, timeInMilliSeconds % 1000);
