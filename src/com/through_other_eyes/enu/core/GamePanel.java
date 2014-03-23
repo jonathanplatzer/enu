@@ -108,6 +108,7 @@ public class GamePanel extends JPanel {
         g2.drawString("GAMESTATE: " + GameCore.state, 2, 30);
         g2.drawString("FPS: " + Long.toString(GameCore.fps), 2, 42);
         g2.drawString("DT: " + GameCore.dt, 2, 54);
-        
+        g2.drawString(String.format("TOTAL MEMORY: %dMB", Runtime.getRuntime().totalMemory()/1024/1024), 2, 66);
+        g2.drawString(String.format("USED MEMORY: %dMB", (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1024/1024), 2, 78);
     }
 }
