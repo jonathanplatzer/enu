@@ -5,6 +5,7 @@
  */
 package com.through_other_eyes.enu.core;
 
+import com.through_other_eyes.enu.obj.SplashScreen;
 import com.through_other_eyes.enu.obj.base.GameObject;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,11 +24,11 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel {
 
-    private ArrayList<GameObject> gameObjects;
-    
-    public GamePanel(int width, int height, ArrayList<GameObject> gameObjects) {
+    private ArrayList<GameObject> renderObjects;
+
+    public GamePanel(int width, int height, ArrayList<GameObject> renderObjects) {
         this.setPreferredSize(new Dimension(width, height));
-        this.gameObjects = gameObjects;
+        this.renderObjects = renderObjects;
     }
 
 //    @Override
@@ -72,21 +73,24 @@ public class GamePanel extends JPanel {
 //            at.rotate(Math.toRadians(deg));
 //            g2.draw(at.createTransformedShape(e));
 //        }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        
+
         switch (GameCore.state) {
             case SPLASH:
-                gameObjects.get(0).drawObject(g2);
+                for (GameObject gameObject : renderObjects) {
+                    if (gameObject instanceof SplashScreen) {
+                        gameObject.drawObject(g2);
+                    }
+                }
                 break;
+
             case MAINMENU:
                 break;
         }
 
-        
         g2.setColor(Color.red);
         g2.drawString("FPS: " + Long.toString(GameCore.fps), 0, 10);
         // WRITE SOME GRPHICS STUFF ...

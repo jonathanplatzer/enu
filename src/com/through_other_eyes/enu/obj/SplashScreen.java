@@ -40,7 +40,7 @@ public class SplashScreen extends GameObject {
         }
     }
     
-    public GameCore.State doShit()
+    public GameCore.State getState()
     {
         if(startTime == 0)
         {

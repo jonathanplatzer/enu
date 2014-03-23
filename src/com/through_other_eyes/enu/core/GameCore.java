@@ -52,16 +52,20 @@ public class GameCore extends JFrame {
 
     // Panel for drawing the GameObjects
     private GamePanel gamePanel;
-    private ArrayList<GameObject> gameObjects;
+    private ArrayList<GameObject> renderObjects;
+
+    // SplashScreen that is shown on startup
+    private SplashScreen splash = null;
 
     // Instances for Controllers
     InputController inputController;
     WindowController windowController;
 
     // </editor-fold>
+    
     public GameCore(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
-        gameObjects = new ArrayList<>();
+        renderObjects = new ArrayList<>();
 
         initialize();
 
@@ -76,6 +80,7 @@ public class GameCore extends JFrame {
     private void initialize() {
         initializeUI();
         initializeListeners();
+        initializeSplashScreen();
     }
 
     private void initializeListeners() {
@@ -86,8 +91,18 @@ public class GameCore extends JFrame {
         addWindowListener(windowController);
     }
 
+    private void initializeSplashScreen() {
+        //Ingame SplashScreen
+        try {
+            splash = new SplashScreen();
+            renderObjects.add(splash);
+        } catch (IOException ex) {
+            Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void initializeUI() {
-        gamePanel = new GamePanel(WIDTH, HEIGHT, gameObjects);
+        gamePanel = new GamePanel(WIDTH, HEIGHT, renderObjects);
         setContentPane(gamePanel);
         setTitle("Europa NON Universalis");
 
@@ -105,31 +120,23 @@ public class GameCore extends JFrame {
     }
 
     // </editor-fold>
-    private void gameLoop() {
-        // <editor-fold defaultstate="collapsed" desc="A bunch of variables">
+    
+    private void computeData(long deltaTime, long sleepTime)
+    {
+        fps = (int) (1000 / ((deltaTime / (long) 1e6) + sleepTime));
+        dt = 1f/fps;
+    }
+    
+    private void renderLoop() {
         long startTime;
         long deltaTime;
         long sleepTime;
-        
-        SplashScreen splash = null;
-        try {
-            splash = new SplashScreen();
-            gameObjects.add(splash);
-        } catch (IOException ex) {
-            Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        // </editor-fold>
+
         while (true) {
             startTime = System.nanoTime();
             if (state == State.GAMEOVER) {
                 break;
-            }
-            if (state == State.SPLASH) {
-                state = splash.doShit();
-            }
-            if (state == State.PLAY)
-            {
+            } else {
                 update();
             }
             repaint();
@@ -139,13 +146,35 @@ public class GameCore extends JFrame {
             if (sleepTime < 0) {
                 sleepTime = 0;
             }
-            fps = (int) (1000 / ((deltaTime / (long) 1e6) + sleepTime));
-            dt = 1f/fps;
+            computeData(deltaTime, sleepTime);
             try {
                 Thread.sleep(sleepTime);
             } catch (InterruptedException ex) {
             }
         }
+    }
+    
+    private void update() {
+        switch (state) {
+            case SPLASH:
+                state = splash.getState();
+                if (state == State.MAINMENU) {
+                    renderObjects.clear();
+                }
+                break;
+            case MAINMENU:
+                
+                break;
+            case PLAY:
+                break;
+            case PAUSED:
+                break;
+            case SHUTDOWN:
+                break;
+        }
+    }
+
+    private void updateGame() {
     }
 
     public void start() {
@@ -153,16 +182,13 @@ public class GameCore extends JFrame {
             @Override
             public void run() {
                 GameCore.state = GameCore.State.SPLASH;
-                gameLoop();
+                renderLoop();
             }
         };
 
         gameThread.start();
     }
-
-    public void update() {
-    }
-
+    
     public void shutdown() {
         System.exit(0);
     }
