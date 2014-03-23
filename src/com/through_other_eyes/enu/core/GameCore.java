@@ -5,11 +5,15 @@
  */
 package com.through_other_eyes.enu.core;
 
+import com.through_other_eyes.enu.obj.SplashScreen;
+import com.through_other_eyes.enu.obj.base.GameObject;
 import com.through_other_eyes.enu.util.InputController;
 import com.through_other_eyes.enu.util.WindowController;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -48,6 +52,7 @@ public class GameCore extends JFrame {
 
     // Panel for drawing the GameObjects
     private GamePanel gamePanel;
+    private ArrayList<GameObject> gameObjects;
 
     // Instances for Controllers
     InputController inputController;
@@ -56,6 +61,7 @@ public class GameCore extends JFrame {
     // </editor-fold>
     public GameCore(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
+        gameObjects = new ArrayList<>();
 
         initialize();
 
@@ -81,7 +87,7 @@ public class GameCore extends JFrame {
     }
 
     private void initializeUI() {
-        gamePanel = new GamePanel(WIDTH, HEIGHT);
+        gamePanel = new GamePanel(WIDTH, HEIGHT, gameObjects);
         setContentPane(gamePanel);
         setTitle("Europa NON Universalis");
 
@@ -104,12 +110,15 @@ public class GameCore extends JFrame {
         long startTime;
         long deltaTime;
         long sleepTime;
-        long splashStartTime = 0;
-        int splashDisplayTime = (int) (3.5 * 1000);
-
-        if (state == State.SPLASH) {
-            splashStartTime = System.currentTimeMillis();
+        
+        SplashScreen splash = null;
+        try {
+            splash = new SplashScreen();
+            gameObjects.add(splash);
+        } catch (IOException ex) {
+            Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         // </editor-fold>
         while (true) {
             startTime = System.nanoTime();
@@ -117,9 +126,11 @@ public class GameCore extends JFrame {
                 break;
             }
             if (state == State.SPLASH) {
-                if (splashStartTime + splashDisplayTime < System.currentTimeMillis()) {
-                    state = State.MAINMENU;
-                }
+                state = splash.doShit();
+            }
+            if (state == State.PLAY)
+            {
+                update();
             }
             repaint();
 
@@ -150,7 +161,6 @@ public class GameCore extends JFrame {
     }
 
     public void update() {
-
     }
 
     public void shutdown() {

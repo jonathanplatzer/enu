@@ -5,19 +5,16 @@
  */
 package com.through_other_eyes.enu.core;
 
-import java.awt.BasicStroke;
+import com.through_other_eyes.enu.obj.base.GameObject;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Vector;
 import javax.imageio.ImageIO;
-import javax.print.attribute.standard.Fidelity;
 import javax.swing.JPanel;
 
 /**
@@ -26,20 +23,13 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel {
 
-    Image splash;
+    private ArrayList<GameObject> gameObjects;
     
-    public GamePanel(int width, int height) {
+    public GamePanel(int width, int height, ArrayList<GameObject> gameObjects) {
         this.setPreferredSize(new Dimension(width, height));
-        init();
+        this.gameObjects = gameObjects;
     }
 
-    private void init() {
-        try {
-            splash = ImageIO.read(new File("src" + File.separator + "com" + File.separator + "throughothereyes" + File.separator + "enu" + File.separator + "res" + File.separator + "toe_splash.png"));
-        } catch (IOException e) {
-            System.out.println("file not found");
-        }
-    }
 //    @Override
 //    public void paint(Graphics g) {
 //        super.paint(g);
@@ -87,17 +77,18 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-
+        
         switch (GameCore.state) {
             case SPLASH:
-                g2.drawImage(splash, 0, 0, getWidth(), getHeight(), null);
-                g.drawString("FPS: " + Long.toString(GameCore.fps), 0, 10);
+                gameObjects.get(0).drawObject(g2);
                 break;
             case MAINMENU:
-
                 break;
         }
 
+        
+        g2.setColor(Color.red);
+        g2.drawString("FPS: " + Long.toString(GameCore.fps), 0, 10);
         // WRITE SOME GRPHICS STUFF ...
     }
 }
