@@ -105,9 +105,9 @@ public class GamePanel extends JPanel {
         g2.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         g2.drawString("Europa NON Universalis -- DEBUG MODE --", 2, 12);
         g2.drawString("---------------------------------------", 2, 20);
-        g2.drawString("GAMESTATE: " + GameCore.state, 2, 28);
-        g2.drawString("FPS: " + Long.toString(GameCore.fps), 2, 40);
-        g2.drawString("DT: " + GameCore.dt, 2, 52);
+        g2.drawString("GAMESTATE: " + GameCore.state, 2, 30);
+        g2.drawString("FPS: " + Long.toString(GameCore.fps), 2, 42);
+        g2.drawString("DT: " + GameCore.dt, 2, 54);
         
     }
 }
