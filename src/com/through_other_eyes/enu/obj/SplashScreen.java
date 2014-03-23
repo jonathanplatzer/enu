@@ -22,7 +22,7 @@ public class SplashScreen extends GameObject {
 
     private ArrayList<BufferedImage> splashScreenImages;
     private long startTime;
-    private int displayTime = 5*1000;
+    private int displayTime = 3*1000;
     private final File folder = new File("res/splash/");
 
     public SplashScreen() throws IOException {
@@ -56,17 +56,25 @@ public class SplashScreen extends GameObject {
 
     @Override
     public void drawObject(Graphics2D g2) {
-        if(startTime +5000 < System.currentTimeMillis())
+        
+        for(int i = 0; i < splashScreenImages.size(); i++)
         {
-            g2.drawImage(splashScreenImages.get(1), 0, 0, 640, 480, null);
-            return;
+            if(startTime+displayTime*i < System.currentTimeMillis())
+            {
+                g2.drawImage(splashScreenImages.get(i), 0, 0, 640, 480, null);
+            }
         }
-        if (startTime < System.currentTimeMillis())
-        {
-            g2.drawImage(splashScreenImages.get(0), 0, 0, 640, 480, null);
-            return;
-        }
-        return;
+//        
+//        if(startTime +5000 < System.currentTimeMillis())
+//        {
+//            g2.drawImage(splashScreenImages.get(1), 0, 0, 640, 480, null);
+//            return;
+//        }
+//        if (startTime < System.currentTimeMillis())
+//        {
+//            g2.drawImage(splashScreenImages.get(0), 0, 0, 640, 480, null);
+//            return;
+//        }
     }
 
     @Override
