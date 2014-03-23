@@ -37,14 +37,15 @@ public class GameCore extends JFrame {
     // Static enum for states of the game
     public static enum State {
 
-        SPLASH, MAINMENU, PLAY, PAUSED, GAMEOVER, SHUTDOWN
+        SPLASHSCREEN, MAINMENU, PLAY, PAUSED, GAMEOVER, SHUTDOWN
     }
 
     // Static variables to access data like state of the game, fps or dt
     public static State state;
     public static int fps;
     public static float dt;
-    public static boolean debugMode;
+    public static boolean debugMode = true;
+    public static long startTime;
 
     // Instances for fullscreen handling
     private final GraphicsDevice device;
@@ -67,7 +68,8 @@ public class GameCore extends JFrame {
     public GameCore(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
         renderObjects = new ArrayList<>();
-
+        startTime = System.currentTimeMillis();
+        
         initialize();
 
         setVisible(true);
@@ -107,7 +109,7 @@ public class GameCore extends JFrame {
         setContentPane(gamePanel);
         setTitle("Europa NON Universalis");
 
-        if (device.isFullScreenSupported()) {
+        if (!device.isFullScreenSupported()) {
             setUndecorated(true);
             setVisible(true);
             originalDisplayMode = device.getDisplayMode();
@@ -158,7 +160,7 @@ public class GameCore extends JFrame {
     
     private void update() {
         switch (state) {
-            case SPLASH:
+            case SPLASHSCREEN:
                 state = splash.getState();
                 if (state == State.MAINMENU) {
                     renderObjects.clear();
@@ -183,7 +185,7 @@ public class GameCore extends JFrame {
         Thread gameThread = new Thread() {
             @Override
             public void run() {
-                GameCore.state = GameCore.State.SPLASH;
+                GameCore.state = GameCore.State.SPLASHSCREEN;
                 renderLoop();
             }
         };

@@ -53,7 +53,7 @@ public class SplashScreen extends GameObject {
         {
             return GameCore.State.MAINMENU;
         }
-        return GameCore.State.SPLASH;
+        return GameCore.State.SPLASHSCREEN;
     }
     
     @Override

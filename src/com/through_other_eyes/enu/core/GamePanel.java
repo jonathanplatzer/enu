@@ -14,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.imageio.ImageIO;
@@ -80,7 +81,7 @@ public class GamePanel extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
 
         switch (GameCore.state) {
-            case SPLASH:
+            case SPLASHSCREEN:
                 for (GameObject gameObject : renderObjects) {
                     if (gameObject instanceof SplashScreen) {
                         gameObject.drawObject(g2);
@@ -92,15 +93,14 @@ public class GamePanel extends JPanel {
                 break;
         }
 
-        if(GameCore.debugMode)
-        {
+        if (GameCore.debugMode) {
             renderDebugInformation(g2);
         }
         // WRITE SOME GRPHICS STUFF ...
     }
-    
-    private void renderDebugInformation(Graphics2D g2)
-    {
+
+    private void renderDebugInformation(Graphics2D g2) {
+
         g2.setColor(new Color(0, 186, 255));
         g2.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         g2.drawString("Europa NON Universalis -- DEBUG MODE --", 2, 12);
@@ -108,7 +108,17 @@ public class GamePanel extends JPanel {
         g2.drawString("GAMESTATE: " + GameCore.state, 2, 30);
         g2.drawString("FPS: " + Long.toString(GameCore.fps), 2, 42);
         g2.drawString("DT: " + GameCore.dt, 2, 54);
-        g2.drawString(String.format("TOTAL MEMORY: %dMB", Runtime.getRuntime().totalMemory()/1024/1024), 2, 66);
-        g2.drawString(String.format("USED MEMORY: %dMB", (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1024/1024), 2, 78);
+        g2.drawString(String.format("TOTAL MEMORY: %dMB", Runtime.getRuntime().totalMemory() / 1024 / 1024), 2, 66);
+        g2.drawString(String.format("USED MEMORY: %dMB", (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024), 2, 78);
+        g2.drawString(time(), 2, 90);
+    }
+
+    private String time() {
+        long timeInMilliSeconds = System.currentTimeMillis() - GameCore.startTime;
+        long seconds = timeInMilliSeconds / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        return String.format("TIME RUNNING: %02d:%02d:%02d:%03d", hours,minutes,seconds, timeInMilliSeconds % 1000);
     }
 }
