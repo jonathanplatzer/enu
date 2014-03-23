@@ -44,6 +44,7 @@ public class GameCore extends JFrame {
     public static State state;
     public static int fps;
     public static float dt;
+    public static boolean debugMode;
 
     // Instances for fullscreen handling
     private final GraphicsDevice device;
@@ -58,8 +59,8 @@ public class GameCore extends JFrame {
     private SplashScreen splash = null;
 
     // Instances for Controllers
-    InputController inputController;
-    WindowController windowController;
+    private InputController inputController;
+    private WindowController windowController;
 
     // </editor-fold>
     
@@ -106,7 +107,7 @@ public class GameCore extends JFrame {
         setContentPane(gamePanel);
         setTitle("Europa NON Universalis");
 
-        if (device.isFullScreenSupported()) {
+        if (!device.isFullScreenSupported()) {
             setUndecorated(true);
             setVisible(true);
             originalDisplayMode = device.getDisplayMode();
@@ -116,6 +117,7 @@ public class GameCore extends JFrame {
         } else {
             setResizable(false);
             pack();
+            setLocationRelativeTo(null);
         }
     }
 

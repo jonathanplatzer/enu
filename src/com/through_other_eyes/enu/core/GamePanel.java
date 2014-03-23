@@ -9,6 +9,7 @@ import com.through_other_eyes.enu.obj.SplashScreen;
 import com.through_other_eyes.enu.obj.base.GameObject;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.File;
@@ -91,8 +92,22 @@ public class GamePanel extends JPanel {
                 break;
         }
 
-        g2.setColor(Color.red);
-        g2.drawString("FPS: " + Long.toString(GameCore.fps), 0, 10);
+        if(GameCore.debugMode)
+        {
+            renderDebugInformation(g2);
+        }
         // WRITE SOME GRPHICS STUFF ...
+    }
+    
+    private void renderDebugInformation(Graphics2D g2)
+    {
+        g2.setColor(new Color(0, 186, 255));
+        g2.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        g2.drawString("Europa NON Universalis -- DEBUG MODE --", 2, 12);
+        g2.drawString("---------------------------------------", 2, 20);
+        g2.drawString("GAMESTATE: " + GameCore.state, 2, 28);
+        g2.drawString("FPS: " + Long.toString(GameCore.fps), 2, 40);
+        g2.drawString("DT: " + GameCore.dt, 2, 52);
+        
     }
 }

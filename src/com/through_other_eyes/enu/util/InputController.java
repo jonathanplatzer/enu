@@ -18,10 +18,10 @@ import javax.swing.JFrame;
 public class InputController implements KeyListener{
 
     
-    private Object source;
+    private GameCore source;
     
     
-    public InputController(Object source) {
+    public InputController(GameCore source) {
         this.source = source;
     }
     
@@ -35,10 +35,12 @@ public class InputController implements KeyListener{
         System.out.println(e.getKeyCode() + " pressed");
         
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            if(source instanceof GameCore)
-            {
-                ((GameCore)source).shutdown();
-            }
+            source.shutdown();
+        }
+        
+        if(e.getKeyCode() == KeyEvent.VK_F1)
+        {
+            GameCore.debugMode = !GameCore.debugMode;
         }
     }
 
