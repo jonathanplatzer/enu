@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 /**
  *
  * @author jplatzer
+ * @date 22.03.2014
  */
 public interface Drawable {
 

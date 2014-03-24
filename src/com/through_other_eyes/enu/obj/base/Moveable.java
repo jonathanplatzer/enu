@@ -9,6 +9,7 @@ package com.through_other_eyes.enu.obj.base;
 /**
  *
  * @author jplatzer
+ * @date 22.03.2014
  */
 public interface Moveable {
     public void move(float delta);    
