@@ -41,7 +41,7 @@ public class GamePanel extends JPanel {
         switch (GameCore.state) {
             case SPLASHSCREEN:
                 for (GameComponent gameObject : renderObjects) {
-                    if (gameObject instanceof SplashScreen) {
+                    if (gameObject.isVisible() && gameObject instanceof SplashScreen) {
                         gameObject.drawObject(g2);
                     }
                 }

@@ -17,6 +17,7 @@ public abstract class GameComponent implements Drawable, Moveable{
     private Point position;
     private Dimension dimension;
     private boolean visible;
+    private boolean updateRequired;
 
     public GameComponent() {
     }
@@ -53,6 +54,15 @@ public abstract class GameComponent implements Drawable, Moveable{
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
-    
-    
+
+    public boolean isUpdateRequired() {
+        return updateRequired;
+    }
+
+    public void setUpdateRequired(boolean updateRequired) {
+        this.updateRequired = updateRequired;
+        if(!updateRequired) {
+            this.setVisible(false);
+        }
+    }
 }

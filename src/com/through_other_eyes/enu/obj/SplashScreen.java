@@ -57,7 +57,7 @@ public class SplashScreen extends GameComponent {
     }
 
     @Override
-    public void move(float delta){
+    public void move(float delta) {
     }
 
     @Override
@@ -67,7 +67,7 @@ public class SplashScreen extends GameComponent {
         }
 
         if (startTime + (splashScreenImages.size() * displayTime) < System.currentTimeMillis()) {
-            this.setVisible(false);
+            this.setUpdateRequired(false);
             GameCore.state = GameCore.State.MAINMENU;
         }
     }

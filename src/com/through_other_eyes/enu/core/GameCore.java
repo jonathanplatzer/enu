@@ -155,7 +155,7 @@ public class GameCore extends JFrame {
 
     private void update() {
         for (GameComponent object : renderObjects) {
-            if (object.isVisible()) {
+            if (object.isUpdateRequired()) {
                 object.update();
             }
         }
