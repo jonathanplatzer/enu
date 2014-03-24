@@ -45,17 +45,6 @@ public class SplashScreen extends GameComponent {
         }
     }
 
-    public GameCore.State getState() {
-        if (startTime == 0) {
-            startTime = System.currentTimeMillis();
-        }
-
-        if (startTime + (splashScreenImages.size() * displayTime) < System.currentTimeMillis()) {
-            return GameCore.State.MAINMENU;
-        }
-        return GameCore.State.SPLASHSCREEN;
-    }
-
     @Override
     public void drawObject(Graphics2D g2) {
         if (this.isVisible()) {
@@ -68,8 +57,19 @@ public class SplashScreen extends GameComponent {
     }
 
     @Override
-    public void move(float delta) {
-        return;
+    public void move(float delta){
+    }
+
+    @Override
+    public void update() {
+        if (startTime == 0) {
+            startTime = System.currentTimeMillis();
+        }
+
+        if (startTime + (splashScreenImages.size() * displayTime) < System.currentTimeMillis()) {
+            this.setVisible(false);
+            GameCore.state = GameCore.State.MAINMENU;
+        }
     }
 
 }

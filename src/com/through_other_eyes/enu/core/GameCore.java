@@ -31,7 +31,7 @@ public class GameCore extends JFrame {
     public static final int WIDTH = 640;
     public static final int BIT_DEPTH = 32;
     public static final int REFRESH_RATE = 60;
-    public static final int UPDATE_RATE = 30;
+    public static final int UPDATE_RATE = 100;
     public static final long UPDATE_PERIOD = (long) 1e9 / UPDATE_RATE;
 
     // Static enum for states of the game
@@ -57,19 +57,17 @@ public class GameCore extends JFrame {
     private ArrayList<GameComponent> renderObjects;
 
     // SplashScreen that is shown on startup
-    private SplashScreen splash = null;
-
+    //private SplashScreen splash = null;
     // Instances for Controllers
     private InputController inputController;
     private WindowController windowController;
 
     // </editor-fold>
-    
     public GameCore(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
         renderObjects = new ArrayList<>();
         startTime = System.currentTimeMillis();
-        
+
         initialize();
 
         setVisible(true);
@@ -97,13 +95,12 @@ public class GameCore extends JFrame {
     private void initializeSplashScreen() {
         //Ingame SplashScreen
         try {
-            splash = new SplashScreen();
-            renderObjects.add(splash);
+            renderObjects.add(new SplashScreen());
         } catch (IOException ex) {
             Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void initializeUI() {
         gamePanel = new GamePanel(WIDTH, HEIGHT, renderObjects);
         setContentPane(gamePanel);
@@ -124,13 +121,11 @@ public class GameCore extends JFrame {
     }
 
     // </editor-fold>
-    
-    private void computeData(double deltaTime, double sleepTime)
-    {
+    private void computeData(double deltaTime, double sleepTime) {
         fps = (int) (1000 / ((deltaTime / 1000000.0) + sleepTime));
-        dt = 1f/fps;
+        dt = 1f / fps;
     }
-    
+
     private void renderLoop() {
         long startTime;
         double deltaTime;
@@ -157,17 +152,15 @@ public class GameCore extends JFrame {
             }
         }
     }
-    
+
     private void update() {
+        for (GameComponent object : renderObjects) {
+            if (object.isVisible()) {
+                object.update();
+            }
+        }
         switch (state) {
-            case SPLASHSCREEN:
-                state = splash.getState();
-                if (state == State.MAINMENU) {
-                    renderObjects.clear();
-                }
-                break;
             case MAINMENU:
-                
                 break;
             case PLAY:
                 break;
@@ -192,7 +185,7 @@ public class GameCore extends JFrame {
 
         gameThread.start();
     }
-    
+
     public void shutdown() {
         System.exit(0);
     }

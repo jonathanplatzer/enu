@@ -27,6 +27,8 @@ public abstract class GameComponent implements Drawable, Moveable{
         this.dimension = dimension;
         this.visible = visible;
     }
+    
+    public abstract void update();
 
     public Point getPosition() {
         return position;
