@@ -30,7 +30,7 @@ public class SplashScreen extends GameComponent {
     private final File folder = new File("res/splash/");
 
     public SplashScreen() throws IOException {
-        super(new Point(0, 0), new Dimension(GameCore.WIDTH, GameCore.HEIGHT), true);
+        super(new Point(0, 0), new Dimension(GameCore.WIDTH, GameCore.HEIGHT));
         initialize();
     }
 

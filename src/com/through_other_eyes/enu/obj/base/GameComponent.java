@@ -16,17 +16,29 @@ import java.awt.Point;
 public abstract class GameComponent implements Drawable, Moveable{
     private Point position;
     private Dimension dimension;
-    private boolean visible;
-    private boolean updateRequired;
+    private boolean visible = true;
+    private boolean updateRequired = true;
 
     public GameComponent() {
     }
+
+    public GameComponent(Point position, Dimension dimension) {
+        this.position = position;
+        this.dimension = dimension;
+    }
+
+    public GameComponent(Point position, Dimension dimension, boolean visible) {
+        this.position = position;
+        this.dimension = dimension;
+        this.visible = visible;
+    }
     
-    public GameComponent(Point position, Dimension dimension, boolean visible)
+    public GameComponent(Point position, Dimension dimension, boolean visible, boolean updateRequired)
     {
         this.position = position;
         this.dimension = dimension;
         this.visible = visible;
+        this.updateRequired = updateRequired;
     }
     
     public abstract void update();
