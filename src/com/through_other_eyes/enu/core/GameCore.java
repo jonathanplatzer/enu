@@ -41,7 +41,7 @@ public class GameCore extends JFrame {
     }
 
     // Static variables to access data like state of the game, fps or dt
-    public static State state;
+    public static State state = State.SPLASHSCREEN;
     public static int fps;
     public static float dt;
     public static boolean debugMode = true;
@@ -154,11 +154,6 @@ public class GameCore extends JFrame {
     }
 
     private void update() {
-        for (GameComponent object : renderObjects) {
-            if (object.isUpdateRequired()) {
-                object.update();
-            }
-        }
         switch (state) {
             case MAINMENU:
                 break;
@@ -169,6 +164,11 @@ public class GameCore extends JFrame {
             case SHUTDOWN:
                 break;
         }
+        for (GameComponent object : renderObjects) {
+            if (object.isUpdateRequired()) {
+                object.update();
+            }
+        }
     }
 
     private void updateGame() {
@@ -178,7 +178,6 @@ public class GameCore extends JFrame {
         Thread gameThread = new Thread() {
             @Override
             public void run() {
-                GameCore.state = GameCore.State.SPLASHSCREEN;
                 renderLoop();
             }
         };

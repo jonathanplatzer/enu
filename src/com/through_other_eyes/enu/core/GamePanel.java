@@ -12,12 +12,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Vector;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
