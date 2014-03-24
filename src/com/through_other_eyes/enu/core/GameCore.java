@@ -6,7 +6,7 @@
 package com.through_other_eyes.enu.core;
 
 import com.through_other_eyes.enu.obj.SplashScreen;
-import com.through_other_eyes.enu.obj.base.GameObject;
+import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.util.InputController;
 import com.through_other_eyes.enu.util.WindowController;
 import java.awt.DisplayMode;
@@ -27,12 +27,12 @@ public class GameCore extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Instances">
     // Constants for the game
-    static final int HEIGHT = 480;
-    static final int WIDTH = 640;
-    static final int BIT_DEPTH = 32;
-    static final int REFRESH_RATE = 60;
-    static final int UPDATE_RATE = 30;
-    static final long UPDATE_PERIOD = (long) 1e9 / UPDATE_RATE;
+    public static final int HEIGHT = 480;
+    public static final int WIDTH = 640;
+    public static final int BIT_DEPTH = 32;
+    public static final int REFRESH_RATE = 60;
+    public static final int UPDATE_RATE = 30;
+    public static final long UPDATE_PERIOD = (long) 1e9 / UPDATE_RATE;
 
     // Static enum for states of the game
     public static enum State {
@@ -54,7 +54,7 @@ public class GameCore extends JFrame {
 
     // Panel for drawing the GameObjects
     private GamePanel gamePanel;
-    private ArrayList<GameObject> renderObjects;
+    private ArrayList<GameComponent> renderObjects;
 
     // SplashScreen that is shown on startup
     private SplashScreen splash = null;
@@ -109,7 +109,7 @@ public class GameCore extends JFrame {
         setContentPane(gamePanel);
         setTitle("Europa NON Universalis");
 
-        if (!device.isFullScreenSupported()) {
+        if (device.isFullScreenSupported()) {
             setUndecorated(true);
             setVisible(true);
             originalDisplayMode = device.getDisplayMode();
@@ -125,16 +125,16 @@ public class GameCore extends JFrame {
 
     // </editor-fold>
     
-    private void computeData(long deltaTime, long sleepTime)
+    private void computeData(double deltaTime, double sleepTime)
     {
-        fps = (int) (1000 / ((deltaTime / (long) 1e6) + sleepTime));
+        fps = (int) (1000 / ((deltaTime / 1000000.0) + sleepTime));
         dt = 1f/fps;
     }
     
     private void renderLoop() {
         long startTime;
-        long deltaTime;
-        long sleepTime;
+        double deltaTime;
+        double sleepTime;
 
         while (true) {
             startTime = System.nanoTime();
@@ -152,7 +152,7 @@ public class GameCore extends JFrame {
             }
             computeData(deltaTime, sleepTime);
             try {
-                Thread.sleep(sleepTime);
+                Thread.sleep((int) sleepTime);
             } catch (InterruptedException ex) {
             }
         }

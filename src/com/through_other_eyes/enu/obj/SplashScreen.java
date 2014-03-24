@@ -5,9 +5,11 @@
  */
 package com.through_other_eyes.enu.obj;
 
-import com.through_other_eyes.enu.obj.base.GameObject;
+import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.core.GameCore;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,14 +22,15 @@ import javax.imageio.ImageIO;
  * @author jplatzer
  * @date 22.03.2014
  */
-public class SplashScreen extends GameObject {
+public class SplashScreen extends GameComponent {
 
     private ArrayList<BufferedImage> splashScreenImages;
     private long startTime;
-    private int displayTime = 3*1000;
+    private int displayTime = 3 * 1000;
     private final File folder = new File("res/splash/");
 
     public SplashScreen() throws IOException {
+        super(new Point(0, 0), new Dimension(GameCore.WIDTH, GameCore.HEIGHT), true);
         initialize();
     }
 
@@ -41,42 +44,27 @@ public class SplashScreen extends GameObject {
             }
         }
     }
-    
-    public GameCore.State getState()
-    {
-        if(startTime == 0)
-        {
+
+    public GameCore.State getState() {
+        if (startTime == 0) {
             startTime = System.currentTimeMillis();
         }
-        
-        if(startTime + (splashScreenImages.size()*displayTime) < System.currentTimeMillis())
-        {
+
+        if (startTime + (splashScreenImages.size() * displayTime) < System.currentTimeMillis()) {
             return GameCore.State.MAINMENU;
         }
         return GameCore.State.SPLASHSCREEN;
     }
-    
+
     @Override
     public void drawObject(Graphics2D g2) {
-        
-        for(int i = 0; i < splashScreenImages.size(); i++)
-        {
-            if(startTime+displayTime*i < System.currentTimeMillis())
-            {
-                g2.drawImage(splashScreenImages.get(i), 0, 0, 640, 480, null);
+        if (this.isVisible()) {
+            for (int i = 0; i < splashScreenImages.size(); i++) {
+                if (startTime + displayTime * i < System.currentTimeMillis()) {
+                    g2.drawImage(splashScreenImages.get(i), this.getPosition().x, this.getPosition().y, this.getDimension().width, this.getDimension().height, null);
+                }
             }
         }
-//        
-//        if(startTime +5000 < System.currentTimeMillis())
-//        {
-//            g2.drawImage(splashScreenImages.get(1), 0, 0, 640, 480, null);
-//            return;
-//        }
-//        if (startTime < System.currentTimeMillis())
-//        {
-//            g2.drawImage(splashScreenImages.get(0), 0, 0, 640, 480, null);
-//            return;
-//        }
     }
 
     @Override
