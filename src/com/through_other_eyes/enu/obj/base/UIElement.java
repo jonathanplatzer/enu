@@ -5,14 +5,8 @@
  */
 package com.through_other_eyes.enu.obj.base;
 
-import com.through_other_eyes.enu.core.GameCore;
-import com.through_other_eyes.enu.util.MouseInputController;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 
 /**
  * @author mwahlhuetter
@@ -20,15 +14,22 @@ import javax.swing.JComponent;
  */
 public abstract class UIElement extends GameComponent {
     
+    private boolean mouseHoverPossible;
+    
     public UIElement(Point position, Dimension dimension) {
         super(position, dimension);
+        mouseHoverPossible = true;
     }
     
     public abstract void clicked();
     
-//    @Override
-//    public void paint(Graphics g)
-//    {
-//        super.paint(g);
-//    }
+    public abstract void hover();
+
+    public boolean isMouseHoverPossible() {
+        return mouseHoverPossible;
+    }
+
+    public void setMouseHoverPossible(boolean mouseHover) {
+        this.mouseHoverPossible = mouseHover;
+    }
 }

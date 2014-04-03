@@ -52,6 +52,7 @@ public class GameCore extends JFrame {
     public static boolean debugMode = true;
     public static long startTime;
     public static ArrayList<UIElement> uiElements;
+    public static MainMenu mainMenu;
     
     // Instances for fullscreen handling
     private final GraphicsDevice device;
@@ -79,7 +80,8 @@ public class GameCore extends JFrame {
         initialize();
         
         try {
-            renderObjects.add(new MainMenu(uiElements));
+            mainMenu = new MainMenu(uiElements);
+            renderObjects.add(mainMenu);
         } catch (IOException ex) {
             Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,6 +111,7 @@ public class GameCore extends JFrame {
         addKeyListener(keyInputController);
         addMouseListener(mouseInputController);
         addMouseWheelListener(mouseInputController);
+        addMouseMotionListener(mouseInputController);
     }
 
     private void initializeSplashScreen() {
@@ -183,6 +186,7 @@ public class GameCore extends JFrame {
         for (GameComponent object : renderObjects) {
             if (object.isUpdateRequired()) {
                 object.update();
+                object.move(dt);
             }
         }
     }

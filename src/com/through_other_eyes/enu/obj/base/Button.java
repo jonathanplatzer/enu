@@ -6,7 +6,6 @@
 package com.through_other_eyes.enu.obj.base;
 
 import com.through_other_eyes.enu.core.GameCore;
-import com.through_other_eyes.enu.obj.base.UIElement;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -16,7 +15,7 @@ import java.awt.image.BufferedImage;
  * @author mwahlhuetter
  * @date 27.03.2014
  */
-public class Button extends UIElement {
+public abstract class Button extends UIElement {
 
     private BufferedImage elementImage;
     private String action;
@@ -55,11 +54,6 @@ public class Button extends UIElement {
                 break;
         }
     }
-    
-    @Override
-    public void clicked() {
-        System.out.println("CLICKED:" + action);
-    }
 
     @Override
     public void update() {
@@ -73,6 +67,12 @@ public class Button extends UIElement {
 
     @Override
     public void move(float delta) {
-
+        
     }
+
+    @Override
+    public abstract void clicked();
+
+    @Override
+    public abstract void hover();
 }

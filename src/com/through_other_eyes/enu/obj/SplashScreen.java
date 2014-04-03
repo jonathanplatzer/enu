@@ -26,7 +26,7 @@ public class SplashScreen extends GameComponent {
 
     private ArrayList<BufferedImage> splashScreenImages;
     private long startTime;
-    private int displayTime = 3 * 1000;
+    private int displayTime = 1 * 1000;
     private final File folder = new File("res/splash/");
 
     public SplashScreen() throws IOException {
@@ -69,6 +69,7 @@ public class SplashScreen extends GameComponent {
         if (startTime + (splashScreenImages.size() * displayTime) < System.currentTimeMillis()) {
             this.setUpdateRequired(false);
             GameCore.state = GameCore.State.MAINMENU;
+            GameCore.mainMenu.ANIMATE = true;
         }
     }
 
