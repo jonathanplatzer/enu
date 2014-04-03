@@ -42,7 +42,7 @@ public class GameCore extends JFrame {
         SPLASHSCREEN, MAINMENU, PLAY, PAUSED, GAMEOVER, SHUTDOWN
     }
     public static enum Align {
-        LEFT, CENTER, RIGHT
+        LEFT, CENTER, RIGHT, NOTHING
     }
     
     // Static variables to access data like state of the game, fps or dt
