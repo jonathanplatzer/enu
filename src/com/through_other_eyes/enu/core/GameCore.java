@@ -5,9 +5,12 @@
  */
 package com.through_other_eyes.enu.core;
 
+import com.through_other_eyes.enu.obj.MainMenu;
 import com.through_other_eyes.enu.obj.SplashScreen;
 import com.through_other_eyes.enu.obj.base.GameComponent;
-import com.through_other_eyes.enu.util.InputController;
+import com.through_other_eyes.enu.obj.base.UIElement;
+import com.through_other_eyes.enu.util.KeyInputController;
+import com.through_other_eyes.enu.util.MouseInputController;
 import com.through_other_eyes.enu.util.WindowController;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
@@ -36,17 +39,20 @@ public class GameCore extends JFrame {
 
     // Static enum for states of the game
     public static enum State {
-
         SPLASHSCREEN, MAINMENU, PLAY, PAUSED, GAMEOVER, SHUTDOWN
     }
-
+    public static enum Align {
+        LEFT, CENTER, RIGHT
+    }
+    
     // Static variables to access data like state of the game, fps or dt
     public static State state = State.SPLASHSCREEN;
     public static int fps;
     public static float dt;
     public static boolean debugMode = true;
     public static long startTime;
-
+    public static ArrayList<UIElement> uiElements;
+    
     // Instances for fullscreen handling
     private final GraphicsDevice device;
     private DisplayMode originalDisplayMode;
@@ -59,17 +65,25 @@ public class GameCore extends JFrame {
     // SplashScreen that is shown on startup
     //private SplashScreen splash = null;
     // Instances for Controllers
-    private InputController inputController;
     private WindowController windowController;
-
+    private KeyInputController keyInputController;
+    private MouseInputController mouseInputController;
+    
     // </editor-fold>
     public GameCore(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
         renderObjects = new ArrayList<>();
+        uiElements = new ArrayList<>();
         startTime = System.currentTimeMillis();
-
+        
         initialize();
-
+        
+        try {
+            renderObjects.add(new MainMenu(uiElements));
+        } catch (IOException ex) {
+            Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         setVisible(true);
     }
 
@@ -85,11 +99,16 @@ public class GameCore extends JFrame {
     }
 
     private void initializeListeners() {
-        inputController = new InputController(this);
-        windowController = new WindowController(this);
+        windowController = new WindowController();
+        keyInputController = new KeyInputController();
+        mouseInputController = new MouseInputController();
+        
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addKeyListener(inputController);
+        
         addWindowListener(windowController);
+        addKeyListener(keyInputController);
+        addMouseListener(mouseInputController);
+        addMouseWheelListener(mouseInputController);
     }
 
     private void initializeSplashScreen() {
@@ -133,11 +152,7 @@ public class GameCore extends JFrame {
 
         while (true) {
             startTime = System.nanoTime();
-            if (state == State.GAMEOVER) {
-                break;
-            } else {
-                update();
-            }
+            update();
             repaint();
 
             deltaTime = System.nanoTime() - startTime;
@@ -162,6 +177,7 @@ public class GameCore extends JFrame {
             case PAUSED:
                 break;
             case SHUTDOWN:
+                shutdown();
                 break;
         }
         for (GameComponent object : renderObjects) {
@@ -185,10 +201,10 @@ public class GameCore extends JFrame {
         gameThread.start();
     }
 
-    public void shutdown() {
+    private void shutdown() {
         System.exit(0);
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="Main">
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

@@ -15,11 +15,8 @@ import java.awt.event.WindowListener;
  * @date 22.03.2014
  */
 public class WindowController implements WindowListener{
-
-    private Object source;
     
-    public WindowController(Object source) {
-        this.source = source;
+    public WindowController() {
     }
     
     @Override
@@ -28,10 +25,8 @@ public class WindowController implements WindowListener{
 
     @Override
     public void windowClosing(WindowEvent e) {
-        if(source instanceof GameCore)
-        {
-            ((GameCore)source).shutdown();
-        }
+        GameCore.state = GameCore.State.SHUTDOWN;
+        
     }
 
     @Override

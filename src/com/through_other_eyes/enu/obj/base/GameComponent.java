@@ -8,6 +8,8 @@ package com.through_other_eyes.enu.obj.base;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * @author jplatzer

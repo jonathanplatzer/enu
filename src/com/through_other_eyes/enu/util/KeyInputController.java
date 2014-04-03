@@ -15,14 +15,9 @@ import javax.swing.JFrame;
  * @author mwahlhuetter
  * @date 22.03.2014
  */
-public class InputController implements KeyListener{
-
+public class KeyInputController implements KeyListener{
     
-    private GameCore source;
-    
-    
-    public InputController(GameCore source) {
-        this.source = source;
+    public KeyInputController() {
     }
     
     @Override
@@ -35,7 +30,7 @@ public class InputController implements KeyListener{
         System.out.println(e.getKeyCode() + " pressed");
         
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            source.shutdown();
+            GameCore.state = GameCore.State.SHUTDOWN;
         }
         
         if(e.getKeyCode() == KeyEvent.VK_F1)

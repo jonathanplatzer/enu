@@ -5,14 +5,22 @@
  */
 package com.through_other_eyes.enu.core;
 
+import com.through_other_eyes.enu.obj.MainMenu;
 import com.through_other_eyes.enu.obj.SplashScreen;
 import com.through_other_eyes.enu.obj.base.GameComponent;
+import com.through_other_eyes.enu.obj.base.UIElement;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -26,6 +34,7 @@ public class GamePanel extends JPanel {
     public GamePanel(int width, int height, ArrayList<GameComponent> renderObjects) {
         this.setPreferredSize(new Dimension(width, height));
         this.renderObjects = renderObjects;
+        this.setDoubleBuffered(true);
     }
 
     @Override
@@ -35,14 +44,19 @@ public class GamePanel extends JPanel {
 
         switch (GameCore.state) {
             case SPLASHSCREEN:
-                for (GameComponent gameObject : renderObjects) {
-                    if (gameObject.isVisible() && gameObject instanceof SplashScreen) {
-                        gameObject.drawObject(g2);
+                for (GameComponent gameComponent : renderObjects) {
+                    if (gameComponent.isVisible() && gameComponent instanceof SplashScreen) {
+                        gameComponent.drawObject(g2);
                     }
                 }
                 break;
 
             case MAINMENU:
+                for (GameComponent gameComponent : renderObjects) {
+                    if (gameComponent.isVisible() && gameComponent instanceof MainMenu) {
+                        gameComponent.drawObject(g2);
+                    }
+                }
                 break;
         }
 
