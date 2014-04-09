@@ -23,8 +23,10 @@ public abstract class UIElement extends GameComponent {
     
     public abstract void clicked();
     
-    public abstract void hover();
+    public abstract void hoverElement();
 
+    public abstract void leaveElement();
+    
     public boolean isMouseHoverPossible() {
         return mouseHoverPossible;
     }

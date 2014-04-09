@@ -20,59 +20,44 @@ import java.util.logging.Logger;
  */
 public class PlayButton extends Button {
 
-    public PlayButton(Point position, Dimension dimension, BufferedImage elementImage, String action) {
-        super(position, dimension, elementImage, action);
+    public PlayButton(Point position, BufferedImage elementImage) {
+        super(position, elementImage);
     }
 
-    public PlayButton(Dimension dimension, BufferedImage elementImage, String action, GameCore.Align align, int offset, int y) {
-        super(dimension, elementImage, action, align, offset, y);
+    public PlayButton(BufferedImage elementImage,GameCore.Align align, int offset, int y) {
+        super(elementImage, align, offset, y);
     }
 
     @Override
     public void clicked() {
-        System.out.println("CLICKED:PLAY");
+        GameCore.state = GameCore.State.PLAY;
     }
 
     @Override
     public void move(float delta) {
         super.move(delta);
-//        int animSpeed = 100;
-//        int dx = (int) (animSpeed*delta);
-//        System.out.println(dx + " " + delta);
-//        System.out.println(getPosition());
-//        setPosition(new Point((int) (getPosition().x + dx), getPosition().y));
+        int animSpeed = 100;
+        int dMove = (int) (animSpeed*delta);
+        System.out.println(dMove + " " + delta);
+        System.out.println(getPosition());
+        setPosition(new Point((int) (getPosition().x), getPosition().y + dMove));
     }
-    
+
     private boolean hoverAnimation = false;
-    
+
     @Override
-    public void hover() {
-        
+    public void hoverElement() {
         if (!hoverAnimation && isMouseHoverPossible()) {
             hoverAnimation = true;
-            Thread animation = new Thread() {
+            Thread animationThread = new Thread() {
                 @Override
                 public void run() {
-                    for(int i = 0; i < 5; i++)
-                    {
-                        setPosition(new Point(getPosition().x-1, getPosition().y-1));
-                        setDimension(new Dimension(getDimension().width+2, getDimension().height+2));
-                        System.out.println(getPosition());
-                        System.out.println(getDimension());
+                    for (int i = 0; i < 2; i++) {
+                        setPosition(new Point(getPosition().x - 3, getPosition().y - 1));
+                        setDimension(new Dimension(getDimension().width + 6, getDimension().height + 2));
+//                        setPosition(new Point(getPosition().x, getPosition().y - 4)); FUN WITH PLAY BUTTON
                         try {
-                            Thread.sleep(30);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(PlayButton.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                    for(int i = 0; i < 5; i++)
-                    {
-                        setPosition(new Point(getPosition().x+1, getPosition().y+1));
-                        setDimension(new Dimension(getDimension().width-2, getDimension().height-2));
-                        System.out.println(getPosition());
-                        System.out.println(getDimension());
-                        try {
-                            Thread.sleep(30);
+                            Thread.sleep(20);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(PlayButton.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -80,8 +65,27 @@ public class PlayButton extends Button {
                     hoverAnimation = false;
                 }
             };
-            animation.start();
+            animationThread.start();
         }
+    }
+
+    @Override
+    public void leaveElement() {
+        Thread animationThread = new Thread() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 2; i++) {
+                    setPosition(new Point(getPosition().x + 3, getPosition().y + 1));
+                    setDimension(new Dimension(getDimension().width - 6, getDimension().height - 2));
+                    try {
+                        Thread.sleep(20);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(PlayButton.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+        animationThread.start();
     }
 
     @Override

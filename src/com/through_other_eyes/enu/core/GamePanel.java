@@ -51,6 +51,8 @@ public class GamePanel extends JPanel {
                     }
                 }
                 break;
+            case PLAY:
+                break;
         }
 
         if (GameCore.debugMode) {

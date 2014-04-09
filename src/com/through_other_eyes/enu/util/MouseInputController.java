@@ -36,9 +36,10 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
 
-//                System.out.println("x=" + uiElementPosition.x + "y=" + uiElementPosition.y);
-//                System.out.println("x=" + mousePosition.x + "y=" + mousePosition.y);
-//                System.out.println("x=" + (uiElementPosition.x + uiElementDimension.width) + "y=" + (uiElementPosition.y + uiElementDimension.height));
+                System.out.println("x=" + uiElementPosition.x + "y=" + uiElementPosition.y);
+                System.out.println("x=" + mousePosition.x + "y=" + mousePosition.y);
+                System.out.println("x=" + (uiElementPosition.x + uiElementDimension.width) + "y=" + (uiElementPosition.y + uiElementDimension.height));
+                
                 if (mousePosition.x >= uiElementPosition.x && mousePosition.y >= uiElementPosition.y && mousePosition.x <= uiElementPosition.x + uiElementDimension.width && mousePosition.y <= uiElementPosition.y + uiElementDimension.height) {
                     uielement.clicked();
                 }
@@ -80,10 +81,14 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
 //                System.out.println("x=" + mousePosition.x + "y=" + mousePosition.y);
 //                System.out.println("x=" + (uiElementPosition.x + uiElementDimension.width) + "y=" + (uiElementPosition.y + uiElementDimension.height));
                 if (mousePosition.x >= uiElementPosition.x && mousePosition.y >= uiElementPosition.y && mousePosition.x <= uiElementPosition.x + uiElementDimension.width && mousePosition.y <= uiElementPosition.y + uiElementDimension.height) {
-                    System.out.println("INTERSECTS");
-                    uielement.hover();
+//                    System.out.println("INTERSECTS");
+                    uielement.hoverElement();
                     uielement.setMouseHoverPossible(false);
                 } else {
+                    if(!uielement.isMouseHoverPossible())
+                    {
+                        uielement.leaveElement();
+                    }
                     uielement.setMouseHoverPossible(true);
                 }
             }

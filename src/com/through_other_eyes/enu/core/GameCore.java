@@ -34,13 +34,19 @@ public class GameCore extends JFrame {
     public static final int WIDTH = 640;
     public static final int BIT_DEPTH = 32;
     public static final int REFRESH_RATE = 60;
-    public static final int UPDATE_RATE = 100;
+    public static final int UPDATE_RATE = 10;
     public static final long UPDATE_PERIOD = (long) 1e9 / UPDATE_RATE;
-
-    // Static enum for states of the game
+    
+    /**
+     * Static enum for states of the game
+     */
     public static enum State {
         SPLASHSCREEN, MAINMENU, PLAY, PAUSED, GAMEOVER, SHUTDOWN
     }
+    
+    /**
+     * Static enum for the alignment of the buttons on the UI
+     */
     public static enum Align {
         LEFT, CENTER, RIGHT, NOTHING
     }

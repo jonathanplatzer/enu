@@ -18,27 +18,29 @@ import java.awt.image.BufferedImage;
 public abstract class Button extends UIElement {
 
     private BufferedImage elementImage;
-    private String action;
     private GameCore.Align align;
     private int offset;
     
-    public Button(Point position, Dimension dimension, BufferedImage elementImage, String action) {
-        super(position, dimension);
+    public Button(Point position, BufferedImage elementImage) {
+        super(position, new Dimension(elementImage.getWidth(), elementImage.getHeight()));
         this.elementImage = elementImage;
-        this.action = action;
         this.align = null;
         this.offset = 0;
     }
     
-    public Button(Dimension dimension, BufferedImage elementImage, String action, GameCore.Align align, int offset, int y) {
-        super(new Point((GameCore.WIDTH/2)-(dimension.width/2)+offset, y), dimension);
+    public Button(BufferedImage elementImage, GameCore.Align align, int offset, int y) {
+        super(new Point((GameCore.WIDTH/2)-(elementImage.getWidth()/2)+offset, y), new Dimension(elementImage.getWidth(), elementImage.getHeight()));
         this.elementImage = elementImage;
-        this.action = action;
         this.align = align;
         this.offset = offset;
         calculatePosition();
     }
 
+    //konstrukt
+    //text + bild
+    //text + hintergrundfarbe
+    
+    
     private void calculatePosition()
     {
         switch(align)
@@ -74,5 +76,8 @@ public abstract class Button extends UIElement {
     public abstract void clicked();
 
     @Override
-    public abstract void hover();
+    public abstract void hoverElement();
+
+    @Override
+    public abstract void leaveElement();
 }
