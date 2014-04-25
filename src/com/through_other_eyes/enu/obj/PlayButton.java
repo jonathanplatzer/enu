@@ -31,16 +31,17 @@ public class PlayButton extends Button {
     @Override
     public void clicked() {
         GameCore.state = GameCore.State.PLAY;
+        //GameCore.renderOb.add(new Map());
     }
 
     @Override
     public void move(float delta) {
         super.move(delta);
-        int animSpeed = 100;
-        int dMove = (int) (animSpeed*delta);
-        System.out.println(dMove + " " + delta);
-        System.out.println(getPosition());
-        setPosition(new Point((int) (getPosition().x), getPosition().y + dMove));
+//        int animSpeed = 100;
+//        int dx = (int) (animSpeed*delta);
+//        System.out.println(dx + " " + delta);
+//        System.out.println(getPosition());
+//        setPosition(new Point((int) (getPosition().x), getPosition().y - dx));
     }
 
     private boolean hoverAnimation = false;
@@ -78,7 +79,7 @@ public class PlayButton extends Button {
                     setPosition(new Point(getPosition().x + 3, getPosition().y + 1));
                     setDimension(new Dimension(getDimension().width - 6, getDimension().height - 2));
                     try {
-                        Thread.sleep(20);
+                        Thread.sleep(30);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(PlayButton.class.getName()).log(Level.SEVERE, null, ex);
                     }

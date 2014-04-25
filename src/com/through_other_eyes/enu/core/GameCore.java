@@ -6,6 +6,7 @@
 package com.through_other_eyes.enu.core;
 
 import com.through_other_eyes.enu.obj.MainMenu;
+import com.through_other_eyes.enu.obj.Map;
 import com.through_other_eyes.enu.obj.SplashScreen;
 import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.obj.base.UIElement;
@@ -34,7 +35,7 @@ public class GameCore extends JFrame {
     public static final int WIDTH = 640;
     public static final int BIT_DEPTH = 32;
     public static final int REFRESH_RATE = 60;
-    public static final int UPDATE_RATE = 10;
+    public static final int UPDATE_RATE = 30;
     public static final long UPDATE_PERIOD = (long) 1e9 / UPDATE_RATE;
     
     /**
@@ -57,8 +58,8 @@ public class GameCore extends JFrame {
     public static float dt;
     public static boolean debugMode = true;
     public static long startTime;
-    public static ArrayList<UIElement> uiElements;
     public static MainMenu mainMenu;
+    public static Map map;
     
     // Instances for fullscreen handling
     private final GraphicsDevice device;
@@ -80,14 +81,15 @@ public class GameCore extends JFrame {
     public GameCore(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
         renderObjects = new ArrayList<>();
-        uiElements = new ArrayList<>();
         startTime = System.currentTimeMillis();
         
         initialize();
         
         try {
-            mainMenu = new MainMenu(uiElements);
+            mainMenu = new MainMenu();
             renderObjects.add(mainMenu);
+            map = new Map();
+            renderObjects.add(map);
         } catch (IOException ex) {
             Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -6,6 +6,7 @@
 package com.through_other_eyes.enu.core;
 
 import com.through_other_eyes.enu.obj.MainMenu;
+import com.through_other_eyes.enu.obj.Map;
 import com.through_other_eyes.enu.obj.SplashScreen;
 import com.through_other_eyes.enu.obj.base.GameComponent;
 import java.awt.Color;
@@ -52,6 +53,11 @@ public class GamePanel extends JPanel {
                 }
                 break;
             case PLAY:
+                for (GameComponent gameComponent : renderObjects) {
+                    if (gameComponent.isVisible() && gameComponent instanceof Map) {
+                        gameComponent.drawObject(g2);
+                    }
+                }
                 break;
         }
 

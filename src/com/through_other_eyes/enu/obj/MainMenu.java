@@ -24,22 +24,22 @@ import javax.imageio.ImageIO;
 public class MainMenu extends GameComponent {
 
     private BufferedImage background;
-    private ArrayList<UIElement> uIElements;
+    private ArrayList<UIElement> uiElements;
 
     public boolean ANIMATE = false;
     
-    public MainMenu(ArrayList<UIElement> uIElements) throws IOException {
+    public MainMenu() throws IOException {
         super(new Point(0, 0), new Dimension(GameCore.WIDTH, GameCore.HEIGHT), true, true);
-        this.background = ImageIO.read(new File("res" + File.separator + "mainmenu" + File.separator + "background.png"));
-        this.uIElements = uIElements;
+        this.background = ImageIO.read(new File("res" + File.separator + "mainmenu" + File.separator + "eu_640x480_neu_größererausschnitt.png"));
+        this.uiElements = new ArrayList<>();
         PlayButton play = new PlayButton(ImageIO.read(new File("res" + File.separator + "mainmenu" + File.separator + "play.png")), GameCore.Align.CENTER, 0, 80);
-        uIElements.add(play);
+        uiElements.add(play);
     }
 
     @Override
     public void drawObject(Graphics2D g2) {
         g2.drawImage(background, 0, 0, getDimension().width, getDimension().height, null);
-        for (UIElement uilement : uIElements) {
+        for (UIElement uilement : uiElements) {
             uilement.drawObject(g2);
         }
     }
@@ -47,7 +47,7 @@ public class MainMenu extends GameComponent {
     @Override
     public void move(float delta) {
         if (ANIMATE) {
-            for (UIElement uilement : uIElements) {
+            for (UIElement uilement : uiElements) {
                 uilement.move(delta);
             }
         }
@@ -55,5 +55,9 @@ public class MainMenu extends GameComponent {
 
     @Override
     public void update() {
+    }
+
+    public ArrayList<UIElement> getUiElements() {
+        return uiElements;
     }
 }

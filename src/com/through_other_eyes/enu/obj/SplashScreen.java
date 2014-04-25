@@ -40,7 +40,7 @@ public class SplashScreen extends GameComponent {
         for (final File file : folder.listFiles()) {
             if (file.isFile()) {
                 splashScreenImages.add(ImageIO.read(file));
-                System.out.println(file.getName());
+//                System.out.println(file.getName());
             }
         }
     }

@@ -80,4 +80,8 @@ public abstract class Button extends UIElement {
 
     @Override
     public abstract void leaveElement();
+
+    public BufferedImage getElementImage() {
+        return elementImage;
+    }
 }
