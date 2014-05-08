@@ -98,9 +98,6 @@ public class GameCore extends JFrame {
     public GameCore(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
         renderObjects = new ArrayList<>();
-        splashscreenRenderObjects = new ArrayList<>();
-        mainMenuRenderObjects = new ArrayList<>();
-        playRenderObjects = new ArrayList<>();
         startTime = System.currentTimeMillis();
 
         initialize();
@@ -111,11 +108,11 @@ public class GameCore extends JFrame {
             map.setUpdateRequired(false);
             questionDialog = new QuestionDialog(ImageIO.read(new File("res" + File.separator + "questiondialog.png")), GameCore.Align.CENTER, 0, 60);
             //questionDialog.setVisible(true);
-            
+
             mainMenuRenderObjects.add(mainMenu);
             playRenderObjects.add(map);
             playRenderObjects.add(questionDialog);
-            
+
             renderObjects.add(splashscreenRenderObjects);
             renderObjects.add(mainMenuRenderObjects);
             renderObjects.add(playRenderObjects);
@@ -127,14 +124,13 @@ public class GameCore extends JFrame {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Initialization">
-    private void initializeGame() {
-
-    }
 
     private void initialize() {
         initializeUI();
         initializeListeners();
         initializeSplashScreen();
+        initializeMainMenu();
+        initializeMap();
     }
 
     private void initializeListeners() {
@@ -150,16 +146,7 @@ public class GameCore extends JFrame {
         addMouseWheelListener(mouseInputController);
         addMouseMotionListener(mouseInputController);
     }
-
-    private void initializeSplashScreen() {
-        //Ingame SplashScreen
-        try {
-            splashscreenRenderObjects.add(new SplashScreen());
-        } catch (IOException ex) {
-            Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+    
     private void initializeUI() {
         gamePanel = new GamePanel(WIDTH, HEIGHT, renderObjects);
         setContentPane(gamePanel);
@@ -179,6 +166,27 @@ public class GameCore extends JFrame {
         }
     }
 
+    private void initializeSplashScreen() {
+        splashscreenRenderObjects = new ArrayList<>();
+        //Ingame SplashScreen
+        try {
+            splashscreenRenderObjects.add(new SplashScreen());
+        } catch (IOException ex) {
+            Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void initializeMainMenu() {
+        mainMenuRenderObjects = new ArrayList<>();
+    }
+
+    private void initializeMap() {
+        playRenderObjects = new ArrayList<>();
+    }
+    
+    private void initializeGame() {
+    }
+    
     // </editor-fold>
     private void computeData(double deltaTime, double sleepTime) {
         fps = (int) (1000 / ((deltaTime / 1000000.0) + sleepTime));
