@@ -6,6 +6,7 @@
 
 package com.through_other_eyes.enu.obj;
 
+import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.base.ButtonGroup;
 import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.obj.base.UIElement;
@@ -27,32 +28,35 @@ public class InstitutionMenu extends UIElement{
     private ArrayList<UIElement> uiElements = new ArrayList<>();
     private ButtonGroup buttonGroup;
     
-    public InstitutionMenu(Point position, Dimension dimension) throws IOException {
-        super(position, dimension);
+    public InstitutionMenu(BufferedImage backgroundImage, GameCore.Align align, int offset, int y) throws IOException {
+        super(backgroundImage, align, offset, y);
         this.buttonGroup = new ButtonGroup();
-        CentralBankButton cbb1 = new CentralBankButton(new Point(180, 0), ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")));
-        CentralBankButton cbb2 = new CentralBankButton(new Point(250, 0), ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")));
-        CentralBankButton cbb3 = new CentralBankButton(new Point(320, 0), ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")));
-        CentralBankButton cbb4 = new CentralBankButton(new Point(390, 0), ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")));
+        CentralBankButton cbb1 = new CentralBankButton(ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")), GameCore.Align.CENTER, -25, 7);
+        //CentralBankButton cbb2 = new CentralBankButton(new Point(getPosition().x+70, 0), ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")));
+        //CentralBankButton cbb3 = new CentralBankButton(new Point(getPosition().x+140, 0), ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")));
+        //CentralBankButton cbb4 = new CentralBankButton(new Point(getPosition().x+210, 0), ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")));
         
         uiElements.add(cbb1);
-        uiElements.add(cbb2);
-        uiElements.add(cbb3);
-        uiElements.add(cbb4);
+        //uiElements.add(cbb2);
+        //uiElements.add(cbb3);
+        //uiElements.add(cbb4);
         
         buttonGroup.addButton(cbb1);
-        buttonGroup.addButton(cbb2);
-        buttonGroup.addButton(cbb3);
-        buttonGroup.addButton(cbb4);
+        //buttonGroup.addButton(cbb2);
+        //buttonGroup.addButton(cbb3);
+        //buttonGroup.addButton(cbb4);
     }
 
+    
+    
     @Override
     public void update() {
     }
 
     @Override
     public void drawObject(Graphics2D g2) {
-        for(GameComponent uiElement : uiElements)
+        g2.drawImage(getElementImage(), getPosition().x, getPosition().y, null);
+        for(UIElement uiElement : uiElements)
         {
             uiElement.drawObject(g2);
         }

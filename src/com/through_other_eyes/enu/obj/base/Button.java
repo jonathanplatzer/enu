@@ -17,45 +17,17 @@ import java.awt.image.BufferedImage;
  */
 public abstract class Button extends UIElement {
 
-    private BufferedImage elementImage;
-    private GameCore.Align align;
-    private int offset;
-    
     public Button(Point position, BufferedImage elementImage) {
-        super(position, new Dimension(elementImage.getWidth(), elementImage.getHeight()));
-        this.elementImage = elementImage;
-        this.align = null;
-        this.offset = 0;
+        super(position, elementImage);
     }
     
     public Button(BufferedImage elementImage, GameCore.Align align, int offset, int y) {
-        super(new Point((GameCore.WIDTH/2)-(elementImage.getWidth()/2)+offset, y), new Dimension(elementImage.getWidth(), elementImage.getHeight()));
-        this.elementImage = elementImage;
-        this.align = align;
-        this.offset = offset;
-        calculatePosition();
+        super(elementImage, align, offset, y);
     }
 
     //konstrukt
     //text + bild
     //text + hintergrundfarbe
-    
-    
-    private void calculatePosition()
-    {
-        switch(align)
-        {
-            case LEFT:
-                setPosition(new Point(0+offset,getPosition().y));
-                break;
-            case CENTER:
-                setPosition(new Point((GameCore.WIDTH/2)-(getDimension().width/2)+offset,getPosition().y));
-                break;
-            case RIGHT:
-                setPosition(new Point(GameCore.WIDTH-getDimension().width+offset,getPosition().y));
-                break;
-        }
-    }
 
     @Override
     public void update() {
@@ -64,7 +36,7 @@ public abstract class Button extends UIElement {
 
     @Override
     public void drawObject(Graphics2D g2) {
-        g2.drawImage(elementImage, getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
+        g2.drawImage(getElementImage(), getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
     }
 
     @Override
@@ -80,8 +52,4 @@ public abstract class Button extends UIElement {
 
     @Override
     public abstract void leaveElement();
-
-    public BufferedImage getElementImage() {
-        return elementImage;
-    }
 }

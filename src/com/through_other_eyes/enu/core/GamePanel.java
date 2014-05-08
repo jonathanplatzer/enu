@@ -24,7 +24,8 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
 
     private ArrayList<GameComponent> renderObjects;
-
+    public static Graphics2D g2;
+    
     public GamePanel(int width, int height, ArrayList<GameComponent> renderObjects) {
         this.setPreferredSize(new Dimension(width, height));
         this.renderObjects = renderObjects;
@@ -34,7 +35,7 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
+        g2 = (Graphics2D) g;
 
         switch (GameCore.state) {
             case SPLASHSCREEN:

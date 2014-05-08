@@ -6,10 +6,16 @@
 
 package com.through_other_eyes.enu.obj;
 
+import com.through_other_eyes.enu.core.GameCore;
+import com.through_other_eyes.enu.core.GamePanel;
 import com.through_other_eyes.enu.obj.base.ButtonGroup;
 import com.through_other_eyes.enu.obj.base.ToggleButton;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -17,18 +23,28 @@ import java.awt.image.BufferedImage;
  */
 public class CentralBankButton extends ToggleButton{
 
-    public CentralBankButton(Point position, BufferedImage elementImage, BufferedImage elementImageToggle) {
+    public CentralBankButton(Point position, BufferedImage elementImage, BufferedImage elementImageToggle){
         super(position, elementImage, elementImageToggle);
     }
 
+    public CentralBankButton(BufferedImage elementImage, BufferedImage elementImageToggle, GameCore.Align align, int offset, int y) throws IOException {
+        super(elementImage, elementImageToggle, align, offset, y);
+        setHoverImage(ImageIO.read(new File("res" + File.separator + "zentralbank_hovered.png")));
+    }
+    
     @Override
     public void clicked() {
         super.clicked();
-        System.out.println("THIS. IS. ZENTRAAAAAAAAAALBAAAAANK");
     }
 
     @Override
     public void hoverElement() {
+        Graphics2D g2 = GamePanel.g2;
+        if(isMouseHoverPossible())
+        {
+            g2.drawImage(getHoverImage(), getPosition().x, getPosition().y+40, null);
+            System.out.println("THIS. IS. HOOOVER.");
+        }
     }
 
     @Override

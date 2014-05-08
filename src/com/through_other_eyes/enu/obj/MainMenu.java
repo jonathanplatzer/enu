@@ -30,7 +30,7 @@ public class MainMenu extends GameComponent {
     
     public MainMenu() throws IOException {
         super(new Point(0, 0), new Dimension(GameCore.WIDTH, GameCore.HEIGHT), true, true);
-        this.background = ImageIO.read(new File("res" + File.separator + "mainmenu" + File.separator + "eu_640x480_neu_größererausschnitt.png"));
+        this.background = ImageIO.read(new File("res" + File.separator + "mainmenu" + File.separator + "eu_640x480.png"));
         this.uiElements = new ArrayList<>();
         PlayButton play = new PlayButton(ImageIO.read(new File("res" + File.separator + "mainmenu" + File.separator + "play.png")), GameCore.Align.CENTER, 0, 80);
         uiElements.add(play);

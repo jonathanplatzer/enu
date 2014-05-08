@@ -35,15 +35,15 @@ public class ButtonGroup {
         return false;
     }
     
+    /**
+     * deselects every button in group except the given button
+     * @param button 
+     */
     public void selectButton(UIElement button)
     {
         for(UIElement element : buttons)
         {
-            if(button == element)
-            {
-                ((ToggleButton)element).setToggled(true);
-            }
-            else
+            if(button != element)
             {
                 ((ToggleButton)element).setToggled(false);
             }

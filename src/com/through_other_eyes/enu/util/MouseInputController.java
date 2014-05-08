@@ -100,6 +100,24 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
                 }
             }
         }
+        
+        if (GameCore.state == GameCore.State.PLAY) {
+            for (UIElement uielement : GameCore.map.getInstMenu().getUiElements()) {
+                Point uiElementPosition = uielement.getPosition();
+                Dimension uiElementDimension = uielement.getDimension();
+                Point mousePosition = e.getPoint();
+                
+                if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
+                    uielement.hoverElement();
+                    uielement.setMouseHoverPossible(false);
+                } else {
+                    if (!uielement.isMouseHoverPossible()) {
+                        uielement.leaveElement();
+                    }
+                    uielement.setMouseHoverPossible(true);
+                }
+            }
+        }
     }
 
     /**
