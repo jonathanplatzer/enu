@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2014 mwahlhuetter <m.wahl1996 at gmail.com>
+/* Europa NON Universalis - A dogma 2001 game
+ * Copyright (C) 2014 through.other.eyes
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
