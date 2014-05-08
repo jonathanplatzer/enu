@@ -39,15 +39,16 @@ public class CentralBankButton extends ToggleButton{
 
     @Override
     public void hoverElement() {
-        Graphics2D g2 = GamePanel.g2;
+        //Graphics2D g2 = GamePanel.g2;
         if(isMouseHoverPossible())
         {
-            g2.drawImage(getHoverImage(), getPosition().x, getPosition().y+40, null);
-            System.out.println("THIS. IS. HOOOVER.");
+            setState(GameCore.UIElementState.HOVER);
+            //g2.drawImage(getHoverImage(), getPosition().x, getPosition().y+40, null);
         }
     }
 
     @Override
     public void leaveElement() {
+        setState(GameCore.UIElementState.DEFAULT);
     }
 }

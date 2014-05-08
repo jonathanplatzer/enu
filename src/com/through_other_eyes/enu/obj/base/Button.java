@@ -16,7 +16,7 @@ import java.awt.image.BufferedImage;
  * @date 27.03.2014
  */
 public abstract class Button extends UIElement {
-
+    
     public Button(Point position, BufferedImage elementImage) {
         super(position, elementImage);
     }
@@ -36,6 +36,7 @@ public abstract class Button extends UIElement {
 
     @Override
     public void drawObject(Graphics2D g2) {
+        
         g2.drawImage(getElementImage(), getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
     }
 

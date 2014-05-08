@@ -6,6 +6,7 @@
 package com.through_other_eyes.enu.obj.base;
 
 import com.through_other_eyes.enu.core.GameCore;
+import com.through_other_eyes.enu.core.GameCore.UIElementState;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.image.BufferedImage;

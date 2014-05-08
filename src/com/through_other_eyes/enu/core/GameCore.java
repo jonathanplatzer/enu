@@ -52,6 +52,13 @@ public class GameCore extends JFrame {
         LEFT, CENTER, RIGHT, NOTHING
     }
     
+    /**
+     * Static enum for the different states of a buton
+     */
+    public static enum UIElementState {
+        DEFAULT, HOVER
+    }
+    
     // Static variables to access data like state of the game, fps or dt
     public static State state = State.SPLASHSCREEN;
     public static int fps;

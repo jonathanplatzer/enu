@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.through_other_eyes.enu.obj.base;
 
 import com.through_other_eyes.enu.core.GameCore;
@@ -15,11 +14,12 @@ import java.awt.image.BufferedImage;
  *
  * @author mike7707
  */
-public abstract class ToggleButton extends Button{
+public abstract class ToggleButton extends Button {
 
     private BufferedImage elementImageToggle;
     private boolean toggled = false;
-    
+    private GameCore.UIElementState State = GameCore.UIElementState.DEFAULT;
+
     public ToggleButton(Point position, BufferedImage elementImage, BufferedImage elementImageToggle) {
         super(position, elementImage);
         this.elementImageToggle = elementImageToggle;
@@ -29,10 +29,9 @@ public abstract class ToggleButton extends Button{
         super(elementImage, align, offset, y);
         this.elementImageToggle = elementImageToggle;
     }
-    
+
     @Override
-    public void clicked()
-    {
+    public void clicked() {
         toggled = !toggled;
     }
 
@@ -44,17 +43,25 @@ public abstract class ToggleButton extends Button{
 
     @Override
     public void drawObject(Graphics2D g2) {
-        if(toggled)
-        {
+        if (toggled) {
             g2.drawImage(elementImageToggle, getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
-        }
-        else
-        {
-            g2.drawImage(getElementImage(), getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
+        } else {
+            switch (State) {
+                case DEFAULT:
+                    g2.drawImage(getElementImage(), getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
+                    break;
+                case HOVER:
+                    g2.drawImage(getHoverImage(), getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
+                    break;
+            }
         }
     }
 
     public void setToggled(boolean toggled) {
         this.toggled = toggled;
+    }
+
+    public void setState(GameCore.UIElementState State) {
+        this.State = State;
     }
 }
