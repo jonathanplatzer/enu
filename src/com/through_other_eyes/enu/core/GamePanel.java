@@ -23,10 +23,10 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel {
 
-    private ArrayList<GameComponent> renderObjects;
+    private ArrayList<ArrayList<GameComponent>> renderObjects;
     public static Graphics2D g2;
     
-    public GamePanel(int width, int height, ArrayList<GameComponent> renderObjects) {
+    public GamePanel(int width, int height, ArrayList<ArrayList<GameComponent>> renderObjects) {
         this.setPreferredSize(new Dimension(width, height));
         this.renderObjects = renderObjects;
         this.setDoubleBuffered(true);
@@ -39,24 +39,25 @@ public class GamePanel extends JPanel {
 
         switch (GameCore.state) {
             case SPLASHSCREEN:
-                for (GameComponent gameComponent : renderObjects) {
-                    if (gameComponent.isVisible() && gameComponent instanceof SplashScreen) {
+                for (GameComponent gameComponent : renderObjects.get(0)) {
+                    if (gameComponent.isVisible()) {
                         gameComponent.drawObject(g2);
                     }
                 }
                 break;
 
             case MAINMENU:
-                for (GameComponent gameComponent : renderObjects) {
-                    if (gameComponent.isVisible() && gameComponent instanceof MainMenu) {
+                for (GameComponent gameComponent : renderObjects.get(1)) {
+                    if (gameComponent.isVisible()) {
                         gameComponent.drawObject(g2);
                     }
                 }
                 break;
             case PLAY:
-                for (GameComponent gameComponent : renderObjects) {
-                    if (gameComponent.isVisible() && gameComponent instanceof Map) {
+                for (GameComponent gameComponent : renderObjects.get(2)) {
+                    if (gameComponent.isVisible()) {
                         gameComponent.drawObject(g2);
+                        System.out.println(gameComponent);
                     }
                 }
                 break;
@@ -76,7 +77,7 @@ public class GamePanel extends JPanel {
         g2.drawString("---------------------------------------", 2, 20);
         g2.drawString("GAMESTATE: " + GameCore.state, 2, 30);
         g2.drawString("FPS: " + Long.toString(GameCore.fps), 2, 42);
-        g2.drawString("DT: " + GameCore.dt, 2, 54);
+        g2.drawString("DELTATIME: " + GameCore.dt, 2, 54);
         g2.drawString(String.format("TOTAL MEMORY: %dMB", Runtime.getRuntime().totalMemory() / 1024 / 1024), 2, 66);
         g2.drawString(String.format("USED MEMORY: %dMB", (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024), 2, 78);
         g2.drawString(time(), 2, 90);

@@ -7,6 +7,7 @@ package com.through_other_eyes.enu.core;
 
 import com.through_other_eyes.enu.obj.MainMenu;
 import com.through_other_eyes.enu.obj.Map;
+import com.through_other_eyes.enu.obj.QuestionDialog;
 import com.through_other_eyes.enu.obj.SplashScreen;
 import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.obj.base.UIElement;
@@ -16,10 +17,12 @@ import com.through_other_eyes.enu.util.WindowController;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -37,28 +40,31 @@ public class GameCore extends JFrame {
     public static final int REFRESH_RATE = 60;
     public static final int UPDATE_RATE = 30;
     public static final long UPDATE_PERIOD = (long) 1e9 / UPDATE_RATE;
-    
+
     /**
      * Static enum for states of the game
      */
     public static enum State {
+
         SPLASHSCREEN, MAINMENU, PLAY, PAUSED, GAMEOVER, SHUTDOWN
     }
-    
+
     /**
      * Static enum for the alignment of the buttons on the UI
      */
     public static enum Align {
+
         LEFT, CENTER, RIGHT, NOTHING
     }
-    
+
     /**
      * Static enum for the different states of a buton
      */
     public static enum UIElementState {
+
         DEFAULT, HOVER
     }
-    
+
     // Static variables to access data like state of the game, fps or dt
     public static State state = State.SPLASHSCREEN;
     public static int fps;
@@ -67,7 +73,8 @@ public class GameCore extends JFrame {
     public static long startTime;
     public static MainMenu mainMenu;
     public static Map map;
-    
+    public static QuestionDialog questionDialog;
+
     // Instances for fullscreen handling
     private final GraphicsDevice device;
     private DisplayMode originalDisplayMode;
@@ -75,7 +82,10 @@ public class GameCore extends JFrame {
 
     // Panel for drawing the GameObjects
     private GamePanel gamePanel;
-    private ArrayList<GameComponent> renderObjects;
+    private ArrayList<ArrayList<GameComponent>> renderObjects;
+    private ArrayList<GameComponent> splashscreenRenderObjects;
+    private ArrayList<GameComponent> mainMenuRenderObjects;
+    private ArrayList<GameComponent> playRenderObjects;
 
     // SplashScreen that is shown on startup
     //private SplashScreen splash = null;
@@ -83,24 +93,36 @@ public class GameCore extends JFrame {
     private WindowController windowController;
     private KeyInputController keyInputController;
     private MouseInputController mouseInputController;
-    
+
     // </editor-fold>
     public GameCore(GraphicsDevice graphicsDevice) {
         device = graphicsDevice;
         renderObjects = new ArrayList<>();
+        splashscreenRenderObjects = new ArrayList<>();
+        mainMenuRenderObjects = new ArrayList<>();
+        playRenderObjects = new ArrayList<>();
         startTime = System.currentTimeMillis();
-        
+
         initialize();
-        
+
         try {
             mainMenu = new MainMenu();
-            renderObjects.add(mainMenu);
-            map = new Map();
-            renderObjects.add(map);
+            map = new Map(ImageIO.read(new File("res" + File.separator + "map_small.png")));
+            map.setUpdateRequired(false);
+            questionDialog = new QuestionDialog(ImageIO.read(new File("res" + File.separator + "questiondialog.png")), GameCore.Align.CENTER, 0, 60);
+            //questionDialog.setVisible(true);
+            
+            mainMenuRenderObjects.add(mainMenu);
+            playRenderObjects.add(map);
+            playRenderObjects.add(questionDialog);
+            
+            renderObjects.add(splashscreenRenderObjects);
+            renderObjects.add(mainMenuRenderObjects);
+            renderObjects.add(playRenderObjects);
         } catch (IOException ex) {
             Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         setVisible(true);
     }
 
@@ -119,9 +141,9 @@ public class GameCore extends JFrame {
         windowController = new WindowController();
         keyInputController = new KeyInputController();
         mouseInputController = new MouseInputController();
-        
+
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        
+
         addWindowListener(windowController);
         addKeyListener(keyInputController);
         addMouseListener(mouseInputController);
@@ -132,7 +154,7 @@ public class GameCore extends JFrame {
     private void initializeSplashScreen() {
         //Ingame SplashScreen
         try {
-            renderObjects.add(new SplashScreen());
+            splashscreenRenderObjects.add(new SplashScreen());
         } catch (IOException ex) {
             Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -198,10 +220,12 @@ public class GameCore extends JFrame {
                 shutdown();
                 break;
         }
-        for (GameComponent object : renderObjects) {
-            if (object.isUpdateRequired()) {
-                object.update();
-                object.move(dt);
+        for (ArrayList<GameComponent> activeRenderObjects : renderObjects) {
+            for (GameComponent object : activeRenderObjects) {
+                if (object.isUpdateRequired()) {
+                    object.update();
+                    object.move(dt);
+                }
             }
         }
     }
@@ -223,7 +247,7 @@ public class GameCore extends JFrame {
     private void shutdown() {
         System.exit(0);
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Main">
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

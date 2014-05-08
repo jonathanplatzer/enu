@@ -18,38 +18,27 @@
 package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
-import com.through_other_eyes.enu.obj.base.UIElement;
-import java.awt.Graphics2D;
+import com.through_other_eyes.enu.obj.base.Button;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  *
  * @author mwahlhuetter <m.wahl1996 at gmail.com>
  */
-public class QuestionDialog extends UIElement{
+public class CloseQuestionDialogButton extends Button{
 
-    private String Text;
-    private CloseQuestionDialogButton cqdb;
-    
-    public QuestionDialog(Point position, BufferedImage elementImage) throws IOException {
+    public CloseQuestionDialogButton(Point position, BufferedImage elementImage) {
         super(position, elementImage);
-        cqdb = new CloseQuestionDialogButton(ImageIO.read(new File("res" + File.separator + "closequestiondialogbutton.png")), GameCore.Align.CENTER, 0, 64);
-        setVisible(false);
-    }
-    
-    public QuestionDialog(BufferedImage elementImage, GameCore.Align align, int offset, int y) throws IOException {
-        super(elementImage, align, offset, y);
-        cqdb = new CloseQuestionDialogButton(ImageIO.read(new File("res" + File.separator + "closequestiondialogbutton.png")), GameCore.Align.CENTER, 0, 64);
-        setVisible(false);
     }
 
+    public CloseQuestionDialogButton(BufferedImage elementImage, GameCore.Align align, int offset, int y) {
+        super(elementImage, align, offset, y);
+    }
+    
     @Override
     public void clicked() {
-        
+        GameCore.questionDialog.setVisible(false);
     }
 
     @Override
@@ -58,19 +47,5 @@ public class QuestionDialog extends UIElement{
 
     @Override
     public void leaveElement() {
-    }
-
-    @Override
-    public void update() {
-    }
-
-    @Override
-    public void drawObject(Graphics2D g2) {
-        g2.drawImage(getElementImage(), getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
-        cqdb.drawObject(g2);
-    }
-
-    @Override
-    public void move(float delta) {
     }
 }

@@ -75,8 +75,5 @@ public abstract class GameComponent implements Drawable, Moveable{
 
     public void setUpdateRequired(boolean updateRequired) {
         this.updateRequired = updateRequired;
-        if(!updateRequired) {
-            this.setVisible(false);
-        }
     }
 }

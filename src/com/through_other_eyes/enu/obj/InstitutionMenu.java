@@ -36,12 +36,10 @@ public class InstitutionMenu extends UIElement{
         
         uiElements.add(cbb);
         uiElements.add(chb);
-        //uiElements.add(cbb3);
         //uiElements.add(cbb4);
         
         buttonGroup.addButton(cbb);
         buttonGroup.addButton(chb);
-        //buttonGroup.addButton(cbb3);
         //buttonGroup.addButton(cbb4);
     }
 
@@ -56,7 +54,10 @@ public class InstitutionMenu extends UIElement{
         g2.drawImage(getElementImage(), getPosition().x, getPosition().y, null);
         for(UIElement uiElement : uiElements)
         {
-            uiElement.drawObject(g2);
+            if(uiElement.isVisible())
+            {
+                uiElement.drawObject(g2);
+            }
         }
     }
 

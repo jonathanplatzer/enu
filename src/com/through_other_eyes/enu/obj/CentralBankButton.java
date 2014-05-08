@@ -37,7 +37,7 @@ public class CentralBankButton extends ToggleButton {
 
     @Override
     public void clicked() {
-        super.clicked();
+        GameCore.questionDialog.setVisible(true);
     }
 
     @Override
