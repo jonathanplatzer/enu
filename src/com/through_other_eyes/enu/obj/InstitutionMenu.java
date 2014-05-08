@@ -31,18 +31,16 @@ public class InstitutionMenu extends UIElement{
     public InstitutionMenu(BufferedImage backgroundImage, GameCore.Align align, int offset, int y) throws IOException {
         super(backgroundImage, align, offset, y);
         this.buttonGroup = new ButtonGroup();
-        CentralBankButton cbb1 = new CentralBankButton(ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")), GameCore.Align.CENTER, -25, 7);
-        //CentralBankButton cbb2 = new CentralBankButton(new Point(getPosition().x+70, 0), ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")));
-        //CentralBankButton cbb3 = new CentralBankButton(new Point(getPosition().x+140, 0), ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")));
-        //CentralBankButton cbb4 = new CentralBankButton(new Point(getPosition().x+210, 0), ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")));
+        CentralBankButton cbb1 = new CentralBankButton(ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")), GameCore.Align.CENTER, -40, 7);
+        CentralBankButton cbb2 = new CentralBankButton(ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")), GameCore.Align.CENTER, 40, 7);
         
         uiElements.add(cbb1);
-        //uiElements.add(cbb2);
+        uiElements.add(cbb2);
         //uiElements.add(cbb3);
         //uiElements.add(cbb4);
         
         buttonGroup.addButton(cbb1);
-        //buttonGroup.addButton(cbb2);
+        buttonGroup.addButton(cbb2);
         //buttonGroup.addButton(cbb3);
         //buttonGroup.addButton(cbb4);
     }
