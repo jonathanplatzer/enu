@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author mike7707
+ * @author mwahlhuetter
  */
 public class ButtonGroup {
 

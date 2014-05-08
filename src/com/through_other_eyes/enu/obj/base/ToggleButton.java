@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 
 /**
  *
- * @author mike7707
+ * @author mwahlhuetter
  */
 public abstract class ToggleButton extends Button {
 

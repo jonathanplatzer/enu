@@ -21,7 +21,7 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author mike7707
+ * @author mwahlhuetter
  */
 public class InstitutionMenu extends UIElement{
     
@@ -31,16 +31,16 @@ public class InstitutionMenu extends UIElement{
     public InstitutionMenu(BufferedImage backgroundImage, GameCore.Align align, int offset, int y) throws IOException {
         super(backgroundImage, align, offset, y);
         this.buttonGroup = new ButtonGroup();
-        CentralBankButton cbb1 = new CentralBankButton(ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")), GameCore.Align.CENTER, -40, 7);
-        CentralBankButton cbb2 = new CentralBankButton(ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")), GameCore.Align.CENTER, 40, 7);
+        CentralBankButton cbb = new CentralBankButton(ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")), GameCore.Align.CENTER, -40, 7);
+        CourtHouseButton chb = new CourtHouseButton(ImageIO.read(new File("res" + File.separator + "gerichtshof.png")), ImageIO.read(new File("res" + File.separator + "gerichtshof_toggled.png")), GameCore.Align.CENTER, 40, 7);
         
-        uiElements.add(cbb1);
-        uiElements.add(cbb2);
+        uiElements.add(cbb);
+        uiElements.add(chb);
         //uiElements.add(cbb3);
         //uiElements.add(cbb4);
         
-        buttonGroup.addButton(cbb1);
-        buttonGroup.addButton(cbb2);
+        buttonGroup.addButton(cbb);
+        buttonGroup.addButton(chb);
         //buttonGroup.addButton(cbb3);
         //buttonGroup.addButton(cbb4);
     }
