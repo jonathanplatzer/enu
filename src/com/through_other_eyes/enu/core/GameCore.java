@@ -100,22 +100,8 @@ public class GameCore extends JFrame {
         renderObjects = new ArrayList<>();
         startTime = System.currentTimeMillis();
 
-        initialize();
-
         try {
-            mainMenu = new MainMenu();
-            map = new Map(ImageIO.read(new File("res" + File.separator + "map_small.png")));
-            map.setUpdateRequired(false);
-            questionDialog = new QuestionDialog(ImageIO.read(new File("res" + File.separator + "questiondialog.png")), GameCore.Align.CENTER, 0, 60);
-            //questionDialog.setVisible(true);
-
-            mainMenuRenderObjects.add(mainMenu);
-            playRenderObjects.add(map);
-            playRenderObjects.add(questionDialog);
-
-            renderObjects.add(splashscreenRenderObjects);
-            renderObjects.add(mainMenuRenderObjects);
-            renderObjects.add(playRenderObjects);
+            initialize();
         } catch (IOException ex) {
             Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -124,30 +110,15 @@ public class GameCore extends JFrame {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Initialization">
-
-    private void initialize() {
-        initializeUI();
+    private void initialize() throws IOException {
+        initializeRenderer();
         initializeListeners();
         initializeSplashScreen();
         initializeMainMenu();
         initializeMap();
     }
 
-    private void initializeListeners() {
-        windowController = new WindowController();
-        keyInputController = new KeyInputController();
-        mouseInputController = new MouseInputController();
-
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-
-        addWindowListener(windowController);
-        addKeyListener(keyInputController);
-        addMouseListener(mouseInputController);
-        addMouseWheelListener(mouseInputController);
-        addMouseMotionListener(mouseInputController);
-    }
-    
-    private void initializeUI() {
+    private void initializeRenderer() {
         gamePanel = new GamePanel(WIDTH, HEIGHT, renderObjects);
         setContentPane(gamePanel);
         setTitle("Europa NON Universalis");
@@ -164,29 +135,52 @@ public class GameCore extends JFrame {
             pack();
             setLocationRelativeTo(null);
         }
-    }
-
-    private void initializeSplashScreen() {
+        
         splashscreenRenderObjects = new ArrayList<>();
-        //Ingame SplashScreen
-        try {
-            splashscreenRenderObjects.add(new SplashScreen());
-        } catch (IOException ex) {
-            Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void initializeMainMenu() {
         mainMenuRenderObjects = new ArrayList<>();
-    }
-
-    private void initializeMap() {
         playRenderObjects = new ArrayList<>();
+        renderObjects.add(splashscreenRenderObjects);
+        renderObjects.add(mainMenuRenderObjects);
+        renderObjects.add(playRenderObjects);
     }
     
+    private void initializeListeners() {
+        windowController = new WindowController();
+        keyInputController = new KeyInputController();
+        mouseInputController = new MouseInputController();
+
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+
+        addWindowListener(windowController);
+        addKeyListener(keyInputController);
+        addMouseListener(mouseInputController);
+        addMouseWheelListener(mouseInputController);
+        addMouseMotionListener(mouseInputController);
+    }
+
+    private void initializeSplashScreen() throws IOException {
+        splashscreenRenderObjects.add(new SplashScreen());
+    }
+
+    private void initializeMainMenu() throws IOException {
+        mainMenu = new MainMenu();
+        
+        mainMenuRenderObjects.add(mainMenu);
+    }
+
+    private void initializeMap() throws IOException {
+        map = new Map(ImageIO.read(new File("res" + File.separator + "map_big.png")));
+        map.setUpdateRequired(false);
+        questionDialog = new QuestionDialog(ImageIO.read(new File("res" + File.separator + "questiondialog.png")), GameCore.Align.CENTER, 0, 60);
+        //questionDialog.setVisible(true);
+        
+        playRenderObjects.add(map);
+        playRenderObjects.add(questionDialog);
+    }
+
     private void initializeGame() {
     }
-    
+
     // </editor-fold>
     private void computeData(double deltaTime, double sleepTime) {
         fps = (int) (1000 / ((deltaTime / 1000000.0) + sleepTime));
