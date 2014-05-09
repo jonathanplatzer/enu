@@ -38,9 +38,9 @@ public class Map extends GameComponent {
     private BufferedImage mapImage;
     
     public Map(BufferedImage mapImage) throws IOException {
-        //InstitutionMenu instMenu = new InstitutionMenu(ImageIO.read(new File("res" + File.separator + "institutionmenu.png")), GameCore.Align.CENTER, 0, 0);
-        //uiElements.add(instMenu);
-        //this.mapImage = mapImage;
+        InstitutionMenu instMenu = new InstitutionMenu(ImageIO.read(new File("res" + File.separator + "institutionmenu.png")), GameCore.Align.CENTER, 0, 0);
+        uiElements.add(instMenu);
+        this.mapImage = mapImage;
     }
     
     @Override

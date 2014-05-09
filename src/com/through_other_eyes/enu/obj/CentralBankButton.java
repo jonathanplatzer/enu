@@ -51,12 +51,13 @@ public class CentralBankButton extends ToggleButton {
     public void clicked() {
         if(isToggled())
         {
-            System.out.println("k");
             GameCore.questionDialog.setVisible(false);
-            GameCore.map.setVisible(false);
+        }
+        else
+        {
+            GameCore.questionDialog.setVisible(true);
         }
         super.clicked();
-        GameCore.questionDialog.setVisible(true);
     }
 
     @Override
