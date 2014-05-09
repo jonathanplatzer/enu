@@ -67,9 +67,10 @@ public class GamePanel extends JPanel {
                 break;
             case PLAY:
                 for (GameComponent gameComponent : renderObjects.get(2)) {
+//                    System.out.println(gameComponent + " " + gameComponent.isVisible());
                     if (gameComponent.isVisible()) {
+//                        System.out.println(gameComponent + " " + gameComponent.isVisible());
                         gameComponent.drawObject(g2);
-                        System.out.println(gameComponent);
                     }
                 }
                 break;

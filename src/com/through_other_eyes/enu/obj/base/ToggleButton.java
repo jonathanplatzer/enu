@@ -76,4 +76,8 @@ public abstract class ToggleButton extends Button {
     public void setState(GameCore.UIElementState State) {
         this.State = State;
     }
+
+    public boolean isToggled() {
+        return toggled;
+    }
 }

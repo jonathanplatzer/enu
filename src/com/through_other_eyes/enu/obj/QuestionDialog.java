@@ -14,42 +14,46 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
+import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.obj.base.UIElement;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 /**
  *
  * @author mwahlhuetter <m.wahl1996 at gmail.com>
  */
-public class QuestionDialog extends UIElement{
+public class QuestionDialog extends UIElement {
 
+    private ArrayList<UIElement> dialogElements = new ArrayList<>();
     private String Text;
     private CloseQuestionDialogButton cqdb;
-    
+
     public QuestionDialog(Point position, BufferedImage elementImage) throws IOException {
         super(position, elementImage);
         cqdb = new CloseQuestionDialogButton(ImageIO.read(new File("res" + File.separator + "closequestiondialogbutton.png")), GameCore.Align.CENTER, 0, 64);
+        dialogElements.add(cqdb);
         setVisible(false);
     }
-    
+
     public QuestionDialog(BufferedImage elementImage, GameCore.Align align, int offset, int y) throws IOException {
         super(elementImage, align, offset, y);
         cqdb = new CloseQuestionDialogButton(ImageIO.read(new File("res" + File.separator + "closequestiondialogbutton.png")), GameCore.Align.CENTER, 0, 64);
+        dialogElements.add(cqdb);
         setVisible(false);
     }
 
     @Override
     public void clicked() {
-        
+
     }
 
     @Override
@@ -72,5 +76,9 @@ public class QuestionDialog extends UIElement{
 
     @Override
     public void move(float delta) {
+    }
+
+    public ArrayList<UIElement> getDialogElements() {
+        return dialogElements;
     }
 }
