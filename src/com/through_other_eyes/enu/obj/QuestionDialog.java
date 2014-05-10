@@ -39,14 +39,14 @@ public class QuestionDialog extends UIElement {
 
     public QuestionDialog(Point position, BufferedImage elementImage) throws IOException {
         super(position, elementImage);
-        cqdb = new CloseQuestionDialogButton(ImageIO.read(new File("res" + File.separator + "closequestiondialogbutton.png")), GameCore.Align.CENTER, 0, 64);
+        cqdb = new CloseQuestionDialogButton(ImageIO.read(new File("res" + File.separator + "closequestiondialogbutton.png")), GameCore.Align.CENTER, 127, 64);
         dialogElements.add(cqdb);
         setVisible(false);
     }
 
     public QuestionDialog(BufferedImage elementImage, GameCore.Align align, int offset, int y) throws IOException {
         super(elementImage, align, offset, y);
-        cqdb = new CloseQuestionDialogButton(ImageIO.read(new File("res" + File.separator + "closequestiondialogbutton.png")), GameCore.Align.CENTER, 0, 64);
+        cqdb = new CloseQuestionDialogButton(ImageIO.read(new File("res" + File.separator + "closequestiondialogbutton.png")), GameCore.Align.CENTER, 127, 64);
         dialogElements.add(cqdb);
         setVisible(false);
     }

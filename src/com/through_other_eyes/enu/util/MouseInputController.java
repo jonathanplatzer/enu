@@ -19,6 +19,8 @@ package com.through_other_eyes.enu.util;
 
 import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.InstitutionMenu;
+import com.through_other_eyes.enu.obj.CloseQuestionDialogButton;
+import com.through_other_eyes.enu.obj.base.Button;
 import com.through_other_eyes.enu.obj.base.ButtonGroup;
 import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.obj.base.UIElement;
@@ -40,18 +42,18 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
     // make interface clickable, check if mouseevent source is game object + clickable, then call click, interact etc method of the object licked
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-
+        
     }
-
+    
     @Override
     public void mouseClicked(MouseEvent e) {
         if (GameCore.state == GameCore.State.MAINMENU) {
-
+            
             for (UIElement uielement : GameCore.mainMenu.getUiElements()) {
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
                 Point mousePosition = e.getPoint();
-
+                
                 if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
                     uielement.clicked();
                 }
@@ -62,7 +64,7 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
                 Point mousePosition = e.getPoint();
-
+                
                 if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
                     uielement.clicked();
                     ButtonGroup buttonGroup = GameCore.map.getInstMenu().getButtonGroup();
@@ -73,31 +75,31 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
                 Point mousePosition = e.getPoint();
-
+                
                 if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
                     uielement.clicked();
                 }
             }
         }
     }
-
+    
     @Override
     public void mousePressed(MouseEvent e) {
     }
-
+    
     @Override
     public void mouseReleased(MouseEvent e) {
     }
-
+    
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        
     }
-
+    
     @Override
     public void mouseExited(MouseEvent e) {
     }
-
+    
     private int mausaltx;
     private int mausalty;
     
@@ -107,18 +109,22 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
             Point uiElementPosition = GameCore.questionDialog.getPosition();
             Dimension uiElementDimension = GameCore.questionDialog.getDimension();
             Point mousePosition = e.getPoint();
-
+            
             if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
-                if(mausaltx != 0 && mausalty != 0)
-                {
+                if (mausaltx != 0 && mausalty != 0) {
                     GameCore.questionDialog.setPosition(new Point(uiElementPosition.x + mousePosition.x - mausaltx, uiElementPosition.y + mousePosition.y - mausalty));
+                    for (UIElement element : GameCore.questionDialog.getDialogElements()) {
+                        if (element instanceof CloseQuestionDialogButton) {
+                            element.setPosition(new Point(GameCore.questionDialog.getPosition().x + GameCore.questionDialog.getDimension().width / 2 + 118, GameCore.questionDialog.getPosition().y + 4));
+                        }
+                    }
                 }
             }
             mausaltx = mousePosition.x;
             mausalty = mousePosition.y;
         }
     }
-
+    
     @Override
     public void mouseMoved(MouseEvent e) {
         if (GameCore.state == GameCore.State.MAINMENU) {
@@ -126,7 +132,7 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
                 Point mousePosition = e.getPoint();
-
+                
                 if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
                     uielement.hoverElement();
                     uielement.setMouseHoverPossible(false);
@@ -138,13 +144,13 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
                 }
             }
         }
-
+        
         if (GameCore.state == GameCore.State.PLAY) {
             for (UIElement uielement : GameCore.map.getInstMenu().getUiElements()) {
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
                 Point mousePosition = e.getPoint();
-
+                
                 if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
                     uielement.hoverElement();
                     uielement.setMouseHoverPossible(false);

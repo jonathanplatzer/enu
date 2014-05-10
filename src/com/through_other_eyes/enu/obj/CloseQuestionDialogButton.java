@@ -40,6 +40,7 @@ public class CloseQuestionDialogButton extends Button{
     @Override
     public void clicked() {
         GameCore.questionDialog.setVisible(false);
+        GameCore.map.getInstMenu().getButtonGroup().selectButton(null);
     }
 
     @Override
