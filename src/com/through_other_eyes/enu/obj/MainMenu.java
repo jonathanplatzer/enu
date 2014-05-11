@@ -46,7 +46,9 @@ public class MainMenu extends GameComponent {
         this.background = ImageIO.read(new File(Resource.MAINMENU_BACKGROUND));
         this.uiElements = new ArrayList<>();
         PlayButton play = new PlayButton(Resource.PLAY, GameCore.Align.CENTER, 0, 80);
+        ExitButton exit = new ExitButton(Resource.PLAY, GameCore.Align.CENTER, 0, 160);
         uiElements.add(play);
+        uiElements.add(exit);
     }
 
     @Override
