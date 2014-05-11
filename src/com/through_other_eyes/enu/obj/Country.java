@@ -33,24 +33,14 @@ public class Country extends GameComponent {
     private double population;
     private double gdp;
     private BufferedImage image;
-
-    public Country(String name, BufferedImage image) {
-        this.name = name;
-        this.image = image;
-    }
-
-    public Country(String name, double population, int gdp, BufferedImage image) {
-        this.name = name;
-        this.population = population;
-        this.gdp = gdp;
-        this.image = image;
-    }
     
     public Country(String inputData) throws IOException {
         this.name = inputData.split(";")[0];
         this.population = Double.parseDouble(inputData.split(";")[1]);
         this.gdp = Double.parseDouble(inputData.split(";")[2]);
+        System.out.println(inputData.split(";")[3]);
         this.image = ImageIO.read(new File(inputData.split(";")[3]));
+        this.setVisible(Boolean.parseBoolean(inputData.split(";")[4]));
     }
 
     @Override
@@ -60,7 +50,7 @@ public class Country extends GameComponent {
     @Override
     public void drawObject(Graphics2D g2) {
         g2.drawImage(image, 0, 0, null);
-        System.out.println(this.toString());
+        //System.out.println(this.toString());
     }
 
     @Override
