@@ -19,6 +19,7 @@ package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.base.GameComponent;
+import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -42,9 +43,9 @@ public class MainMenu extends GameComponent {
     
     public MainMenu() throws IOException {
         super(new Point(0, 0), new Dimension(GameCore.WIDTH, GameCore.HEIGHT), true, true);
-        this.background = ImageIO.read(new File("res" + File.separator + "mainmenu" + File.separator + "eu_640x480.png"));
+        this.background = ImageIO.read(new File(Resource.MAINMENU_BACKGROUND));
         this.uiElements = new ArrayList<>();
-        PlayButton play = new PlayButton(ImageIO.read(new File("res" + File.separator + "mainmenu" + File.separator + "play.png")), GameCore.Align.CENTER, 0, 80);
+        PlayButton play = new PlayButton(Resource.PLAY, GameCore.Align.CENTER, 0, 80);
         uiElements.add(play);
     }
 

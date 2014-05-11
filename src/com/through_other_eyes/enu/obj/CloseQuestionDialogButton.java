@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
@@ -22,21 +21,22 @@ import com.through_other_eyes.enu.obj.base.Button;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  *
  * @author mwahlhuetter <m.wahl1996 at gmail.com>
  */
-public class CloseQuestionDialogButton extends Button{
+public class CloseQuestionDialogButton extends Button {
 
-    public CloseQuestionDialogButton(Point position, BufferedImage elementImage) {
+    public CloseQuestionDialogButton(Point position, String elementImage) throws IOException {
         super(position, elementImage);
     }
 
-    public CloseQuestionDialogButton(BufferedImage elementImage, GameCore.Align align, int offset, int y) {
+    public CloseQuestionDialogButton(String elementImage, GameCore.Align align, int offset, int y) throws IOException {
         super(elementImage, align, offset, y);
     }
-    
+
     @Override
     public void clicked() {
         GameCore.questionDialog.setVisible(false);

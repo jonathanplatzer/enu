@@ -18,6 +18,7 @@ package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.base.GameComponent;
+import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -29,6 +30,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 /**
@@ -37,32 +39,30 @@ import javax.imageio.ImageIO;
  */
 public class Map extends GameComponent {
 
-    private ArrayList<Country> countries = new ArrayList<>();
+    private HashMap<String, Country> countries = new HashMap<String, Country>();
     private ArrayList<UIElement> uiElements = new ArrayList<>();
     private Image background;
 
     public Map() throws IOException {
         loadMap();
-        InstitutionMenu instMenu = new InstitutionMenu(ImageIO.read(new File("res" + File.separator + "institutionmenu.png")), GameCore.Align.CENTER, 0, 0);
+        InstitutionMenu instMenu = new InstitutionMenu(ImageIO.read(new File(Resource.INSTITUION_MENU)), GameCore.Align.CENTER, 0, 0);
         uiElements.add(instMenu);
     }
 
-    public void loadMap() throws IOException {
-        background = Toolkit.getDefaultToolkit().createImage("res" + File.separator + "map" + File.separator + "background.gif");
+    private void loadMap() throws IOException {
+        background = Toolkit.getDefaultToolkit().createImage(Resource.MAP_WATER);
         
-        FileReader fr = new FileReader(new File("res" + File.separator + "map" + File.separator + "data"));
+        FileReader fr = new FileReader(new File(Resource.MAP_DATA));
         BufferedReader br = new BufferedReader(fr);
         String line = "";
         
         while ((line = br.readLine()) != null) {
-            countries.add(new Country(line));
+            countries.put(line.split(";")[0],new Country(line));
         }
     }
 
     @Override
     public void update() {
-//        x = x!=1 ? 1 : -1;
-//        y = x!=1 ? 1 : -1;
     }
 
     int x, y;
@@ -70,8 +70,8 @@ public class Map extends GameComponent {
     @Override
     public void drawObject(Graphics2D g2) {
         g2.drawImage(background, 0, 0, null);
-        for (Country country : countries) {
-            if(country.isVisible()) {
+        for (Country country : countries.values()) {
+            if(country.isEuMember()) {
                 country.drawObject(g2);
             }
         }

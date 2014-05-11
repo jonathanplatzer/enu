@@ -32,15 +32,15 @@ public class Country extends GameComponent {
     private String name;
     private double population;
     private double gdp;
+    private boolean euMember;
     private BufferedImage image;
     
     public Country(String inputData) throws IOException {
         this.name = inputData.split(";")[0];
         this.population = Double.parseDouble(inputData.split(";")[1]);
         this.gdp = Double.parseDouble(inputData.split(";")[2]);
-        System.out.println(inputData.split(";")[3]);
-        this.image = ImageIO.read(new File(inputData.split(";")[3]));
-        this.setVisible(Boolean.parseBoolean(inputData.split(";")[4]));
+        this.euMember = Boolean.parseBoolean(inputData.split(";")[3]);
+        this.image = ImageIO.read(new File(inputData.split(";")[4]));
     }
 
     @Override
@@ -50,7 +50,6 @@ public class Country extends GameComponent {
     @Override
     public void drawObject(Graphics2D g2) {
         g2.drawImage(image, 0, 0, null);
-        //System.out.println(this.toString());
     }
 
     @Override
@@ -71,6 +70,18 @@ public class Country extends GameComponent {
 
     public void setGdp(double gdp) {
         this.gdp = gdp;
+    }
+
+    public boolean isEuMember() {
+        return euMember;
+    }
+
+    public void setEuMember(boolean euMember) {
+        this.euMember = euMember;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

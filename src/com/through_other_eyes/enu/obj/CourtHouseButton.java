@@ -31,23 +31,14 @@ import javax.imageio.ImageIO;
  */
 public class CourtHouseButton extends ToggleButton{
 
-    public CourtHouseButton(Point position, BufferedImage elementImage, BufferedImage elementImageToggle) throws IOException {
-        super(position, elementImage, elementImageToggle);
-        setHoverImage(ImageIO.read(new File("res" + File.separator + "gerichtshof_hovered.png")));
+    public CourtHouseButton(Point position, String elementImage, String hoverImage, String toggleImage) throws IOException {
+        super(position, elementImage, hoverImage, toggleImage);
     }
 
-    public CourtHouseButton(BufferedImage elementImage, BufferedImage elementImageToggle, GameCore.Align align, int offset, int y) throws IOException {
-        super(elementImage, elementImageToggle, align, offset, y);
-        setHoverImage(ImageIO.read(new File("res" + File.separator + "gerichtshof_hovered.png")));
+    public CourtHouseButton(String elementImage, String hoverImage, String toggleImage, GameCore.Align align, int offset, int y) throws IOException {
+        super(elementImage, hoverImage, toggleImage, align, offset, y);
     }
-
-    @Override
-    public void hoverElement() {
-        if (isMouseHoverPossible()) {
-            setState(GameCore.UIElementState.HOVER);
-        }
-    }
-
+    
     @Override
     public void leaveElement() {
         setState(GameCore.UIElementState.DEFAULT);

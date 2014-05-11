@@ -32,11 +32,11 @@ import java.util.ArrayList;
  */
 public class ExitButton extends Button{
     
-    public ExitButton(Point position, BufferedImage elementImage) throws IOException {
+    public ExitButton(Point position, String elementImage) throws IOException {
         super(position, elementImage);
     }
 
-    public ExitButton(BufferedImage elementImage, GameCore.Align align, int offset, int y) {
+    public ExitButton(String elementImage, GameCore.Align align, int offset, int y) throws IOException {
         super(elementImage, align, offset, y);
     }
 
@@ -54,5 +54,4 @@ public class ExitButton extends Button{
     public void leaveElement() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

@@ -18,10 +18,10 @@
 package com.through_other_eyes.enu.obj.base;
 
 import com.through_other_eyes.enu.core.GameCore;
-import com.through_other_eyes.enu.core.GameCore.UIElementState;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * @author mwahlhuetter
@@ -34,7 +34,7 @@ public abstract class UIElement extends GameComponent {
     private BufferedImage hoverImage;
     private GameCore.Align align;
     private int offset;
-
+    
     public UIElement(Point position, BufferedImage elementImage) {
         super(position, new Dimension(elementImage.getWidth(), elementImage.getHeight()));
         mouseHoverPossible = true;
@@ -47,6 +47,25 @@ public abstract class UIElement extends GameComponent {
         super(new Point((GameCore.WIDTH / 2) - (elementImage.getWidth() / 2) + offset, y), new Dimension(elementImage.getWidth(), elementImage.getHeight()));
         mouseHoverPossible = true;
         this.elementImage = elementImage;
+        this.align = align;
+        this.offset = offset;
+        calculatePosition();
+    }
+
+    public UIElement(Point position, BufferedImage elementImage, BufferedImage hoverImage) {
+        super(position, new Dimension(elementImage.getWidth(), elementImage.getHeight()));
+        mouseHoverPossible = true;
+        this.align = null;
+        this.offset = 0;
+        this.elementImage = elementImage;
+        this.hoverImage = hoverImage;
+    }
+
+    public UIElement(BufferedImage elementImage, BufferedImage hoverImage, GameCore.Align align, int offset, int y) {
+        super(new Point((GameCore.WIDTH / 2) - (elementImage.getWidth() / 2) + offset, y), new Dimension(elementImage.getWidth(), elementImage.getHeight()));
+        mouseHoverPossible = true;
+        this.elementImage = elementImage;
+        this.hoverImage = hoverImage;
         this.align = align;
         this.offset = offset;
         calculatePosition();

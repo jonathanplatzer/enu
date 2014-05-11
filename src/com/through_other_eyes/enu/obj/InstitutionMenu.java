@@ -14,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.base.ButtonGroup;
 import com.through_other_eyes.enu.obj.base.GameComponent;
+import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -34,28 +34,26 @@ import javax.imageio.ImageIO;
  *
  * @author mwahlhuetter
  */
-public class InstitutionMenu extends UIElement{
-    
+public class InstitutionMenu extends UIElement {
+
     private ArrayList<UIElement> uiElements = new ArrayList<>();
     private ButtonGroup buttonGroup;
-    
+
     public InstitutionMenu(BufferedImage backgroundImage, GameCore.Align align, int offset, int y) throws IOException {
         super(backgroundImage, align, offset, y);
         this.buttonGroup = new ButtonGroup();
-        CentralBankButton cbb = new CentralBankButton(ImageIO.read(new File("res" + File.separator + "zentralbank.png")), ImageIO.read(new File("res" + File.separator + "zentralbank_toggled.png")), GameCore.Align.CENTER, -40, 7);
-        CourtHouseButton chb = new CourtHouseButton(ImageIO.read(new File("res" + File.separator + "gerichtshof.png")), ImageIO.read(new File("res" + File.separator + "gerichtshof_toggled.png")), GameCore.Align.CENTER, 40, 7);
-        
+        CentralBankButton cbb = new CentralBankButton(Resource.CENTRALBANK, Resource.CENTRALBANK_HOVER, Resource.CENTRALBANK_TOGGLE, GameCore.Align.CENTER, -40, 7);
+        CourtHouseButton chb = new CourtHouseButton(Resource.COURTHOUSE, Resource.COURTHOUSE_HOVER, Resource.COURTHOUSE_TOGGLE, GameCore.Align.CENTER, 40, 7);
+
         uiElements.add(cbb);
         uiElements.add(chb);
         //uiElements.add(cbb4);
-        
+
         buttonGroup.addButton(cbb);
         buttonGroup.addButton(chb);
         //buttonGroup.addButton(cbb4);
     }
 
-    
-    
     @Override
     public void update() {
     }
@@ -63,10 +61,8 @@ public class InstitutionMenu extends UIElement{
     @Override
     public void drawObject(Graphics2D g2) {
         g2.drawImage(getElementImage(), getPosition().x, getPosition().y, null);
-        for(UIElement uiElement : uiElements)
-        {
-            if(uiElement.isVisible())
-            {
+        for (UIElement uiElement : uiElements) {
+            if (uiElement.isVisible()) {
                 uiElement.drawObject(g2);
             }
         }

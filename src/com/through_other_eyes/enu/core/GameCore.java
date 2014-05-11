@@ -22,6 +22,7 @@ import com.through_other_eyes.enu.obj.Map;
 import com.through_other_eyes.enu.obj.QuestionDialog;
 import com.through_other_eyes.enu.obj.SplashScreen;
 import com.through_other_eyes.enu.obj.base.GameComponent;
+import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
 import com.through_other_eyes.enu.util.KeyInputController;
 import com.through_other_eyes.enu.util.MouseInputController;
@@ -183,7 +184,7 @@ public class GameCore extends JFrame {
     private void initializeMap() throws IOException {
         map = new Map();
         map.setUpdateRequired(false);
-        questionDialog = new QuestionDialog(ImageIO.read(new File("res" + File.separator + "questiondialog.png")), GameCore.Align.CENTER, 0, 60);
+        questionDialog = new QuestionDialog(ImageIO.read(new File(Resource.QUESTION_DIALOG)), GameCore.Align.CENTER, 0, 60);
         //questionDialog.setVisible(true);
         
         playRenderObjects.add(map);

@@ -37,14 +37,12 @@ import javax.imageio.ImageIO;
  */
 public class CentralBankButton extends ToggleButton {
 
-    public CentralBankButton(Point position, BufferedImage elementImage, BufferedImage elementImageToggle) throws IOException {
-        super(position, elementImage, elementImageToggle);
-        setHoverImage(ImageIO.read(new File("res" + File.separator + "zentralbank_hovered.png")));
+    public CentralBankButton(Point position, String elementImage, String hoverImage, String toggleImage) throws IOException {
+        super(position, elementImage, hoverImage, toggleImage);
     }
 
-    public CentralBankButton(BufferedImage elementImage, BufferedImage elementImageToggle, GameCore.Align align, int offset, int y) throws IOException {
-        super(elementImage, elementImageToggle, align, offset, y);
-        setHoverImage(ImageIO.read(new File("res" + File.separator + "zentralbank_hovered.png")));
+    public CentralBankButton(String elementImage, String hoverImage, String toggleImage, GameCore.Align align, int offset, int y) throws IOException {
+        super(elementImage, hoverImage, toggleImage, align, offset, y);
     }
 
     @Override
@@ -58,13 +56,6 @@ public class CentralBankButton extends ToggleButton {
             GameCore.questionDialog.setVisible(true);
         }
         super.clicked();
-    }
-
-    @Override
-    public void hoverElement() {
-        if (isMouseHoverPossible()) {
-            setState(GameCore.UIElementState.HOVER);
-        }
     }
 
     @Override

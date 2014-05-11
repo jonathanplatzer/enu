@@ -21,6 +21,9 @@ import com.through_other_eyes.enu.core.GameCore;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -28,18 +31,18 @@ import java.awt.image.BufferedImage;
  */
 public abstract class ToggleButton extends Button {
 
-    private BufferedImage elementImageToggle;
+    private BufferedImage toggleImage;
     private boolean toggled = false;
     private GameCore.UIElementState State = GameCore.UIElementState.DEFAULT;
 
-    public ToggleButton(Point position, BufferedImage elementImage, BufferedImage elementImageToggle) {
-        super(position, elementImage);
-        this.elementImageToggle = elementImageToggle;
+    public ToggleButton(Point position, String elementImage, String hoverImage, String toggleImage) throws IOException {
+        super(position, elementImage, hoverImage);
+        this.toggleImage = ImageIO.read(new File(toggleImage));
     }
 
-    public ToggleButton(BufferedImage elementImage, BufferedImage elementImageToggle, GameCore.Align align, int offset, int y) {
-        super(elementImage, align, offset, y);
-        this.elementImageToggle = elementImageToggle;
+    public ToggleButton(String elementImage, String hoverImage, String toggleImage, GameCore.Align align, int offset, int y) throws IOException {
+        super(elementImage, hoverImage, align, offset, y);
+        this.toggleImage = ImageIO.read(new File(toggleImage));
     }
 
     @Override
@@ -48,7 +51,11 @@ public abstract class ToggleButton extends Button {
     }
 
     @Override
-    public abstract void hoverElement();
+    public void hoverElement() {
+        if (isMouseHoverPossible()) {
+            setState(GameCore.UIElementState.HOVER);
+        }
+    }
 
     @Override
     public abstract void leaveElement();
@@ -56,7 +63,7 @@ public abstract class ToggleButton extends Button {
     @Override
     public void drawObject(Graphics2D g2) {
         if (toggled) {
-            g2.drawImage(elementImageToggle, getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
+            g2.drawImage(toggleImage, getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
         } else {
             switch (State) {
                 case DEFAULT:

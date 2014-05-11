@@ -18,6 +18,7 @@ package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.base.GameComponent;
+import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -39,14 +40,14 @@ public class QuestionDialog extends UIElement {
 
     public QuestionDialog(Point position, BufferedImage elementImage) throws IOException {
         super(position, elementImage);
-        cqdb = new CloseQuestionDialogButton(ImageIO.read(new File("res" + File.separator + "closequestiondialogbutton.png")), GameCore.Align.CENTER, 127, 64);
+        cqdb = new CloseQuestionDialogButton(Resource.QUESTION_DIALOG_CLOSE, GameCore.Align.CENTER, 127, 64);
         dialogElements.add(cqdb);
         setVisible(false);
     }
 
     public QuestionDialog(BufferedImage elementImage, GameCore.Align align, int offset, int y) throws IOException {
         super(elementImage, align, offset, y);
-        cqdb = new CloseQuestionDialogButton(ImageIO.read(new File("res" + File.separator + "closequestiondialogbutton.png")), GameCore.Align.CENTER, 127, 64);
+        cqdb = new CloseQuestionDialogButton(Resource.QUESTION_DIALOG_CLOSE, GameCore.Align.CENTER, 127, 64);
         dialogElements.add(cqdb);
         setVisible(false);
     }
