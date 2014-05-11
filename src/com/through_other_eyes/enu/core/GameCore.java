@@ -28,6 +28,8 @@ import com.through_other_eyes.enu.util.KeyInputController;
 import com.through_other_eyes.enu.util.MouseInputController;
 import com.through_other_eyes.enu.util.WindowController;
 import java.awt.DisplayMode;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
@@ -82,11 +84,12 @@ public class GameCore extends JFrame {
     public static State state = State.SPLASHSCREEN;
     public static int fps;
     public static float dt;
-    public static boolean debugMode = true;
+    public static boolean debugMode = false;
     public static long startTime;
     public static MainMenu mainMenu;
     public static Map map;
     public static QuestionDialog questionDialog;
+    public static Font font;
 
     // Instances for fullscreen handling
     private final GraphicsDevice device;
@@ -115,7 +118,7 @@ public class GameCore extends JFrame {
 
         try {
             initialize();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(GameCore.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -123,7 +126,7 @@ public class GameCore extends JFrame {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Initialization">
-    private void initialize() throws IOException {
+    private void initialize() throws IOException, FontFormatException {
         initializeRenderer();
         initializeListeners();
         initializeSplashScreen();
@@ -175,15 +178,14 @@ public class GameCore extends JFrame {
         splashscreenRenderObjects.add(new SplashScreen());
     }
 
-    private void initializeMainMenu() throws IOException {
-        mainMenu = new MainMenu();
-        
+    private void initializeMainMenu() throws IOException, FontFormatException {
+        mainMenu = new MainMenu();        
         mainMenuRenderObjects.add(mainMenu);
+        font = Font.createFont(Font.TRUETYPE_FONT, new File(Resource.FONT));
     }
 
     private void initializeMap() throws IOException {
         map = new Map();
-        map.setUpdateRequired(false);
         questionDialog = new QuestionDialog(ImageIO.read(new File(Resource.QUESTION_DIALOG)), GameCore.Align.CENTER, 0, 60);
         //questionDialog.setVisible(true);
         

@@ -20,6 +20,8 @@ import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -42,6 +44,8 @@ public class Map extends GameComponent {
     private HashMap<String, Country> countries = new HashMap<String, Country>();
     private ArrayList<UIElement> uiElements = new ArrayList<>();
     private Image background;
+    private Font font = GameCore.font.deriveFont(12f);
+    private double population;
 
     public Map() throws IOException {
         loadMap();
@@ -63,6 +67,11 @@ public class Map extends GameComponent {
 
     @Override
     public void update() {
+        population = 0;
+        for (Country country : countries.values()) {
+            if(country.isEuMember())
+            population += country.getPopulation();
+        }
     }
 
     int x, y;
@@ -80,6 +89,9 @@ public class Map extends GameComponent {
                 uilement.drawObject(g2);
             }
         }
+        g2.setFont(font);
+        g2.setColor(Color.RED);
+        g2.drawString(String.format("Population: %.0f mil.", population), 40, 40);
     }
 
     @Override

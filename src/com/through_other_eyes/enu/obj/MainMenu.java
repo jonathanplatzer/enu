@@ -21,12 +21,16 @@ import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
@@ -38,7 +42,7 @@ public class MainMenu extends GameComponent {
 
     private BufferedImage background;
     private ArrayList<UIElement> uiElements;
-
+    
     public boolean ANIMATE = false;
     
     public MainMenu() throws IOException {

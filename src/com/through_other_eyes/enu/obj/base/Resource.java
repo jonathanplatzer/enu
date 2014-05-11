@@ -46,4 +46,7 @@ public class Resource {
     // MAP
     public static final String MAP_WATER = "res" + File.separator + "map" + File.separator + "background.gif";
     public static final String MAP_DATA = "res" + File.separator + "map" + File.separator + "data";
+    
+    // FONT
+    public static final String FONT = "res" + File.separator + "font.ttf";
 }
