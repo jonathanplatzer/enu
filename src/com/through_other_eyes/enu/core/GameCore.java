@@ -181,7 +181,7 @@ public class GameCore extends JFrame {
     }
 
     private void initializeMap() throws IOException {
-        map = new Map(ImageIO.read(new File("res" + File.separator + "map_big.png")));
+        map = new Map();
         map.setUpdateRequired(false);
         questionDialog = new QuestionDialog(ImageIO.read(new File("res" + File.separator + "questiondialog.png")), GameCore.Align.CENTER, 0, 60);
         //questionDialog.setVisible(true);

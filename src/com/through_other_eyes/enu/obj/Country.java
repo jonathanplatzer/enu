@@ -14,18 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.obj.base.GameComponent;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * @author jplatzer
  * @date 10.05.2014
  */
 public class Country extends GameComponent {
+
     private String name;
     private double population;
     private double gdp;
@@ -35,7 +38,7 @@ public class Country extends GameComponent {
         this.name = name;
         this.image = image;
     }
-    
+
     public Country(String name, double population, int gdp, BufferedImage image) {
         this.name = name;
         this.population = population;
@@ -43,13 +46,21 @@ public class Country extends GameComponent {
         this.image = image;
     }
     
+    public Country(String inputData) throws IOException {
+        this.name = inputData.split(";")[0];
+        this.population = Double.parseDouble(inputData.split(";")[1]);
+        this.gdp = Double.parseDouble(inputData.split(";")[2]);
+        this.image = ImageIO.read(new File(inputData.split(";")[3]));
+    }
+
     @Override
     public void update() {
     }
 
     @Override
     public void drawObject(Graphics2D g2) {
-        g2.drawImage(image, this.getPosition().x, this.getPosition().y, null);
+        g2.drawImage(image, 0, 0, null);
+        System.out.println(this.toString());
     }
 
     @Override
@@ -71,6 +82,10 @@ public class Country extends GameComponent {
     public void setGdp(double gdp) {
         this.gdp = gdp;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Country{" + "name=" + name + ", population=" + population + ", gdp=" + gdp + '}';
+    }
+
 }

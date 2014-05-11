@@ -23,7 +23,10 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
@@ -38,7 +41,7 @@ public class Map extends GameComponent {
     private ArrayList<UIElement> uiElements = new ArrayList<>();
     private Image background;
 
-    public Map(BufferedImage mapImage) throws IOException {
+    public Map() throws IOException {
         loadMap();
         InstitutionMenu instMenu = new InstitutionMenu(ImageIO.read(new File("res" + File.separator + "institutionmenu.png")), GameCore.Align.CENTER, 0, 0);
         uiElements.add(instMenu);
@@ -46,10 +49,13 @@ public class Map extends GameComponent {
 
     public void loadMap() throws IOException {
         background = Toolkit.getDefaultToolkit().createImage("res" + File.separator + "map" + File.separator + "background.gif");
-        for (final File file : new File("res" + File.separator + "map").listFiles()) {
-            if(file.isFile() && !file.getName().equals("background.gif")) {
-                countries.add(new Country(file.getName(), ImageIO.read(file)));
-            }
+        
+        FileReader fr = new FileReader(new File("res" + File.separator + "map" + File.separator + "data"));
+        BufferedReader br = new BufferedReader(fr);
+        String line = "";
+        
+        while ((line = br.readLine()) != null) {
+            countries.add(new Country(line));
         }
     }
 
