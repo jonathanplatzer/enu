@@ -18,18 +18,10 @@
 package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
-import com.through_other_eyes.enu.core.GamePanel;
-import com.through_other_eyes.enu.obj.base.ButtonGroup;
 import com.through_other_eyes.enu.obj.base.ToggleButton;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -37,23 +29,28 @@ import javax.imageio.ImageIO;
  */
 public class CentralBankButton extends ToggleButton {
 
-    public CentralBankButton(Point position, String elementImage, String hoverImage, String toggleImage) throws IOException {
+    public CentralBankButton(Point position, File elementImage, File hoverImage, File toggleImage) throws IOException {
         super(position, elementImage, hoverImage, toggleImage);
     }
 
-    public CentralBankButton(String elementImage, String hoverImage, String toggleImage, GameCore.Align align, int offset, int y) throws IOException {
+    public CentralBankButton(File elementImage, File hoverImage, File toggleImage, GameCore.Align align, int offset, int y) throws IOException {
         super(elementImage, hoverImage, toggleImage, align, offset, y);
     }
 
     @Override
+    public void hoverElement() {
+        super.hoverElement();
+    }
+    
+    @Override
     public void clicked() {
         if(isToggled())
         {
-            GameCore.questionDialog.setVisible(false);
+            GameCore.questionDialog.dispose();
         }
         else
         {
-            GameCore.questionDialog.setVisible(true);
+            GameCore.questionDialog.show("European Centralbank", "TEST");
         }
         super.clicked();
     }

@@ -21,16 +21,12 @@ import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
@@ -47,7 +43,7 @@ public class MainMenu extends GameComponent {
     
     public MainMenu() throws IOException {
         super(new Point(0, 0), new Dimension(GameCore.WIDTH, GameCore.HEIGHT), true, true);
-        this.background = ImageIO.read(new File(Resource.MAINMENU_BACKGROUND));
+        this.background = ImageIO.read(Resource.MAINMENU_BACKGROUND);
         this.uiElements = new ArrayList<>();
         PlayButton play = new PlayButton(Resource.PLAY, GameCore.Align.CENTER, 0, 80);
         ExitButton exit = new ExitButton(Resource.PLAY, GameCore.Align.CENTER, 0, 160);

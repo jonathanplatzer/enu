@@ -18,12 +18,10 @@ package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.base.Button;
-import com.through_other_eyes.enu.obj.base.UIElement;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,11 +31,11 @@ import java.util.logging.Logger;
  */
 public class ExitButton extends Button {
 
-    public ExitButton(Point position, String elementImage) throws IOException {
+    public ExitButton(Point position, File elementImage) throws IOException {
         super(position, elementImage);
     }
 
-    public ExitButton(String elementImage, GameCore.Align align, int offset, int y) throws IOException {
+    public ExitButton(File elementImage, GameCore.Align align, int offset, int y) throws IOException {
         super(elementImage, align, offset, y);
     }
 

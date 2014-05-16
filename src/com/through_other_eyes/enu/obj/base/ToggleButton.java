@@ -35,14 +35,14 @@ public abstract class ToggleButton extends Button {
     private boolean toggled = false;
     private GameCore.UIElementState State = GameCore.UIElementState.DEFAULT;
 
-    public ToggleButton(Point position, String elementImage, String hoverImage, String toggleImage) throws IOException {
+    public ToggleButton(Point position, File elementImage, File hoverImage, File toggleImage) throws IOException {
         super(position, elementImage, hoverImage);
-        this.toggleImage = ImageIO.read(new File(toggleImage));
+        this.toggleImage = ImageIO.read(toggleImage);
     }
 
-    public ToggleButton(String elementImage, String hoverImage, String toggleImage, GameCore.Align align, int offset, int y) throws IOException {
+    public ToggleButton(File elementImage, File hoverImage, File toggleImage, GameCore.Align align, int offset, int y) throws IOException {
         super(elementImage, hoverImage, align, offset, y);
-        this.toggleImage = ImageIO.read(new File(toggleImage));
+        this.toggleImage = ImageIO.read(toggleImage);
     }
 
     @Override

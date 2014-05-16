@@ -17,15 +17,13 @@
 
 package com.through_other_eyes.enu.core;
 
-import com.through_other_eyes.enu.obj.MainMenu;
-import com.through_other_eyes.enu.obj.Map;
-import com.through_other_eyes.enu.obj.SplashScreen;
 import com.through_other_eyes.enu.obj.base.GameComponent;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -48,7 +46,8 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g2 = (Graphics2D) g;
-
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+        
         switch (GameCore.state) {
             case SPLASHSCREEN:
                 for (GameComponent gameComponent : renderObjects.get(0)) {

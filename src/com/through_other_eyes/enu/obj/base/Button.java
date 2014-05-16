@@ -18,7 +18,6 @@
 package com.through_other_eyes.enu.obj.base;
 
 import com.through_other_eyes.enu.core.GameCore;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -33,20 +32,20 @@ import javax.imageio.ImageIO;
  */
 public abstract class Button extends UIElement {
     
-    public Button(Point position, String elementImage) throws IOException {
-        super(position, ImageIO.read(new File(elementImage)));
+    public Button(Point position, File elementImage) throws IOException {
+        super(position, ImageIO.read(elementImage));
     }
     
-    public Button(String elementImage, GameCore.Align align, int offset, int y) throws IOException {
-        super(ImageIO.read(new File(elementImage)), align, offset, y);
+    public Button(File elementImage, GameCore.Align align, int offset, int y) throws IOException {
+        super(ImageIO.read(elementImage), align, offset, y);
     }
     
-    public Button(Point position, String elementImage, String hoverImage) throws IOException {
-        super(position, ImageIO.read(new File(elementImage)), ImageIO.read(new File(hoverImage)));
+    public Button(Point position, File elementImage, File hoverImage) throws IOException {
+        super(position, ImageIO.read(elementImage), ImageIO.read(hoverImage));
     }
     
-    public Button(String elementImage, String hoverImage, GameCore.Align align, int offset, int y) throws IOException {
-        super(ImageIO.read(new File(elementImage)), ImageIO.read(new File(hoverImage)), align, offset, y);
+    public Button(File elementImage, File hoverImage, GameCore.Align align, int offset, int y) throws IOException {
+        super(ImageIO.read(elementImage), ImageIO.read(hoverImage), align, offset, y);
     }
 
     //konstrukt

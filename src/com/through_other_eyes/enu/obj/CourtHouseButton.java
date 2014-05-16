@@ -20,10 +20,8 @@ package com.through_other_eyes.enu.obj;
 import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.base.ToggleButton;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -31,12 +29,30 @@ import javax.imageio.ImageIO;
  */
 public class CourtHouseButton extends ToggleButton{
 
-    public CourtHouseButton(Point position, String elementImage, String hoverImage, String toggleImage) throws IOException {
+    public CourtHouseButton(Point position, File elementImage, File hoverImage, File toggleImage) throws IOException {
         super(position, elementImage, hoverImage, toggleImage);
     }
 
-    public CourtHouseButton(String elementImage, String hoverImage, String toggleImage, GameCore.Align align, int offset, int y) throws IOException {
+    public CourtHouseButton(File elementImage, File hoverImage, File toggleImage, GameCore.Align align, int offset, int y) throws IOException {
         super(elementImage, hoverImage, toggleImage, align, offset, y);
+    }
+
+    @Override
+    public void clicked() {
+        if(isToggled())
+        {
+            GameCore.questionDialog.dispose();
+        }
+        else
+        {
+            GameCore.questionDialog.show("European Courthouse", "TEST");
+        }
+        super.clicked();
+    }
+    
+    @Override
+    public void hoverElement() {
+        super.hoverElement();
     }
     
     @Override

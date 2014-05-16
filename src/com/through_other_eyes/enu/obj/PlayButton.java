@@ -23,6 +23,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,11 +34,11 @@ import java.util.logging.Logger;
  */
 public class PlayButton extends Button {
 
-    public PlayButton(Point position, String elementImage) throws IOException {
+    public PlayButton(Point position, File elementImage) throws IOException {
         super(position, elementImage);
     }
 
-    public PlayButton(String elementImage,GameCore.Align align, int offset, int y) throws IOException {
+    public PlayButton(File elementImage,GameCore.Align align, int offset, int y) throws IOException {
         super(elementImage, align, offset, y);
     }
 

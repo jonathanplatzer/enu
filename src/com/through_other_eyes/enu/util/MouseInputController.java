@@ -18,11 +18,8 @@
 package com.through_other_eyes.enu.util;
 
 import com.through_other_eyes.enu.core.GameCore;
-import com.through_other_eyes.enu.obj.InstitutionMenu;
 import com.through_other_eyes.enu.obj.CloseQuestionDialogButton;
-import com.through_other_eyes.enu.obj.base.Button;
 import com.through_other_eyes.enu.obj.base.ButtonGroup;
-import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.obj.base.UIElement;
 import java.awt.Dimension;
 import java.awt.Point;

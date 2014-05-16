@@ -25,10 +25,8 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,14 +47,14 @@ public class Map extends GameComponent {
 
     public Map() throws IOException {
         loadMap();
-        InstitutionMenu instMenu = new InstitutionMenu(ImageIO.read(new File(Resource.INSTITUION_MENU)), GameCore.Align.CENTER, 0, 0);
+        InstitutionMenu instMenu = new InstitutionMenu(ImageIO.read(Resource.INSTITUION_MENU), GameCore.Align.CENTER, 0, 0);
         uiElements.add(instMenu);
     }
 
     private void loadMap() throws IOException {
-        background = Toolkit.getDefaultToolkit().createImage(Resource.MAP_WATER);
+        background = Toolkit.getDefaultToolkit().createImage(Resource.MAP_WATER.getPath());
         
-        FileReader fr = new FileReader(new File(Resource.MAP_DATA));
+        FileReader fr = new FileReader(Resource.MAP_DATA);
         BufferedReader br = new BufferedReader(fr);
         String line = "";
         

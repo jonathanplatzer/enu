@@ -18,9 +18,8 @@ package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.base.Button;
-import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -29,11 +28,11 @@ import java.io.IOException;
  */
 public class CloseQuestionDialogButton extends Button {
 
-    public CloseQuestionDialogButton(Point position, String elementImage) throws IOException {
+    public CloseQuestionDialogButton(Point position, File elementImage) throws IOException {
         super(position, elementImage);
     }
 
-    public CloseQuestionDialogButton(String elementImage, GameCore.Align align, int offset, int y) throws IOException {
+    public CloseQuestionDialogButton(File elementImage, GameCore.Align align, int offset, int y) throws IOException {
         super(elementImage, align, offset, y);
     }
 

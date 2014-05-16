@@ -17,9 +17,10 @@
 package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
-import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -35,8 +36,10 @@ import javax.imageio.ImageIO;
 public class QuestionDialog extends UIElement {
 
     private ArrayList<UIElement> dialogElements = new ArrayList<>();
-    private String Text;
+    private String title;
+    private String question;
     private CloseQuestionDialogButton cqdb;
+    private Font font = GameCore.font.deriveFont(12f);
 
     public QuestionDialog(Point position, BufferedImage elementImage) throws IOException {
         super(position, elementImage);
@@ -71,7 +74,10 @@ public class QuestionDialog extends UIElement {
 
     @Override
     public void drawObject(Graphics2D g2) {
+        g2.setFont(font);
+        g2.setColor(Color.WHITE);
         g2.drawImage(getElementImage(), getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
+        g2.drawString(title, getPosition().x+5, getPosition().y+13);
         cqdb.drawObject(g2);
     }
 
@@ -81,5 +87,19 @@ public class QuestionDialog extends UIElement {
 
     public ArrayList<UIElement> getDialogElements() {
         return dialogElements;
+    }
+    
+    public void show(String title, String question)
+    {
+        this.title = title;
+        this.question = question;
+        setPosition(new Point(GameCore.WIDTH/2-getDimension().width/2, 60));
+        cqdb.setPosition(new Point(GameCore.WIDTH/2 + 118,64));
+        setVisible(true);
+    }
+    
+    public void dispose()
+    {
+        setVisible(false);
     }
 }

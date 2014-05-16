@@ -20,7 +20,6 @@ package com.through_other_eyes.enu.util;
 import com.through_other_eyes.enu.core.GameCore;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JFrame;
 
 /**
  * @author mwahlhuetter

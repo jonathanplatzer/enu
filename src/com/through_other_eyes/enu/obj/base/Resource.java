@@ -26,27 +26,27 @@ import java.io.File;
 public class Resource {
     
     // UI
-    public static final String QUESTION_DIALOG = "res" + File.separator + "questiondialog.png";
-    public static final String QUESTION_DIALOG_CLOSE = "res" + File.separator + "closequestiondialogbutton.png";
+    public static final File QUESTION_DIALOG = new File("res" + File.separator + "questiondialog.png");
+    public static final File QUESTION_DIALOG_CLOSE = new File("res" + File.separator + "closequestiondialogbutton.png");
     
-    public static final String INSTITUION_MENU = "res" + File.separator + "institutionmenu.png";
+    public static final File INSTITUION_MENU = new File("res" + File.separator + "institutionmenu.png");
     
-    public static final String CENTRALBANK = "res" + File.separator + "zentralbank.png";
-    public static final String CENTRALBANK_HOVER = "res" + File.separator + "zentralbank_hovered.png";
-    public static final String CENTRALBANK_TOGGLE = "res" + File.separator + "zentralbank_toggled.png";
+    public static final File CENTRALBANK = new File("res" + File.separator + "zentralbank.png");
+    public static final File CENTRALBANK_HOVER = new File("res" + File.separator + "zentralbank_hovered.png");
+    public static final File CENTRALBANK_TOGGLE = new File("res" + File.separator + "zentralbank_toggled.png");
     
-    public static final String COURTHOUSE = "res" + File.separator + "gerichtshof.png";
-    public static final String COURTHOUSE_HOVER = "res" + File.separator + "gerichtshof_hovered.png";
-    public static final String COURTHOUSE_TOGGLE = "res" + File.separator + "gerichtshof_toggled.png";
+    public static final File COURTHOUSE = new File("res" + File.separator + "gerichtshof.png");
+    public static final File COURTHOUSE_HOVER = new File("res" + File.separator + "gerichtshof_hovered.png");
+    public static final File COURTHOUSE_TOGGLE = new File("res" + File.separator + "gerichtshof_toggled.png");
     
-    public static final String PLAY = "res" + File.separator + "mainmenu" + File.separator + "play.png";
+    public static final File PLAY = new File("res" + File.separator + "mainmenu" + File.separator + "play.png");
     
-    public static final String MAINMENU_BACKGROUND = "res" + File.separator + "mainmenu" + File.separator + "eu_640x480.png";
+    public static final File MAINMENU_BACKGROUND = new File("res" + File.separator + "mainmenu" + File.separator + "eu_640x480.png");
     
     // MAP
-    public static final String MAP_WATER = "res" + File.separator + "map" + File.separator + "background.gif";
-    public static final String MAP_DATA = "res" + File.separator + "map" + File.separator + "data";
+    public static final File MAP_WATER = new File("res" + File.separator + "map" + File.separator + "background.gif");
+    public static final File MAP_DATA = new File("res" + File.separator + "map" + File.separator + "data");
     
     // FONT
-    public static final String FONT = "res" + File.separator + "font.ttf";
+    public static final File FONT = new File("res" + File.separator + "font.ttf");
 }

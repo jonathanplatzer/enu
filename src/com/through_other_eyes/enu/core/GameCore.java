@@ -181,12 +181,12 @@ public class GameCore extends JFrame {
     private void initializeMainMenu() throws IOException, FontFormatException {
         mainMenu = new MainMenu();        
         mainMenuRenderObjects.add(mainMenu);
-        font = Font.createFont(Font.TRUETYPE_FONT, new File(Resource.FONT));
+        font = Font.createFont(Font.TRUETYPE_FONT, Resource.FONT);
     }
 
     private void initializeMap() throws IOException {
         map = new Map();
-        questionDialog = new QuestionDialog(ImageIO.read(new File(Resource.QUESTION_DIALOG)), GameCore.Align.CENTER, 0, 60);
+        questionDialog = new QuestionDialog(ImageIO.read(Resource.QUESTION_DIALOG), GameCore.Align.CENTER, 0, 60);
         //questionDialog.setVisible(true);
         
         playRenderObjects.add(map);
