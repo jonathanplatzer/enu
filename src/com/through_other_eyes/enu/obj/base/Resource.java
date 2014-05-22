@@ -43,6 +43,8 @@ public class Resource {
     
     public static final File MAINMENU_BACKGROUND = new File("res" + File.separator + "mainmenu" + File.separator + "eu_640x480.png");
     
+    public static final File STAISTICSBAR = new File("res" + File.separator + "statisticsbar.png");
+    
     // MAP
     public static final File MAP_WATER = new File("res" + File.separator + "map" + File.separator + "background.gif");
     public static final File MAP_DATA = new File("res" + File.separator + "map" + File.separator + "data");

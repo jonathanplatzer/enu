@@ -42,6 +42,10 @@ public class Country extends GameComponent {
         this.euMember = Boolean.parseBoolean(inputData.split(";")[3]);
         this.image = ImageIO.read(new File(inputData.split(";")[4]));
     }
+    
+    public void growPopulation(double percentage) {
+        population = population + (population/100*percentage);
+    }
 
     @Override
     public void update() {

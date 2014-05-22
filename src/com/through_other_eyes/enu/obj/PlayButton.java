@@ -45,7 +45,7 @@ public class PlayButton extends Button {
     @Override
     public void clicked() {
         GameCore.state = GameCore.State.PLAY;
-        GameCore.map.setUpdateRequired(true);
+        GameCore.screen.setUpdateRequired(true);
         //GameCore.renderOb.add(new Map());
     }
 

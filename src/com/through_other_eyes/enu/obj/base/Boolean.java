@@ -19,7 +19,7 @@ package com.through_other_eyes.enu.obj.base;
 
 /**
  *
- * @author mike7707
+ * @author mwahlhuetter
  */
 public enum Boolean {
     True,

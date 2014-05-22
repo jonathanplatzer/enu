@@ -19,6 +19,7 @@ package com.through_other_eyes.enu.core;
 
 import com.through_other_eyes.enu.obj.MainMenu;
 import com.through_other_eyes.enu.obj.Map;
+import com.through_other_eyes.enu.obj.GameScreen;
 import com.through_other_eyes.enu.obj.QuestionDialog;
 import com.through_other_eyes.enu.obj.SplashScreen;
 import com.through_other_eyes.enu.obj.base.GameComponent;
@@ -87,7 +88,7 @@ public class GameCore extends JFrame {
     public static boolean debugMode = false;
     public static long startTime;
     public static MainMenu mainMenu;
-    public static Map map;
+    public static GameScreen screen;
     public static QuestionDialog questionDialog;
     public static Font font;
 
@@ -131,7 +132,7 @@ public class GameCore extends JFrame {
         initializeListeners();
         initializeSplashScreen();
         initializeMainMenu();
-        initializeMap();
+        initializeGame();
     }
 
     private void initializeRenderer() {
@@ -139,7 +140,7 @@ public class GameCore extends JFrame {
         setContentPane(gamePanel);
         setTitle("Europa NON Universalis");
 
-        if (device.isFullScreenSupported()) {
+        if (!device.isFullScreenSupported()) {
             setUndecorated(true);
             setVisible(true);
             originalDisplayMode = device.getDisplayMode();
@@ -148,6 +149,7 @@ public class GameCore extends JFrame {
             device.setDisplayMode(gameDisplayMode);
         } else {
             setResizable(false);
+            setUndecorated(true);
             pack();
             setLocationRelativeTo(null);
         }
@@ -184,20 +186,17 @@ public class GameCore extends JFrame {
         font = Font.createFont(Font.TRUETYPE_FONT, Resource.FONT);
     }
 
-    private void initializeMap() throws IOException {
-        map = new Map();
+    private void initializeGame() throws IOException {
+        screen = new GameScreen();
         questionDialog = new QuestionDialog(ImageIO.read(Resource.QUESTION_DIALOG), GameCore.Align.CENTER, 0, 60);
         //questionDialog.setVisible(true);
         
-        playRenderObjects.add(map);
+        playRenderObjects.add(screen);
         playRenderObjects.add(questionDialog);
     }
 
-    private void initializeGame() {
-    }
-
     // </editor-fold>
-    private void computeData(double deltaTime, double sleepTime) {
+    private void computeDelta(double deltaTime, double sleepTime) {
         fps = (int) (1000 / ((deltaTime / 1000000.0) + sleepTime));
         dt = 1f / fps;
     }
@@ -217,8 +216,9 @@ public class GameCore extends JFrame {
             if (sleepTime < 0) {
                 sleepTime = 0;
             }
-            computeData(deltaTime, sleepTime);
+            computeDelta(deltaTime, sleepTime);
             try {
+                System.out.println(sleepTime);
                 Thread.sleep((int) sleepTime);
             } catch (InterruptedException ex) {
             }

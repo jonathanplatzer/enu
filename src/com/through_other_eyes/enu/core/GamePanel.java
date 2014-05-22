@@ -34,7 +34,7 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
 
     private ArrayList<ArrayList<GameComponent>> renderObjects;
-    public static Graphics2D g2;
+    //private Graphics2D g2;
     
     public GamePanel(int width, int height, ArrayList<ArrayList<GameComponent>> renderObjects) {
         this.setPreferredSize(new Dimension(width, height));
@@ -45,7 +45,7 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
         
         switch (GameCore.state) {

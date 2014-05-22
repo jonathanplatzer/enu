@@ -37,39 +37,38 @@ import javax.imageio.ImageIO;
  * @author mwahlhuetter
  * @date 04.04.2014
  */
+
+//TODO change name
 public class Map extends GameComponent {
 
-    private HashMap<String, Country> countries = new HashMap<String, Country>();
-    private ArrayList<UIElement> uiElements = new ArrayList<>();
+    private final HashMap<String, Country> countries = new HashMap<String, Country>();
     private Image background;
-    private Font font = GameCore.font.deriveFont(12f);
-    private double population;
 
     public Map() throws IOException {
         loadMap();
-        InstitutionMenu instMenu = new InstitutionMenu(ImageIO.read(Resource.INSTITUION_MENU), GameCore.Align.CENTER, 0, 0);
-        uiElements.add(instMenu);
     }
 
     private void loadMap() throws IOException {
         background = Toolkit.getDefaultToolkit().createImage(Resource.MAP_WATER.getPath());
-        
+
         FileReader fr = new FileReader(Resource.MAP_DATA);
         BufferedReader br = new BufferedReader(fr);
         String line = "";
-        
+
         while ((line = br.readLine()) != null) {
-            countries.put(line.split(";")[0],new Country(line));
+            countries.put(line.split(";")[0], new Country(line));
         }
     }
 
     @Override
     public void update() {
-        population = 0;
+        double population = 0;
         for (Country country : countries.values()) {
-            if(country.isEuMember())
-            population += country.getPopulation();
+            if (country.isEuMember()) {
+                population += country.getPopulation();
+            }
         }
+        System.out.println(population);
     }
 
     int x, y;
@@ -78,38 +77,17 @@ public class Map extends GameComponent {
     public void drawObject(Graphics2D g2) {
         g2.drawImage(background, 0, 0, null);
         for (Country country : countries.values()) {
-            if(country.isEuMember()) {
+            if (country.isEuMember()) {
                 country.drawObject(g2);
             }
         }
-        for (UIElement uilement : uiElements) {
-            if (uilement.isVisible()) {
-                uilement.drawObject(g2);
-            }
-        }
-        g2.setFont(font);
-        g2.setColor(Color.RED);
-        g2.drawString(String.format("Population: %.0f mil.", population), 40, 40);
     }
 
     @Override
     public void move(float delta) {
     }
 
-    /**
-     *
-     * @return
-     */
-    public InstitutionMenu getInstMenu() {
-        for (UIElement uilement : uiElements) {
-            if (uilement instanceof InstitutionMenu) {
-                return (InstitutionMenu) uilement;
-            }
-        }
-        return null;
-    }
-
-    public ArrayList<UIElement> getUiElements() {
-        return uiElements;
+    public HashMap<String, Country> getCountries() {
+        return countries;
     }
 }
