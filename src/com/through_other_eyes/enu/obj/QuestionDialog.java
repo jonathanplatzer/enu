@@ -20,6 +20,7 @@ import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -40,7 +41,13 @@ public class QuestionDialog extends UIElement {
     private String title;
     private String question;
     private CloseQuestionDialogButton cqdb;
+    private QuestionDialogYesButton qdyb;
+    private QuestionDialogNoButton qdnb;
     private Font font = GameCore.font.deriveFont(12f);
+    private BufferedImage questionDialogHeader;
+    private BufferedImage questionDialogLine1pxImage;
+    private BufferedImage questionDialogBottomImage;
+    private int textHeight;
 
     /**
      * Enum for setting the type of question catalog that should be displayed
@@ -51,6 +58,7 @@ public class QuestionDialog extends UIElement {
     }
 
     /**
+     * DO NOT USE. INCONSISTENT TO OTHER METHOD
      *
      * @param position
      * @param elementImage
@@ -61,21 +69,29 @@ public class QuestionDialog extends UIElement {
         cqdb = new CloseQuestionDialogButton(Resource.QUESTION_DIALOG_CLOSE, GameCore.Align.CENTER, 127, 64);
         dialogElements.add(cqdb);
         setVisible(false);
+        questionDialogLine1pxImage = ImageIO.read(Resource.QUESTION_DIALOG_LINE1PX);
+        questionDialogBottomImage = ImageIO.read(Resource.QUESTION_DIALOG_BOTTOM);
     }
 
     /**
      * Constructor of question dialog
      *
-     * @param elementImage appearance of the question dialog
      * @param align
      * @param offset
      * @param y
      * @throws IOException
      */
-    public QuestionDialog(BufferedImage elementImage, GameCore.Align align, int offset, int y) throws IOException {
-        super(elementImage, align, offset, y);
+    public QuestionDialog(GameCore.Align align, int offset, int y) throws IOException {
+        super(ImageIO.read(Resource.QUESTION_DIALOG_HEADER), align, offset, y);
         cqdb = new CloseQuestionDialogButton(Resource.QUESTION_DIALOG_CLOSE, GameCore.Align.CENTER, 127, 64);
+        qdyb = new QuestionDialogYesButton(Resource.QUESTION_DIALOG_YES, Resource.QUESTION_DIALOG_YES_HOVER, GameCore.Align.CENTER, 73, 0);
+        qdnb = new QuestionDialogNoButton(Resource.QUESTION_DIALOG_NO, Resource.QUESTION_DIALOG_NO_HOVER, GameCore.Align.CENTER, 115, 0);
         dialogElements.add(cqdb);
+        dialogElements.add(qdyb);
+        dialogElements.add(qdnb);
+        questionDialogHeader = ImageIO.read(Resource.QUESTION_DIALOG_HEADER);
+        questionDialogLine1pxImage = ImageIO.read(Resource.QUESTION_DIALOG_LINE1PX);
+        questionDialogBottomImage = ImageIO.read(Resource.QUESTION_DIALOG_BOTTOM);
         setVisible(false);
     }
 
@@ -100,10 +116,55 @@ public class QuestionDialog extends UIElement {
     public void drawObject(Graphics2D g2) {
         g2.setFont(font);
         g2.setColor(Color.WHITE);
-        g2.drawImage(getElementImage(), getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
+        
+        calculateHeight(g2);
+        
+        setDimension(new Dimension(getDimension().width, 15 + textHeight + 21 + 3));
+        
+        qdyb.setPosition(new Point(getPosition().x + getDimension().width / 2 + 53, getPosition().y + textHeight + 16));
+        qdnb.setPosition(new Point(getPosition().x + getDimension().width / 2 + 95, getPosition().y + textHeight + 16));
+        cqdb.setPosition(new Point(getPosition().x + getDimension().width / 2 + 118, getPosition().y + 4));
+        
+        //Header zeichnen
+        g2.drawImage(questionDialogHeader, getPosition().x, getPosition().y, questionDialogHeader.getWidth(), questionDialogHeader.getHeight(), null);
+        
+        for (int i = 0; i < textHeight + 21; i++) { //21 ist die höhe der JA/NEIN buttons + 1 damit unten noch ein kleiner rand ist
+            g2.drawImage(questionDialogLine1pxImage, getPosition().x, getPosition().y + 16 + i, getDimension().width, 1, null);
+        }
+        //Unteren rand zeichnen
+        g2.drawImage(questionDialogBottomImage, getPosition().x, getPosition().y + getDimension().height - 2, null);
+        //Title zeichnen
         g2.drawString(title, getPosition().x + 5, getPosition().y + 13);
+        //Closequestiondialogbutton zeichnen
         cqdb.drawObject(g2);
+        qdyb.drawObject(g2);
+        qdnb.drawObject(g2);
+                
         drawQuestion(g2);
+    }
+
+    private void calculateHeight(Graphics2D g2) {
+        textHeight = 0;
+
+        FontMetrics fm = g2.getFontMetrics();
+
+        int lineHeight = fm.getHeight();
+        int curX = getPosition().x + 5;
+        int curY = getPosition().y + 26;
+
+        String[] words = question.split(" ");
+
+        for (String word : words) {
+            int wordWidth = fm.stringWidth(word + " ");
+            if (curX + wordWidth >= getPosition().x + getDimension().width) {
+                curY += lineHeight;
+                textHeight += lineHeight;
+                curX = getPosition().x + 5;
+            }
+            curX += wordWidth;
+        }
+        textHeight += lineHeight;
+        System.out.println(textHeight);
     }
 
     /**
@@ -165,10 +226,16 @@ public class QuestionDialog extends UIElement {
                 break;
         }
 
-        question = "This implementation will separate the given String into an array of String"
-                + " by using the split method with a space character as the only word separator, "
-                + "so it's probably not very robust. It also assumes that the word is followed by "
-                + "a space character and acts accordingly when moving the curX position.";
+        question = "This implementation will separate the given String into an array"
+                + " of String by using the split method with a space character as"
+                + " the only word separator, so it's probably not very robust."
+                + " It also assumes that the word is followed by a space character"
+                + " and acts accordingly when moving the curX position."
+                +"This implementation will separate the given String into an array"
+                + " of String by using the split method with a space character as"
+                + " the only word separator, so it's probably not very robust."
+                + " It also assumes that the word is followed by a space character"
+                + " and acts accordingly when moving the curX position.";
 
         setVisible(true);
     }
@@ -178,5 +245,9 @@ public class QuestionDialog extends UIElement {
      */
     public void dispose() {
         setVisible(false);
+    }
+
+    public int getTextHeight() {
+        return textHeight;
     }
 }

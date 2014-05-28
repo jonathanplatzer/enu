@@ -49,14 +49,4 @@ public class CourtHouseButton extends ToggleButton{
         }
         super.clicked();
     }
-    
-    @Override
-    public void hoverElement() {
-        super.hoverElement();
-    }
-    
-    @Override
-    public void leaveElement() {
-        super.leaveElement();
-    }
 }

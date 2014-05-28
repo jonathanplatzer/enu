@@ -18,6 +18,8 @@ package com.through_other_eyes.enu.util;
 
 import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.CloseQuestionDialogButton;
+import com.through_other_eyes.enu.obj.QuestionDialogNoButton;
+import com.through_other_eyes.enu.obj.QuestionDialogYesButton;
 import com.through_other_eyes.enu.obj.base.ButtonGroup;
 import com.through_other_eyes.enu.obj.base.UIElement;
 import java.awt.Dimension;
@@ -121,11 +123,6 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
             if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
                 if (mausaltx != 0 && mausalty != 0) {
                     GameCore.questionDialog.setPosition(new Point(uiElementPosition.x + mousePosition.x - mausaltx, uiElementPosition.y + mousePosition.y - mausalty));
-                    for (UIElement element : GameCore.questionDialog.getDialogElements()) {
-                        if (element instanceof CloseQuestionDialogButton) {
-                            element.setPosition(new Point(GameCore.questionDialog.getPosition().x + GameCore.questionDialog.getDimension().width / 2 + 118, GameCore.questionDialog.getPosition().y + 4));
-                        }
-                    }
                 }
             }
             mausaltx = mousePosition.x;
@@ -159,6 +156,21 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
 
         if (GameCore.state == GameCore.State.PLAY) {
             for (UIElement uielement : GameCore.screen.getInstMenu().getUiElements()) {
+                Point uiElementPosition = uielement.getPosition();
+                Dimension uiElementDimension = uielement.getDimension();
+                Point mousePosition = e.getPoint();
+
+                if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
+                    uielement.hoverElement();
+                    uielement.setMouseHoverPossible(false);
+                } else {
+                    if (!uielement.isMouseHoverPossible()) {
+                        uielement.leaveElement();
+                    }
+                    uielement.setMouseHoverPossible(true);
+                }
+            }
+            for (UIElement uielement : GameCore.questionDialog.getDialogElements()) {
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
                 Point mousePosition = e.getPoint();

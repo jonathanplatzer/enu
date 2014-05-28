@@ -199,7 +199,7 @@ public class GameCore extends JFrame {
 
     private void initializeGame() throws IOException {
         screen = new GameScreen();
-        questionDialog = new QuestionDialog(ImageIO.read(Resource.QUESTION_DIALOG), GameCore.Align.CENTER, 0, 60);
+        questionDialog = new QuestionDialog(GameCore.Align.CENTER, 0, 60);
         //questionDialog.setVisible(true);
 
         playRenderObjects.add(screen);

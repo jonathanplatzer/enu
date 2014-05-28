@@ -26,8 +26,15 @@ import java.io.File;
 public class Resource {
     
     // UI
-    public static final File QUESTION_DIALOG = new File("res" + File.separator + "questiondialog.png");
-    public static final File QUESTION_DIALOG_CLOSE = new File("res" + File.separator + "closequestiondialogbutton.png");
+    public static final File QUESTION_DIALOG_HEADER = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_header.png");
+    public static final File QUESTION_DIALOG_LINE1PX = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_1px_line.png");
+    public static final File QUESTION_DIALOG_BOTTOM = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_bottom.png");
+    public static final File QUESTION_DIALOG_CLOSE = new File("res" + File.separator + "questiondialog" + File.separator + "closequestiondialogbutton.png");
+    
+    public static final File QUESTION_DIALOG_YES = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_yes.png");
+    public static final File QUESTION_DIALOG_YES_HOVER = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_yes_hovered.png");
+    public static final File QUESTION_DIALOG_NO = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_no.png");
+    public static final File QUESTION_DIALOG_NO_HOVER = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_no_hovered.png");
     
     public static final File INSTITUION_MENU = new File("res" + File.separator + "institutionmenu.png");
     

@@ -1,5 +1,5 @@
-/* Europa NON Universalis - A dogma 2001 game
- * Copyright (C) 2014 through.other.eyes
+/*
+ * Copyright (C) 2014 mwahlhuetter <m.wahl1996 at gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,39 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
-import com.through_other_eyes.enu.obj.base.ToggleButton;
+import com.through_other_eyes.enu.obj.base.Button;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 
 /**
  *
- * @author mwahlhuetter
+ * @author mwahlhuetter <m.wahl1996 at gmail.com>
  */
-public class CentralBankButton extends ToggleButton {
+public class QuestionDialogYesButton extends Button {
 
-    public CentralBankButton(Point position, File elementImage, File hoverImage, File toggleImage) throws IOException {
-        super(position, elementImage, hoverImage, toggleImage);
+    public QuestionDialogYesButton(Point position, File elementImage, File hoverImage) throws IOException {
+        super(position, elementImage, hoverImage);
     }
 
-    public CentralBankButton(File elementImage, File hoverImage, File toggleImage, GameCore.Align align, int offset, int y) throws IOException {
-        super(elementImage, hoverImage, toggleImage, align, offset, y);
+    public QuestionDialogYesButton(File elementImage, File hoverImage, GameCore.Align align, int offset, int y) throws IOException {
+        super(elementImage, hoverImage, align, offset, y);
     }
-    
+
     @Override
     public void clicked() {
-        if(isToggled())
-        {
-            GameCore.questionDialog.dispose();
-        }
-        else
-        {
-            GameCore.questionDialog.show(QuestionDialog.DialogType.CENTRALBANK);
-        }
-        super.clicked();
     }
 }
