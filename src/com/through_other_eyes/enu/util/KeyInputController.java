@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.through_other_eyes.enu.util;
 
 import com.through_other_eyes.enu.core.GameCore;
@@ -25,11 +24,11 @@ import java.awt.event.KeyListener;
  * @author mwahlhuetter
  * @date 22.03.2014
  */
-public class KeyInputController implements KeyListener{
-    
+public class KeyInputController implements KeyListener {
+
     public KeyInputController() {
     }
-    
+
     @Override
     public void keyTyped(KeyEvent e) {
         System.out.println(e.getKeyCode() + " pressed");
@@ -38,14 +37,23 @@ public class KeyInputController implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         System.out.println(e.getKeyCode() + " pressed");
-        
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            GameCore.state = GameCore.State.SHUTDOWN;
+
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            if (GameCore.state == GameCore.State.PLAY || GameCore.state == GameCore.State.PAUSED) {
+                if (GameCore.state != GameCore.State.PAUSED) {
+                    GameCore.state = GameCore.State.PAUSED;
+                } else {
+                    GameCore.state = GameCore.State.PLAY;
+                }
+            }
         }
-        
-        if(e.getKeyCode() == KeyEvent.VK_F1)
-        {
+
+        if (e.getKeyCode() == KeyEvent.VK_F1) {
             GameCore.debugMode = !GameCore.debugMode;
+        }
+        //Easter Egg
+        if (e.getKeyCode() == KeyEvent.VK_D) {
+            GameCore.doge = !GameCore.doge;
         }
     }
 
@@ -53,5 +61,5 @@ public class KeyInputController implements KeyListener{
     public void keyReleased(KeyEvent e) {
         System.out.println(e.getKeyCode() + " released");
     }
-    
+
 }

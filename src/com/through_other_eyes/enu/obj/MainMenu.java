@@ -14,13 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
 import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -38,15 +38,15 @@ public class MainMenu extends GameComponent {
 
     private BufferedImage background;
     private ArrayList<UIElement> uiElements;
-    
+
     public boolean ANIMATE = false;
-    
+
     public MainMenu() throws IOException {
         super(new Point(0, 0), new Dimension(GameCore.WIDTH, GameCore.HEIGHT), true, true);
         this.background = ImageIO.read(Resource.MAINMENU_BACKGROUND);
         this.uiElements = new ArrayList<>();
-        PlayButton play = new PlayButton(Resource.PLAY, GameCore.Align.CENTER, 0, 80);
-        ExitButton exit = new ExitButton(Resource.PLAY, GameCore.Align.CENTER, 0, 160);
+        PlayButton play = new PlayButton(Resource.PLAY, GameCore.Align.CENTER, 0, 130);
+        ExitButton exit = new ExitButton(Resource.EXIT, GameCore.Align.CENTER, 0, 165);
         uiElements.add(play);
         uiElements.add(exit);
     }
@@ -54,6 +54,12 @@ public class MainMenu extends GameComponent {
     @Override
     public void drawObject(Graphics2D g2) {
         g2.drawImage(background, 0, 0, getDimension().width, getDimension().height, null);
+        g2.setFont(GameCore.font.deriveFont(50f));
+        int fontWidth = g2.getFontMetrics().stringWidth("EUROPA NON UNIVERSALIS");
+        g2.setColor(Color.BLACK);
+        g2.drawString("EUROPA NON UNIVERSALIS", GameCore.WIDTH / 2 - fontWidth / 2 + 2, 62);
+        g2.setColor(Color.WHITE);
+        g2.drawString("EUROPA NON UNIVERSALIS", GameCore.WIDTH / 2 - fontWidth / 2, 60);
         for (UIElement uilement : uiElements) {
             uilement.drawObject(g2);
         }

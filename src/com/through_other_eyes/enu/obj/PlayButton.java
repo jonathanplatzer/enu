@@ -34,6 +34,8 @@ import java.util.logging.Logger;
  */
 public class PlayButton extends Button {
 
+    private boolean hoverAnimation = false;
+    
     public PlayButton(Point position, File elementImage) throws IOException {
         super(position, elementImage);
     }
@@ -58,8 +60,6 @@ public class PlayButton extends Button {
 //        System.out.println(getPosition());
 //        setPosition(new Point((int) (getPosition().x), getPosition().y - dx));
     }
-
-    private boolean hoverAnimation = false;
 
     @Override
     public void hoverElement() {

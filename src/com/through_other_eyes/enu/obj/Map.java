@@ -68,7 +68,7 @@ public class Map extends GameComponent {
                 population += country.getPopulation();
             }
         }
-        System.out.println(population);
+        //System.out.println(population);
     }
 
     int x, y;

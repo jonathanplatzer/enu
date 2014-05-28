@@ -50,7 +50,7 @@ public class CentralBankButton extends ToggleButton {
         }
         else
         {
-            GameCore.questionDialog.show("European Centralbank", "TEST");
+            GameCore.questionDialog.show(QuestionDialog.DialogType.CENTRALBANK);
         }
         super.clicked();
     }

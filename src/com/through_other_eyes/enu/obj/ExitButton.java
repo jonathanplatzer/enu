@@ -31,6 +31,8 @@ import java.util.logging.Logger;
  */
 public class ExitButton extends Button {
 
+    private boolean hoverAnimation = false;
+    
     public ExitButton(Point position, File elementImage) throws IOException {
         super(position, elementImage);
     }
@@ -43,8 +45,6 @@ public class ExitButton extends Button {
     public void clicked() {
         GameCore.state = GameCore.State.SHUTDOWN;
     }
-
-    private boolean hoverAnimation = false;
 
     @Override
     public void hoverElement() {

@@ -24,7 +24,7 @@ import java.io.IOException;
 
 /**
  *
- * @author mwahlhuetter <m.wahl1996 at gmail.com>
+ * @author mwahlhuetter &lt;m.wahl1996 at gmail.com&gt;
  */
 public class CloseQuestionDialogButton extends Button {
 

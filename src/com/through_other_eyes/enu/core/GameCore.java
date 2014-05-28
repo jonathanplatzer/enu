@@ -14,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.through_other_eyes.enu.core;
 
 import com.through_other_eyes.enu.obj.MainMenu;
 import com.through_other_eyes.enu.obj.Map;
 import com.through_other_eyes.enu.obj.GameScreen;
+import com.through_other_eyes.enu.obj.PauseMenu;
 import com.through_other_eyes.enu.obj.QuestionDialog;
 import com.through_other_eyes.enu.obj.SplashScreen;
 import com.through_other_eyes.enu.obj.base.GameComponent;
@@ -88,9 +88,11 @@ public class GameCore extends JFrame {
     public static boolean debugMode = false;
     public static long startTime;
     public static MainMenu mainMenu;
+    public static PauseMenu pauseMenu;
     public static GameScreen screen;
     public static QuestionDialog questionDialog;
     public static Font font;
+    public static boolean doge = false;
 
     // Instances for fullscreen handling
     private final GraphicsDevice device;
@@ -103,6 +105,7 @@ public class GameCore extends JFrame {
     private ArrayList<GameComponent> splashscreenRenderObjects;
     private ArrayList<GameComponent> mainMenuRenderObjects;
     private ArrayList<GameComponent> playRenderObjects;
+    private ArrayList<GameComponent> pauseRenderObjects;
 
     // SplashScreen that is shown on startup
     //private SplashScreen splash = null;
@@ -132,6 +135,7 @@ public class GameCore extends JFrame {
         initializeListeners();
         initializeSplashScreen();
         initializeMainMenu();
+        initializePauseMenu();
         initializeGame();
     }
 
@@ -140,7 +144,7 @@ public class GameCore extends JFrame {
         setContentPane(gamePanel);
         setTitle("Europa NON Universalis");
 
-        if (!device.isFullScreenSupported()) {
+        if (device.isFullScreenSupported()) {
             setUndecorated(true);
             setVisible(true);
             originalDisplayMode = device.getDisplayMode();
@@ -153,15 +157,17 @@ public class GameCore extends JFrame {
             pack();
             setLocationRelativeTo(null);
         }
-        
+
         splashscreenRenderObjects = new ArrayList<>();
         mainMenuRenderObjects = new ArrayList<>();
         playRenderObjects = new ArrayList<>();
+        pauseRenderObjects = new ArrayList<>();
         renderObjects.add(splashscreenRenderObjects);
         renderObjects.add(mainMenuRenderObjects);
         renderObjects.add(playRenderObjects);
+        renderObjects.add(pauseRenderObjects);
     }
-    
+
     private void initializeListeners() {
         windowController = new WindowController();
         keyInputController = new KeyInputController();
@@ -181,16 +187,21 @@ public class GameCore extends JFrame {
     }
 
     private void initializeMainMenu() throws IOException, FontFormatException {
-        mainMenu = new MainMenu();        
+        mainMenu = new MainMenu();
         mainMenuRenderObjects.add(mainMenu);
         font = Font.createFont(Font.TRUETYPE_FONT, Resource.FONT);
+    }
+
+    private void initializePauseMenu() throws IOException {
+        pauseMenu = new PauseMenu();
+        pauseRenderObjects.add(pauseMenu);
     }
 
     private void initializeGame() throws IOException {
         screen = new GameScreen();
         questionDialog = new QuestionDialog(ImageIO.read(Resource.QUESTION_DIALOG), GameCore.Align.CENTER, 0, 60);
         //questionDialog.setVisible(true);
-        
+
         playRenderObjects.add(screen);
         playRenderObjects.add(questionDialog);
     }
@@ -218,7 +229,7 @@ public class GameCore extends JFrame {
             }
             computeDelta(deltaTime, sleepTime);
             try {
-                System.out.println(sleepTime);
+                //System.out.println(sleepTime);
                 Thread.sleep((int) sleepTime);
             } catch (InterruptedException ex) {
             }

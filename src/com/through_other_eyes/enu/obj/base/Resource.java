@@ -39,11 +39,16 @@ public class Resource {
     public static final File COURTHOUSE_HOVER = new File("res" + File.separator + "gerichtshof_hovered.png");
     public static final File COURTHOUSE_TOGGLE = new File("res" + File.separator + "gerichtshof_toggled.png");
     
-    public static final File PLAY = new File("res" + File.separator + "mainmenu" + File.separator + "play.png");
+    public static final File PLAY = new File("res" + File.separator + "mainmenu" + File.separator + "playbutton.png");
+    public static final File EXIT = new File("res" + File.separator + "mainmenu" + File.separator + "exitbutton.png");
+    public static final File MAINMENU = new File("res" + File.separator + "pausemenu" + File.separator + "mainmenubutton.png");
     
     public static final File MAINMENU_BACKGROUND = new File("res" + File.separator + "mainmenu" + File.separator + "eu_640x480.png");
+    public static final File PAUSEMENU_BACKGROUND  = new File("res" + File.separator + "pausemenu" + File.separator + "eu_640x480.png");;
     
     public static final File STAISTICSBAR = new File("res" + File.separator + "statisticsbar.png");
+    
+    public static final File DOGE = new File("res" + File.separator + "pixel-doge_small.png");
     
     // MAP
     public static final File MAP_WATER = new File("res" + File.separator + "map" + File.separator + "background.gif");

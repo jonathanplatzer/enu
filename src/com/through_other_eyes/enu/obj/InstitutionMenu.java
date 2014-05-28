@@ -75,7 +75,6 @@ public class InstitutionMenu extends UIElement {
 
     @Override
     public void clicked() {
-        System.out.println("INSTMENU");
     }
 
     @Override

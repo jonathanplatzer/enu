@@ -14,17 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.through_other_eyes.enu.core;
 
 import com.through_other_eyes.enu.obj.base.GameComponent;
+import com.through_other_eyes.enu.obj.base.Resource;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -35,7 +39,7 @@ public class GamePanel extends JPanel {
 
     private ArrayList<ArrayList<GameComponent>> renderObjects;
     //private Graphics2D g2;
-    
+
     public GamePanel(int width, int height, ArrayList<ArrayList<GameComponent>> renderObjects) {
         this.setPreferredSize(new Dimension(width, height));
         this.renderObjects = renderObjects;
@@ -47,7 +51,7 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-        
+
         switch (GameCore.state) {
             case SPLASHSCREEN:
                 for (GameComponent gameComponent : renderObjects.get(0)) {
@@ -73,12 +77,27 @@ public class GamePanel extends JPanel {
                     }
                 }
                 break;
+            case PAUSED:
+                for (GameComponent gameComponent : renderObjects.get(3)) {
+                    if (gameComponent.isVisible()) {
+                        gameComponent.drawObject(g2);
+                    }
+                }
+                break;
         }
 
         if (GameCore.debugMode) {
             renderDebugInformation(g2);
         }
-        // WRITE SOME GRPHICS STUFF ...
+
+        //Easter Egg
+        if (GameCore.doge) {
+            try {
+                g2.drawImage(ImageIO.read(Resource.DOGE), 320 - 75, 210, null);
+            } catch (IOException ex) {
+                Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     private void renderDebugInformation(Graphics2D g2) {

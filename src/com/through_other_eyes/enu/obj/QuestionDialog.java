@@ -31,7 +31,7 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author mwahlhuetter <m.wahl1996 at gmail.com>
+ * @author mwahlhuetter &lt;m.wahl1996 at gmail.com&gt;
  */
 public class QuestionDialog extends UIElement {
 
@@ -41,6 +41,20 @@ public class QuestionDialog extends UIElement {
     private CloseQuestionDialogButton cqdb;
     private Font font = GameCore.font.deriveFont(12f);
 
+    /**
+     * Enum for setting the type of question catalog that should be displayed
+     */
+    public static enum DialogType
+    {
+        CENTRALBANK, COURTHOUSE
+    }
+    
+    /**
+     * 
+     * @param position
+     * @param elementImage
+     * @throws IOException 
+     */
     public QuestionDialog(Point position, BufferedImage elementImage) throws IOException {
         super(position, elementImage);
         cqdb = new CloseQuestionDialogButton(Resource.QUESTION_DIALOG_CLOSE, GameCore.Align.CENTER, 127, 64);
@@ -48,6 +62,14 @@ public class QuestionDialog extends UIElement {
         setVisible(false);
     }
 
+    /**
+     * Constructor of question dialog
+     * @param elementImage appearance of the question dialog
+     * @param align
+     * @param offset
+     * @param y
+     * @throws IOException 
+     */
     public QuestionDialog(BufferedImage elementImage, GameCore.Align align, int offset, int y) throws IOException {
         super(elementImage, align, offset, y);
         cqdb = new CloseQuestionDialogButton(Resource.QUESTION_DIALOG_CLOSE, GameCore.Align.CENTER, 127, 64);
@@ -89,15 +111,32 @@ public class QuestionDialog extends UIElement {
         return dialogElements;
     }
     
-    public void show(String title, String question)
-    {
-        this.title = title;
-        this.question = question;
+    /**
+     * 
+     * @param dialogType 
+     */
+    public void show(DialogType dialogType)
+    {        
+        //Reset position of QuestionDialog
         setPosition(new Point(GameCore.WIDTH/2-getDimension().width/2, 60));
         cqdb.setPosition(new Point(GameCore.WIDTH/2 + 118,64));
+        
+        switch(dialogType)
+        {
+            case CENTRALBANK:
+                this.title = "European Centralbank";
+                break;
+            case COURTHOUSE:
+                this.title = "European Courthouse";
+                break;
+        }
+        
         setVisible(true);
     }
     
+    /**
+     * closes the dialog window
+     */
     public void dispose()
     {
         setVisible(false);
