@@ -33,7 +33,6 @@ public abstract class ToggleButton extends Button {
 
     private BufferedImage toggleImage;
     private boolean toggled = false;
-    private GameCore.UIElementState State = GameCore.UIElementState.DEFAULT;
 
     public ToggleButton(Point position, File elementImage, File hoverImage, File toggleImage) throws IOException {
         super(position, elementImage, hoverImage);
@@ -52,20 +51,21 @@ public abstract class ToggleButton extends Button {
 
     @Override
     public void hoverElement() {
-        if (isMouseHoverPossible()) {
-            setState(GameCore.UIElementState.HOVER);
-        }
+        super.hoverElement();
     }
 
     @Override
-    public abstract void leaveElement();
+    public void leaveElement()
+    {
+        super.leaveElement();
+    }
 
     @Override
     public void drawObject(Graphics2D g2) {
         if (toggled) {
             g2.drawImage(toggleImage, getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
         } else {
-            switch (State) {
+            switch (getState()) {
                 case DEFAULT:
                     g2.drawImage(getElementImage(), getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
                     break;
@@ -78,10 +78,6 @@ public abstract class ToggleButton extends Button {
 
     public void setToggled(boolean toggled) {
         this.toggled = toggled;
-    }
-
-    public void setState(GameCore.UIElementState State) {
-        this.State = State;
     }
 
     public boolean isToggled() {

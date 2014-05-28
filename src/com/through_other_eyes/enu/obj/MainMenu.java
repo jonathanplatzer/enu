@@ -45,9 +45,12 @@ public class MainMenu extends GameComponent {
         super(new Point(0, 0), new Dimension(GameCore.WIDTH, GameCore.HEIGHT), true, true);
         this.background = ImageIO.read(Resource.MAINMENU_BACKGROUND);
         this.uiElements = new ArrayList<>();
-        PlayButton play = new PlayButton(Resource.PLAY, GameCore.Align.CENTER, 0, 130);
-        ExitButton exit = new ExitButton(Resource.EXIT, GameCore.Align.CENTER, 0, 165);
+        PlayButton play = new PlayButton(Resource.PLAY, GameCore.Align.CENTER, 0, 200);
+        InfoButton info = new InfoButton(Resource.INFO, GameCore.Align.CENTER, 0, 235);
+        ExitButton exit = new ExitButton(Resource.EXIT, GameCore.Align.CENTER, 0, 270);
+        
         uiElements.add(play);
+        uiElements.add(info);
         uiElements.add(exit);
     }
 
@@ -58,7 +61,7 @@ public class MainMenu extends GameComponent {
         int fontWidth = g2.getFontMetrics().stringWidth("EUROPA NON UNIVERSALIS");
         g2.setColor(Color.BLACK);
         g2.drawString("EUROPA NON UNIVERSALIS", GameCore.WIDTH / 2 - fontWidth / 2 + 2, 62);
-        g2.setColor(Color.WHITE);
+        g2.setColor(new Color(251, 224, 21));
         g2.drawString("EUROPA NON UNIVERSALIS", GameCore.WIDTH / 2 - fontWidth / 2, 60);
         for (UIElement uilement : uiElements) {
             uilement.drawObject(g2);

@@ -57,6 +57,6 @@ public class CentralBankButton extends ToggleButton {
 
     @Override
     public void leaveElement() {
-        setState(GameCore.UIElementState.DEFAULT);
+        super.leaveElement();
     }
 }

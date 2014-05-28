@@ -41,10 +41,12 @@ public class Resource {
     
     public static final File PLAY = new File("res" + File.separator + "mainmenu" + File.separator + "playbutton.png");
     public static final File EXIT = new File("res" + File.separator + "mainmenu" + File.separator + "exitbutton.png");
+    public static final File INFO = new File("res" + File.separator + "mainmenu" + File.separator + "infobutton.png");
     public static final File MAINMENU = new File("res" + File.separator + "pausemenu" + File.separator + "mainmenubutton.png");
     
-    public static final File MAINMENU_BACKGROUND = new File("res" + File.separator + "mainmenu" + File.separator + "eu_640x480.png");
-    public static final File PAUSEMENU_BACKGROUND  = new File("res" + File.separator + "pausemenu" + File.separator + "eu_640x480.png");;
+    
+    public static final File MAINMENU_BACKGROUND = new File("res" + File.separator + "mainmenu" + File.separator + "eu_640x480_version2.png");
+    public static final File PAUSEMENU_BACKGROUND  = new File("res" + File.separator + "pausemenu" + File.separator + "eu_640x480_version2.png");;
     
     public static final File STAISTICSBAR = new File("res" + File.separator + "statisticsbar.png");
     

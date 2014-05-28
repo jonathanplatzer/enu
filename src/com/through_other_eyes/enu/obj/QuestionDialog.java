@@ -21,6 +21,7 @@ import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -44,16 +45,16 @@ public class QuestionDialog extends UIElement {
     /**
      * Enum for setting the type of question catalog that should be displayed
      */
-    public static enum DialogType
-    {
-        CENTRALBANK, COURTHOUSE
+    public static enum DialogType {
+
+        CENTRALBANK, COURTHOUSE, EUROPEAN_PARLIAMENT, EUROPEAN_COMMISSION
     }
-    
+
     /**
-     * 
+     *
      * @param position
      * @param elementImage
-     * @throws IOException 
+     * @throws IOException
      */
     public QuestionDialog(Point position, BufferedImage elementImage) throws IOException {
         super(position, elementImage);
@@ -64,11 +65,12 @@ public class QuestionDialog extends UIElement {
 
     /**
      * Constructor of question dialog
+     *
      * @param elementImage appearance of the question dialog
      * @param align
      * @param offset
      * @param y
-     * @throws IOException 
+     * @throws IOException
      */
     public QuestionDialog(BufferedImage elementImage, GameCore.Align align, int offset, int y) throws IOException {
         super(elementImage, align, offset, y);
@@ -99,8 +101,35 @@ public class QuestionDialog extends UIElement {
         g2.setFont(font);
         g2.setColor(Color.WHITE);
         g2.drawImage(getElementImage(), getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
-        g2.drawString(title, getPosition().x+5, getPosition().y+13);
+        g2.drawString(title, getPosition().x + 5, getPosition().y + 13);
         cqdb.drawObject(g2);
+        drawQuestion(g2);
+    }
+
+    /**
+     * Logic for the drawing of the question. this methods makes automatic line
+     * breaks while drawing
+     *
+     * @param g2
+     */
+    private void drawQuestion(Graphics2D g2) {
+        FontMetrics fm = g2.getFontMetrics();
+
+        int lineHeight = fm.getHeight();
+        int curX = getPosition().x + 5;
+        int curY = getPosition().y + 26;
+
+        String[] words = question.split(" ");
+
+        for (String word : words) {
+            int wordWidth = fm.stringWidth(word + " ");
+            if (curX + wordWidth >= getPosition().x + getDimension().width) {
+                curY += lineHeight;
+                curX = getPosition().x + 5;
+            }
+            g2.drawString(word, curX, curY);
+            curX += wordWidth;
+        }
     }
 
     @Override
@@ -110,35 +139,44 @@ public class QuestionDialog extends UIElement {
     public ArrayList<UIElement> getDialogElements() {
         return dialogElements;
     }
-    
+
     /**
-     * 
-     * @param dialogType 
+     *
+     * @param dialogType
      */
-    public void show(DialogType dialogType)
-    {        
+    public void show(DialogType dialogType) {
         //Reset position of QuestionDialog
-        setPosition(new Point(GameCore.WIDTH/2-getDimension().width/2, 60));
-        cqdb.setPosition(new Point(GameCore.WIDTH/2 + 118,64));
-        
-        switch(dialogType)
-        {
+        setPosition(new Point(GameCore.WIDTH / 2 - getDimension().width / 2, 60));
+        cqdb.setPosition(new Point(GameCore.WIDTH / 2 + 118, 64));
+
+        switch (dialogType) {
             case CENTRALBANK:
-                this.title = "European Centralbank";
+                this.title = "European Central Bank";
+                //question = questionmanager.retrieve new question in this section
                 break;
             case COURTHOUSE:
-                this.title = "European Courthouse";
+                this.title = "Court of Justice of the European Union";
+                break;
+            case EUROPEAN_PARLIAMENT:
+                this.title = "European Parliament";
+                break;
+            case EUROPEAN_COMMISSION:
+                this.title = "European Commission";
                 break;
         }
-        
+
+        question = "This implementation will separate the given String into an array of String"
+                + " by using the split method with a space character as the only word separator, "
+                + "so it's probably not very robust. It also assumes that the word is followed by "
+                + "a space character and acts accordingly when moving the curX position.";
+
         setVisible(true);
     }
-    
+
     /**
      * closes the dialog window
      */
-    public void dispose()
-    {
+    public void dispose() {
         setVisible(false);
     }
 }

@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.through_other_eyes.enu.obj.base;
 
 import com.through_other_eyes.enu.core.GameCore;
@@ -31,19 +30,21 @@ import javax.imageio.ImageIO;
  * @date 27.03.2014
  */
 public abstract class Button extends UIElement {
-    
+
+    private GameCore.UIElementState State = GameCore.UIElementState.DEFAULT;
+
     public Button(Point position, File elementImage) throws IOException {
         super(position, ImageIO.read(elementImage));
     }
-    
+
     public Button(File elementImage, GameCore.Align align, int offset, int y) throws IOException {
         super(ImageIO.read(elementImage), align, offset, y);
     }
-    
+
     public Button(Point position, File elementImage, File hoverImage) throws IOException {
         super(position, ImageIO.read(elementImage), ImageIO.read(hoverImage));
     }
-    
+
     public Button(File elementImage, File hoverImage, GameCore.Align align, int offset, int y) throws IOException {
         super(ImageIO.read(elementImage), ImageIO.read(hoverImage), align, offset, y);
     }
@@ -51,7 +52,6 @@ public abstract class Button extends UIElement {
     //konstrukt
     //text + bild
     //text + hintergrundfarbe
-
     @Override
     public void update() {
 
@@ -59,21 +59,43 @@ public abstract class Button extends UIElement {
 
     @Override
     public void drawObject(Graphics2D g2) {
-        
-        g2.drawImage(getElementImage(), getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
+        switch (getState()) {
+            case DEFAULT:
+                g2.drawImage(getElementImage(), getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
+                break;
+            case HOVER:
+                g2.drawImage(getHoverImage(), getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);
+                break;
+        }
+
     }
 
     @Override
     public void move(float delta) {
-        
+
     }
 
     @Override
     public abstract void clicked();
 
     @Override
-    public abstract void hoverElement();
+    public void hoverElement() {
+        if (isMouseHoverPossible()) {
+            State = GameCore.UIElementState.HOVER;
+        }
+    }
 
     @Override
-    public abstract void leaveElement();
+    public void leaveElement()
+    {
+        State = GameCore.UIElementState.DEFAULT;
+    }
+
+    public void setState(GameCore.UIElementState State) {
+        this.State = State;
+    }
+
+    public GameCore.UIElementState getState() {
+        return State;
+    }
 }

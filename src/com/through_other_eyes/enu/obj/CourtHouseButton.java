@@ -57,6 +57,6 @@ public class CourtHouseButton extends ToggleButton{
     
     @Override
     public void leaveElement() {
-        setState(GameCore.UIElementState.DEFAULT);
+        super.leaveElement();
     }
 }

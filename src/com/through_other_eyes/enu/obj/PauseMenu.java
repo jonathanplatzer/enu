@@ -42,8 +42,8 @@ public class PauseMenu extends GameComponent {
         super(new Point(0, 0), new Dimension(GameCore.WIDTH, GameCore.HEIGHT), true, true);
         this.background = ImageIO.read(Resource.PAUSEMENU_BACKGROUND);
         this.uiElements = new ArrayList<>();
-        MainMenuButton play = new MainMenuButton(Resource.MAINMENU, GameCore.Align.CENTER, 0, 130);
-        ExitButton exit = new ExitButton(Resource.EXIT, GameCore.Align.CENTER, 0, 165);
+        MainMenuButton play = new MainMenuButton(Resource.MAINMENU, GameCore.Align.CENTER, 0, 225);
+        ExitButton exit = new ExitButton(Resource.EXIT, GameCore.Align.CENTER, 0, 260);
         uiElements.add(play);
         uiElements.add(exit);
     }
@@ -59,7 +59,7 @@ public class PauseMenu extends GameComponent {
         int fontWidth = g2.getFontMetrics().stringWidth("PAUSED");
         g2.setColor(Color.BLACK);
         g2.drawString("PAUSED", GameCore.WIDTH / 2 - fontWidth / 2 + 2, 62);
-        g2.setColor(Color.WHITE);
+        g2.setColor(new Color(251, 224, 21));
         g2.drawString("PAUSED", GameCore.WIDTH / 2 - fontWidth / 2, 60);
         for (UIElement uilement : uiElements) {
             uilement.drawObject(g2);
