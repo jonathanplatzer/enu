@@ -135,6 +135,10 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
 
     @Override
     public void mouseMoved(MouseEvent e) {
+
+        mausaltx = e.getPoint().x;
+        mausalty = e.getPoint().y;
+
         if (GameCore.state == GameCore.State.MAINMENU) {
             for (UIElement uielement : GameCore.mainMenu.getUiElements()) {
                 Point uiElementPosition = uielement.getPosition();
@@ -187,9 +191,6 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
                     uielement.setMouseHoverPossible(true);
                 }
             }
-
-            mausaltx = e.getPoint().x;
-            mausalty = e.getPoint().y;
         }
     }
 
