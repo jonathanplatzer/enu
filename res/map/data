@@ -31,7 +31,7 @@ Poland;38.533;819.988;true;res/map/pl.png
 Portugal;10.487;251.451;true;res/map/pt.png
 Romania;20.020;282.348;true;res/map/ro.png
 Serbia;7.182;81.125;false;res/map/rs.png
-Sweden;9.556;393.774;false;res/map/se.png
+Sweden;9.556;393.774;true;res/map/se.png
 Slovenia;2.059;58.509;true;res/map/si.png
 Slovakia;5.411;138.277;true;res/map/sk.png
 Turkey;75.627;1358;false;res/map/tr.png

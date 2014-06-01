@@ -174,7 +174,7 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
                 Point mousePosition = e.getPoint();
-
+                
                 if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
                     uielement.hoverElement();
                     uielement.setMouseHoverPossible(false);

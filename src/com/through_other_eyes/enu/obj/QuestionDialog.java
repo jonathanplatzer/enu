@@ -66,7 +66,7 @@ public class QuestionDialog extends UIElement {
      */
     public QuestionDialog(Point position, BufferedImage elementImage) throws IOException {
         super(position, elementImage);
-        cqdb = new CloseQuestionDialogButton(Resource.QUESTION_DIALOG_CLOSE, GameCore.Align.CENTER, 127, 64);
+        cqdb = new CloseQuestionDialogButton(Resource.QUESTION_DIALOG_CLOSE, Resource.QUESTION_DIALOG_CLOSE_HOVER, GameCore.Align.CENTER, 127, 64);
         dialogElements.add(cqdb);
         setVisible(false);
         questionDialogLine1pxImage = ImageIO.read(Resource.QUESTION_DIALOG_LINE1PX);
@@ -83,7 +83,7 @@ public class QuestionDialog extends UIElement {
      */
     public QuestionDialog(GameCore.Align align, int offset, int y) throws IOException {
         super(ImageIO.read(Resource.QUESTION_DIALOG_HEADER), align, offset, y);
-        cqdb = new CloseQuestionDialogButton(Resource.QUESTION_DIALOG_CLOSE, GameCore.Align.CENTER, 127, 64);
+        cqdb = new CloseQuestionDialogButton(Resource.QUESTION_DIALOG_CLOSE, Resource.QUESTION_DIALOG_CLOSE_HOVER, GameCore.Align.CENTER, 127, 64);
         qdyb = new QuestionDialogYesButton(Resource.QUESTION_DIALOG_YES, Resource.QUESTION_DIALOG_YES_HOVER, GameCore.Align.CENTER, 73, 0);
         qdnb = new QuestionDialogNoButton(Resource.QUESTION_DIALOG_NO, Resource.QUESTION_DIALOG_NO_HOVER, GameCore.Align.CENTER, 115, 0);
         dialogElements.add(cqdb);
@@ -227,11 +227,6 @@ public class QuestionDialog extends UIElement {
         }
 
         question = "This implementation will separate the given String into an array"
-                + " of String by using the split method with a space character as"
-                + " the only word separator, so it's probably not very robust."
-                + " It also assumes that the word is followed by a space character"
-                + " and acts accordingly when moving the curX position."
-                +"This implementation will separate the given String into an array"
                 + " of String by using the split method with a space character as"
                 + " the only word separator, so it's probably not very robust."
                 + " It also assumes that the word is followed by a space character"

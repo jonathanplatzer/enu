@@ -28,25 +28,13 @@ import java.io.IOException;
  */
 public class CloseQuestionDialogButton extends Button {
 
-    public CloseQuestionDialogButton(Point position, File elementImage) throws IOException {
-        super(position, elementImage);
-    }
-
-    public CloseQuestionDialogButton(File elementImage, GameCore.Align align, int offset, int y) throws IOException {
-        super(elementImage, align, offset, y);
+    public CloseQuestionDialogButton(File elementImage, File hoverImage, GameCore.Align align, int offset, int y) throws IOException {
+        super(elementImage, hoverImage, align, offset, y);
     }
 
     @Override
     public void clicked() {
         GameCore.questionDialog.setVisible(false);
         GameCore.screen.getInstMenu().getButtonGroup().selectButton(null);
-    }
-
-    @Override
-    public void hoverElement() {
-    }
-
-    @Override
-    public void leaveElement() {
     }
 }

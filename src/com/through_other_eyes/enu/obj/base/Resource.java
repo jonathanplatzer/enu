@@ -29,7 +29,9 @@ public class Resource {
     public static final File QUESTION_DIALOG_HEADER = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_header.png");
     public static final File QUESTION_DIALOG_LINE1PX = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_1px_line.png");
     public static final File QUESTION_DIALOG_BOTTOM = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_bottom.png");
+    
     public static final File QUESTION_DIALOG_CLOSE = new File("res" + File.separator + "questiondialog" + File.separator + "closequestiondialogbutton.png");
+    public static final File QUESTION_DIALOG_CLOSE_HOVER = new File("res" + File.separator + "questiondialog" + File.separator + "closequestiondialogbutton_hovered.png");
     
     public static final File QUESTION_DIALOG_YES = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_yes.png");
     public static final File QUESTION_DIALOG_YES_HOVER = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_yes_hovered.png");
