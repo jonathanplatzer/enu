@@ -14,11 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
-import com.through_other_eyes.enu.obj.base.Button;
-import java.awt.Point;
+import com.through_other_eyes.enu.core.GameCore.QuestionType;
+import com.through_other_eyes.enu.obj.base.ToggleButton;
 import java.io.File;
 import java.io.IOException;
 
@@ -26,23 +27,22 @@ import java.io.IOException;
  *
  * @author mwahlhuetter <m.wahl1996 at gmail.com>
  */
-public class QuestionDialogYesButton extends Button {
+public class EuropeanParliamentButton extends ToggleButton{
 
-    public QuestionDialogYesButton(Point position, File elementImage, File hoverImage) throws IOException {
-        super(position, elementImage, hoverImage);
-    }
-
-    public QuestionDialogYesButton(File elementImage, File hoverImage, GameCore.Align align, int offset, int y) throws IOException {
-        super(elementImage, hoverImage, align, offset, y);
+    public EuropeanParliamentButton(File elementImage, File hoverImage, File toggleImage, GameCore.Align align, int offset, int y) throws IOException {
+        super(elementImage, hoverImage, toggleImage, align, offset, y);
     }
 
     @Override
     public void clicked() {
-        Question question = GameCore.questionDialog.getActiveQuestion();
-        if (question != null) {
-            question.yes();
-            GameCore.questions.removeQuestion(question, GameCore.questionDialog.getDialogType());
-            GameCore.questionDialog.show(GameCore.questionDialog.getDialogType());
+        if(isToggled())
+        {
+            GameCore.questionDialog.dispose();
         }
+        else
+        {
+            GameCore.questionDialog.show(QuestionType.EUROPEAN_PARLIAMENT);
+        }
+        super.clicked();
     }
 }

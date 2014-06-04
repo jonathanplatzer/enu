@@ -50,17 +50,6 @@ public abstract class ToggleButton extends Button {
     }
 
     @Override
-    public void hoverElement() {
-        super.hoverElement();
-    }
-
-    @Override
-    public void leaveElement()
-    {
-        super.leaveElement();
-    }
-
-    @Override
     public void drawObject(Graphics2D g2) {
         if (toggled) {
             g2.drawImage(toggleImage, getPosition().x, getPosition().y, getDimension().width, getDimension().height, null);

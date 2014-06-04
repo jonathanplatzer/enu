@@ -1,5 +1,5 @@
-/* Europa NON Universalis - A dogma 2001 game
- * Copyright (C) 2014 through.other.eyes
+/*
+ * Copyright (C) 2014 mwahlhuetter <m.wahl1996 at gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,27 +14,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.through_other_eyes.enu.obj;
 
-import com.through_other_eyes.enu.core.GameCore;
-import com.through_other_eyes.enu.obj.base.Button;
-import java.awt.Point;
-import java.io.File;
-import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author mwahlhuetter &lt;m.wahl1996 at gmail.com&gt;
+ * @author mwahlhuetter <m.wahl1996 at gmail.com>
  */
-public class CloseQuestionDialogButton extends Button {
+public class GameTimeThread extends Thread{
 
-    public CloseQuestionDialogButton(File elementImage, File hoverImage, GameCore.Align align, int offset, int y) throws IOException {
-        super(elementImage, hoverImage, align, offset, y);
-    }
-
+    private Calendar gameTime = Calendar.getInstance();
+    
     @Override
-    public void clicked() {
-        GameCore.questionDialog.setVisible(false);
-        GameCore.gameScreen.getInstMenu().getButtonGroup().selectButton(null);
+    public void run() {
+        while(true)
+        {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+            }
+            gameTime.add(Calendar.DATE, 1);
+        }
+    }
+    
+    public Calendar getGameTime()
+    {
+        return gameTime;
     }
 }

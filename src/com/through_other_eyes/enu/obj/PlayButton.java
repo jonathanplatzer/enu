@@ -46,9 +46,12 @@ public class PlayButton extends Button {
 
     @Override
     public void clicked() {
-        GameCore.state = GameCore.State.PLAY;
-        GameCore.screen.setUpdateRequired(true);
-        //GameCore.renderOb.add(new Map());
+        try {
+            GameCore.state = GameCore.State.PLAY;
+            GameCore.gameScreen.newGame();
+        } catch (IOException ex) {
+            Logger.getLogger(PlayButton.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

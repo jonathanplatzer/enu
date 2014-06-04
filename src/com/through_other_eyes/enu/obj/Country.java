@@ -43,8 +43,16 @@ public class Country extends GameComponent {
         this.image = ImageIO.read(new File(inputData.split(";")[4]));
     }
     
-    public void growPopulation(double percentage) {
-        population = population + (population/100*percentage);
+    public void growPopulation(double percentage, String gdpTendency) {
+        switch(gdpTendency)
+        {
+            case "+":
+                population = population + (population/100*percentage);
+                break;
+            case "-":
+                population = population - (population/100*percentage);
+                break;
+        }
     }
 
     @Override
@@ -92,5 +100,4 @@ public class Country extends GameComponent {
     public String toString() {
         return "Country{" + "name=" + name + ", population=" + population + ", gdp=" + gdp + '}';
     }
-
 }

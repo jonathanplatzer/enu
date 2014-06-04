@@ -16,6 +16,8 @@
  */
 package com.through_other_eyes.enu.obj;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -29,11 +31,14 @@ public class Statistics {
     private double currentPopulation;
     private double currentGDP;
 
+    private GameTimeThread gameTimeThread;
+
     public Statistics(HashMap<String, Country> countries) {
         this.countries = countries;
+        gameTimeThread = new GameTimeThread();
     }
 
-    public void calculate() {
+    public void calculate() throws InterruptedException {
         calculatePopulation();
         calculateGDP();
     }
@@ -43,13 +48,12 @@ public class Statistics {
         for (Country country : countries.values()) {
             if (country.isEuMember()) {
                 population += country.getPopulation();
-                country.growPopulation(0.01);
             }
         }
         currentPopulation = population;
     }
 
-    private void calculateGDP() {
+    private void calculateGDP() throws InterruptedException {
         double gdp = 0;
         for (Country country : countries.values()) {
             if (country.isEuMember()) {
@@ -59,6 +63,10 @@ public class Statistics {
         currentGDP = gdp;
     }
 
+    public void startGameTimeThread() {
+        gameTimeThread.start();
+    }
+
     public double getPopulation() {
         return currentPopulation;
     }
@@ -66,8 +74,17 @@ public class Statistics {
     public double getGDP() {
         return currentGDP;
     }
-    
+
     public double getGDPpC() {
         return currentGDP / currentPopulation;
+    }
+
+    public HashMap<String, Country> getCountries() {
+        return countries;
+    }
+    
+    public Calendar getGameTime()
+    {
+        return gameTimeThread.getGameTime();
     }
 }

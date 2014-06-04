@@ -45,12 +45,12 @@ public class MainMenu extends GameComponent {
         super(new Point(0, 0), new Dimension(GameCore.WIDTH, GameCore.HEIGHT), true, true);
         this.background = ImageIO.read(Resource.MAINMENU_BACKGROUND);
         this.uiElements = new ArrayList<>();
-        PlayButton play = new PlayButton(Resource.PLAY, GameCore.Align.CENTER, 0, 200);
-        InfoButton info = new InfoButton(Resource.INFO, GameCore.Align.CENTER, 0, 235);
-        ExitButton exit = new ExitButton(Resource.EXIT, GameCore.Align.CENTER, 0, 270);
+        PlayButton play = new PlayButton(Resource.PLAY, GameCore.Align.CENTER, 0, 225);
+        //InfoButton info = new InfoButton(Resource.INFO, GameCore.Align.CENTER, 0, 235);
+        ExitButton exit = new ExitButton(Resource.EXIT, GameCore.Align.CENTER, 0, 260);
         
         uiElements.add(play);
-        uiElements.add(info);
+        //uiElements.add(info);
         uiElements.add(exit);
     }
 

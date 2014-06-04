@@ -51,31 +51,34 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
                 Point mousePosition = e.getPoint();
-
-                if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
-                    uielement.clicked();
+                if (uielement.isVisible()) {
+                    if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
+                        uielement.clicked();
+                    }
                 }
             }
         }
         if (GameCore.state == GameCore.State.PLAY) {
-            for (UIElement uielement : GameCore.screen.getInstMenu().getUiElements()) {
+            for (UIElement uielement : GameCore.gameScreen.getInstMenu().getUiElements()) {
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
                 Point mousePosition = e.getPoint();
-
-                if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
-                    uielement.clicked();
-                    ButtonGroup buttonGroup = GameCore.screen.getInstMenu().getButtonGroup();
-                    buttonGroup.selectButton(uielement);
+                if (uielement.isVisible()) {
+                    if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
+                        uielement.clicked();
+                        ButtonGroup buttonGroup = GameCore.gameScreen.getInstMenu().getButtonGroup();
+                        buttonGroup.selectButton(uielement);
+                    }
                 }
             }
             for (UIElement uielement : GameCore.questionDialog.getDialogElements()) {
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
                 Point mousePosition = e.getPoint();
-
-                if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
-                    uielement.clicked();
+                if (uielement.isVisible()) {
+                    if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
+                        uielement.clicked();
+                    }
                 }
             }
         }
@@ -85,9 +88,10 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
                 Point mousePosition = e.getPoint();
-
-                if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
-                    uielement.clicked();
+                if (uielement.isVisible()) {
+                    if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
+                        uielement.clicked();
+                    }
                 }
             }
         }
@@ -155,7 +159,7 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
         }
 
         if (GameCore.state == GameCore.State.PLAY) {
-            for (UIElement uielement : GameCore.screen.getInstMenu().getUiElements()) {
+            for (UIElement uielement : GameCore.gameScreen.getInstMenu().getUiElements()) {
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
                 Point mousePosition = e.getPoint();
@@ -174,7 +178,7 @@ public class MouseInputController implements MouseWheelListener, MouseListener, 
                 Point uiElementPosition = uielement.getPosition();
                 Dimension uiElementDimension = uielement.getDimension();
                 Point mousePosition = e.getPoint();
-                
+
                 if (intersects(uiElementPosition, uiElementDimension, mousePosition)) {
                     uielement.hoverElement();
                     uielement.setMouseHoverPossible(false);

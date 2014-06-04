@@ -39,16 +39,20 @@ public class InstitutionMenu extends UIElement {
     public InstitutionMenu(BufferedImage backgroundImage, GameCore.Align align, int offset, int y) throws IOException {
         super(backgroundImage, align, offset, y);
         this.buttonGroup = new ButtonGroup();
-        CentralBankButton cbb = new CentralBankButton(Resource.CENTRALBANK, Resource.CENTRALBANK_HOVER, Resource.CENTRALBANK_TOGGLE, GameCore.Align.CENTER, -40, 7);
-        CourtHouseButton chb = new CourtHouseButton(Resource.COURTHOUSE, Resource.COURTHOUSE_HOVER, Resource.COURTHOUSE_TOGGLE, GameCore.Align.CENTER, 40, 7);
-
+        CentralBankButton cbb = new CentralBankButton(Resource.CENTRALBANK, Resource.CENTRALBANK_HOVER, Resource.CENTRALBANK_TOGGLE, GameCore.Align.CENTER, -111, 7);
+        CourtHouseButton chb = new CourtHouseButton(Resource.COURTHOUSE, Resource.COURTHOUSE_HOVER, Resource.COURTHOUSE_TOGGLE, GameCore.Align.CENTER, -37, 7);
+        EuropeanParliamentButton epb = new EuropeanParliamentButton(Resource.EUROPEAN_PARLIAMENT, Resource.EUROPEAN_PARLIAMENT_HOVER, Resource.EUROPEAN_PARLIAMENT_TOGGLE, GameCore.Align.CENTER, 37, 7);
+        EuropeanCommissionButton ecb = new EuropeanCommissionButton(Resource.EUROPEAN_COMMISSION, Resource.EUROPEAN_COMMISSION_HOVER, Resource.EUROPEAN_COMMISSION_TOGGLE, GameCore.Align.CENTER, 111, 7);
+                
         uiElements.add(cbb);
         uiElements.add(chb);
-        //uiElements.add(cbb4);
-
+        uiElements.add(epb);
+        uiElements.add(ecb);
+        
         buttonGroup.addButton(cbb);
         buttonGroup.addButton(chb);
-        //buttonGroup.addButton(cbb4);
+        buttonGroup.addButton(epb);
+        buttonGroup.addButton(ecb);
     }
 
     @Override

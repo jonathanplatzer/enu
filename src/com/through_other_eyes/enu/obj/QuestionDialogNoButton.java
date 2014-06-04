@@ -38,5 +38,11 @@ public class QuestionDialogNoButton extends Button {
 
     @Override
     public void clicked() {
+        Question question = GameCore.questionDialog.getActiveQuestion();
+        if (question != null) {
+            question.no();
+            GameCore.questions.removeQuestion(question, GameCore.questionDialog.getDialogType());
+            GameCore.questionDialog.show(GameCore.questionDialog.getDialogType());
+        }
     }
 }

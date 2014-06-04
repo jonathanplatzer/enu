@@ -26,6 +26,10 @@ import java.io.File;
 public class Resource {
     
     // UI
+    
+    //QUESTION DIALOG
+    public static final File QUESTION_DATA = new File("res" + File.separator + "questiondialog" + File.separator + "questions");
+    
     public static final File QUESTION_DIALOG_HEADER = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_header.png");
     public static final File QUESTION_DIALOG_LINE1PX = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_1px_line.png");
     public static final File QUESTION_DIALOG_BOTTOM = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_bottom.png");
@@ -38,6 +42,7 @@ public class Resource {
     public static final File QUESTION_DIALOG_NO = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_no.png");
     public static final File QUESTION_DIALOG_NO_HOVER = new File("res" + File.separator + "questiondialog" + File.separator + "questiondialog_no_hovered.png");
     
+    //INSTITUTION MENU
     public static final File INSTITUION_MENU = new File("res" + File.separator + "institutionmenu.png");
     
     public static final File CENTRALBANK = new File("res" + File.separator + "zentralbank.png");
@@ -48,15 +53,24 @@ public class Resource {
     public static final File COURTHOUSE_HOVER = new File("res" + File.separator + "gerichtshof_hovered.png");
     public static final File COURTHOUSE_TOGGLE = new File("res" + File.separator + "gerichtshof_toggled.png");
     
+    public static final File EUROPEAN_PARLIAMENT = new File("res" + File.separator + "europeanparliament.png");
+    public static final File EUROPEAN_PARLIAMENT_HOVER = new File("res" + File.separator + "europeanparliament_hovered.png");
+    public static final File EUROPEAN_PARLIAMENT_TOGGLE = new File("res" + File.separator + "europeanparliament_toggled.png");
+    
+    public static final File EUROPEAN_COMMISSION = new File("res" + File.separator + "european_commission.png");
+    public static final File EUROPEAN_COMMISSION_HOVER = new File("res" + File.separator + "european_commission_hovered.png");
+    public static final File EUROPEAN_COMMISSION_TOGGLE = new File("res" + File.separator + "european_commission_toggled.png");
+    
+    //MENU ELEMENTS
     public static final File PLAY = new File("res" + File.separator + "mainmenu" + File.separator + "playbutton.png");
     public static final File EXIT = new File("res" + File.separator + "mainmenu" + File.separator + "exitbutton.png");
     public static final File INFO = new File("res" + File.separator + "mainmenu" + File.separator + "infobutton.png");
     public static final File MAINMENU = new File("res" + File.separator + "pausemenu" + File.separator + "mainmenubutton.png");
     
-    
     public static final File MAINMENU_BACKGROUND = new File("res" + File.separator + "mainmenu" + File.separator + "eu_640x480_version2.png");
     public static final File PAUSEMENU_BACKGROUND  = new File("res" + File.separator + "pausemenu" + File.separator + "eu_640x480_version2.png");;
     
+    //OTHER UI
     public static final File STAISTICSBAR = new File("res" + File.separator + "statisticsbar.png");
     
     public static final File DOGE = new File("res" + File.separator + "pixel-doge_small.png");

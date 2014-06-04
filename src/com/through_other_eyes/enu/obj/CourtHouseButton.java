@@ -18,6 +18,7 @@
 package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
+import com.through_other_eyes.enu.core.GameCore.QuestionType;
 import com.through_other_eyes.enu.obj.base.ToggleButton;
 import java.awt.Point;
 import java.io.File;
@@ -45,7 +46,7 @@ public class CourtHouseButton extends ToggleButton{
         }
         else
         {
-            GameCore.questionDialog.show(QuestionDialog.DialogType.COURTHOUSE);
+            GameCore.questionDialog.show(QuestionType.COURTHOUSE);
         }
         super.clicked();
     }

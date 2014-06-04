@@ -17,6 +17,8 @@
 package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
+import com.through_other_eyes.enu.core.GameCore.QuestionType;
+import static com.through_other_eyes.enu.core.GameCore.questions;
 import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
 import java.awt.Color;
@@ -39,7 +41,8 @@ public class QuestionDialog extends UIElement {
 
     private ArrayList<UIElement> dialogElements = new ArrayList<>();
     private String title;
-    private String question;
+    private Question question;
+    private String questionText;
     private CloseQuestionDialogButton cqdb;
     private QuestionDialogYesButton qdyb;
     private QuestionDialogNoButton qdnb;
@@ -48,30 +51,7 @@ public class QuestionDialog extends UIElement {
     private BufferedImage questionDialogLine1pxImage;
     private BufferedImage questionDialogBottomImage;
     private int textHeight;
-
-    /**
-     * Enum for setting the type of question catalog that should be displayed
-     */
-    public static enum DialogType {
-
-        CENTRALBANK, COURTHOUSE, EUROPEAN_PARLIAMENT, EUROPEAN_COMMISSION
-    }
-
-    /**
-     * DO NOT USE. INCONSISTENT TO OTHER METHOD
-     *
-     * @param position
-     * @param elementImage
-     * @throws IOException
-     */
-    public QuestionDialog(Point position, BufferedImage elementImage) throws IOException {
-        super(position, elementImage);
-        cqdb = new CloseQuestionDialogButton(Resource.QUESTION_DIALOG_CLOSE, Resource.QUESTION_DIALOG_CLOSE_HOVER, GameCore.Align.CENTER, 127, 64);
-        dialogElements.add(cqdb);
-        setVisible(false);
-        questionDialogLine1pxImage = ImageIO.read(Resource.QUESTION_DIALOG_LINE1PX);
-        questionDialogBottomImage = ImageIO.read(Resource.QUESTION_DIALOG_BOTTOM);
-    }
+    private QuestionType dialogType;
 
     /**
      * Constructor of question dialog
@@ -116,33 +96,49 @@ public class QuestionDialog extends UIElement {
     public void drawObject(Graphics2D g2) {
         g2.setFont(font);
         g2.setColor(Color.WHITE);
-        
+
+        //Befehle für die richtige ausrichtung der ganzen elemente
         calculateHeight(g2);
-        
+
         setDimension(new Dimension(getDimension().width, 15 + textHeight + 21 + 3));
-        
+
         qdyb.setPosition(new Point(getPosition().x + getDimension().width / 2 + 53, getPosition().y + textHeight + 16));
         qdnb.setPosition(new Point(getPosition().x + getDimension().width / 2 + 95, getPosition().y + textHeight + 16));
         cqdb.setPosition(new Point(getPosition().x + getDimension().width / 2 + 118, getPosition().y + 4));
-        
+
         //Header zeichnen
         g2.drawImage(questionDialogHeader, getPosition().x, getPosition().y, questionDialogHeader.getWidth(), questionDialogHeader.getHeight(), null);
-        
+
         for (int i = 0; i < textHeight + 21; i++) { //21 ist die höhe der JA/NEIN buttons + 1 damit unten noch ein kleiner rand ist
             g2.drawImage(questionDialogLine1pxImage, getPosition().x, getPosition().y + 16 + i, getDimension().width, 1, null);
         }
+        
         //Unteren rand zeichnen
         g2.drawImage(questionDialogBottomImage, getPosition().x, getPosition().y + getDimension().height - 2, null);
+        
         //Title zeichnen
         g2.drawString(title, getPosition().x + 5, getPosition().y + 13);
+        
         //Closequestiondialogbutton zeichnen
         cqdb.drawObject(g2);
-        qdyb.drawObject(g2);
-        qdnb.drawObject(g2);
-                
+        
+        //yes no buttons zeichnen
+        if (qdyb.isVisible()) {
+            qdyb.drawObject(g2);
+        }
+        if (qdnb.isVisible()) {
+            qdnb.drawObject(g2);
+        }
+
         drawQuestion(g2);
     }
 
+    /**
+     * calaculates the overall text height of all lines for automatic sizing of
+     * the questiondialog
+     *
+     * @param g2
+     */
     private void calculateHeight(Graphics2D g2) {
         textHeight = 0;
 
@@ -152,7 +148,7 @@ public class QuestionDialog extends UIElement {
         int curX = getPosition().x + 5;
         int curY = getPosition().y + 26;
 
-        String[] words = question.split(" ");
+        String[] words = questionText.split(" ");
 
         for (String word : words) {
             int wordWidth = fm.stringWidth(word + " ");
@@ -164,7 +160,6 @@ public class QuestionDialog extends UIElement {
             curX += wordWidth;
         }
         textHeight += lineHeight;
-        System.out.println(textHeight);
     }
 
     /**
@@ -180,7 +175,7 @@ public class QuestionDialog extends UIElement {
         int curX = getPosition().x + 5;
         int curY = getPosition().y + 26;
 
-        String[] words = question.split(" ");
+        String[] words = questionText.split(" ");
 
         for (String word : words) {
             int wordWidth = fm.stringWidth(word + " ");
@@ -202,18 +197,21 @@ public class QuestionDialog extends UIElement {
     }
 
     /**
+     * this method set the visibilty of this dialog to true and retrieves and
+     * new question
      *
-     * @param dialogType
+     * @param questionType
      */
-    public void show(DialogType dialogType) {
+    public void show(QuestionType questionType) {
         //Reset position of QuestionDialog
         setPosition(new Point(GameCore.WIDTH / 2 - getDimension().width / 2, 60));
         cqdb.setPosition(new Point(GameCore.WIDTH / 2 + 118, 64));
 
-        switch (dialogType) {
+        dialogType = questionType;
+
+        switch (questionType) {
             case CENTRALBANK:
                 this.title = "European Central Bank";
-                //question = questionmanager.retrieve new question in this section
                 break;
             case COURTHOUSE:
                 this.title = "Court of Justice of the European Union";
@@ -226,11 +224,16 @@ public class QuestionDialog extends UIElement {
                 break;
         }
 
-        question = "This implementation will separate the given String into an array"
-                + " of String by using the split method with a space character as"
-                + " the only word separator, so it's probably not very robust."
-                + " It also assumes that the word is followed by a space character"
-                + " and acts accordingly when moving the curX position.";
+        question = questions.getNextQuestion(questionType);
+        if (question == null) {
+            questionText = "No more questions available in this section!";
+            qdyb.setVisible(false);
+            qdnb.setVisible(false);
+        } else {
+            questionText = question.getQuestionText();
+            qdyb.setVisible(true);
+            qdnb.setVisible(true);
+        }
 
         setVisible(true);
     }
@@ -242,7 +245,11 @@ public class QuestionDialog extends UIElement {
         setVisible(false);
     }
 
-    public int getTextHeight() {
-        return textHeight;
+    public Question getActiveQuestion() {
+        return question;
+    }
+
+    public QuestionType getDialogType() {
+        return dialogType;
     }
 }

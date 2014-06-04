@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.through_other_eyes.enu.obj;
 
 import com.through_other_eyes.enu.core.GameCore;
@@ -26,7 +25,12 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -34,50 +38,54 @@ import javax.imageio.ImageIO;
  * @author jplatzer
  */
 public class StatisticsBar extends UIElement {
-    
+
     private final Font font = GameCore.font.deriveFont(12f);
-    private final Statistics statistics;
-    
+
     public StatisticsBar(Point position, File elementImage, HashMap<String, Country> countries) throws IOException {
         super(position, ImageIO.read(elementImage));
-        statistics = new Statistics(countries);
+        GameCore.statistics = new Statistics(countries);
     }
 
     @Override
     public void clicked() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void hoverElement() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void leaveElement() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void update() {
-        statistics.calculate();
+        try {
+            GameCore.statistics.calculate();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(StatisticsBar.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void drawObject(Graphics2D g2) {
         g2.drawImage(getElementImage(), 0, 460, null);
-        
+        SimpleDateFormat sdfDay = new SimpleDateFormat("dd");
+        SimpleDateFormat sdfMonth = new SimpleDateFormat("MMM");
+        SimpleDateFormat sdfYear = new SimpleDateFormat("yyyy");
+
         g2.setFont(font);
-        g2.setColor(Color.RED);
-        g2.drawString(String.format("Population: %.03f mil.", statistics.getPopulation()), 20, 474);
-        g2.drawString(String.format("GDP: %.03f mil.", statistics.getGDP()), 200, 474);
-        g2.drawString(String.format("GDP per Capita: %.03f k", statistics.getGDPpC()), 400, 474);
-    
+        g2.setColor(Color.WHITE);
+        g2.drawString(String.format("Population: %.03f mil.", GameCore.statistics.getPopulation()), 20, 474);
+        g2.drawString(String.format("GDP: %.03f mil.", GameCore.statistics.getGDP()), 150, 474);
+        g2.drawString(String.format("GDP per Capita: %.03f k", GameCore.statistics.getGDPpC()), 280, 474);
+        g2.drawString(String.format("%s", sdfDay.format(GameCore.statistics.getGameTime().getTime())), 571, 474);
+        g2.drawString(String.format(". %s", sdfMonth.format(GameCore.statistics.getGameTime().getTime())), 583, 474);
+        g2.drawString(String.format("%s", sdfYear.format(GameCore.statistics.getGameTime().getTime())), 610, 474);
     }
 
     @Override
     public void move(float delta) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

@@ -38,7 +38,6 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
 
     private ArrayList<ArrayList<GameComponent>> renderObjects;
-    //private Graphics2D g2;
 
     public GamePanel(int width, int height, ArrayList<ArrayList<GameComponent>> renderObjects) {
         this.setPreferredSize(new Dimension(width, height));
@@ -70,9 +69,7 @@ public class GamePanel extends JPanel {
                 break;
             case PLAY:
                 for (GameComponent gameComponent : renderObjects.get(2)) {
-//                    System.out.println(gameComponent + " " + gameComponent.isVisible());
                     if (gameComponent.isVisible()) {
-//                        System.out.println(gameComponent + " " + gameComponent.isVisible());
                         gameComponent.drawObject(g2);
                     }
                 }
@@ -100,6 +97,10 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * draws the debug information text
+     * @param g2 
+     */
     private void renderDebugInformation(Graphics2D g2) {
 
         g2.setColor(new Color(0, 186, 255));
@@ -114,6 +115,10 @@ public class GamePanel extends JPanel {
         g2.drawString(time(), 2, 90);
     }
 
+    /**
+     * calculates the time this programm is running
+     * @return 
+     */
     private String time() {
         long timeInMilliSeconds = System.currentTimeMillis() - GameCore.startTime;
         long seconds = timeInMilliSeconds / 1000 % 60;

@@ -36,7 +36,7 @@ public class SplashScreen extends GameComponent {
 
     private ArrayList<BufferedImage> splashScreenImages;
     private long startTime;
-    private int displayTime = 1 * 1000;
+    private int displayTime = 1 * 3000;
     private final File folder = new File("res/splash/");
 
     public SplashScreen() throws IOException {

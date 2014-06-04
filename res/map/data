@@ -2,7 +2,7 @@ Albania;3.011;31;false;res/map/al.png
 Austria;8.452;373.133;true;res/map/at.png
 Bosnia and Herzegovina;3.836;49.241;false;res/map/ba.png
 Belgium;11.162;434.503;true;res/map/be.png
-Bulgaria;7.285;103.816;false;res/map/bg.png
+Bulgaria;7.285;103.816;true;res/map/bg.png
 Belarus;9.468;146.745;false;res/map/by.png
 Switzerland;8.039;385.333;false;res/map/ch.png
 Cyprus;0.866;23.613;true;res/map/cy.png

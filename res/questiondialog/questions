@@ -1,0 +1,9 @@
+institution;frage;ja auswirkungen, "#" unterteilt auswirkungen, ":" gibt optionen der auswirkungen an;nein auswirkungen -"- ;"unterfrage"  population:0.05:+:all#gdp:-20:Austria
+ecb;Soll der Leitzins weiter gesenkt werden?;population:2.0:+:all;population:5:-:all;yes;euc|untergrage unterfrage unterfrage unterfrage unterfrage01|population:0.4:-:all#gdp:-15:Germany|population:0.4:+:Germany#gdp:80:Germany
+ech;Sollen Sanktionen gegen Zypern erhoben werden?;population:0.4:-:Estonia#gdp:-55:Austria;population:0.4:+:Estonia#gdp:23:Austria;null
+eup;Soll die EU aufgeloest werden?;liquidate; ;null
+euc;In Italien geraet das Fluechtlingsproblem ausser Kontrolle. Wollen sie dagegen etwas unternehmen?;population:40:+:Italy#gdp:-15:Germany;population:0.4:+:Germany#gdp:80:Germany;no;ecb|untergrage unterfrage unterfrage unterfrage unterfrage02|population:0.05:-:all#gdp:10:Austria|population:0.05:+:all#gdp:-20:Austria
+ecb; ;population:30.0:-:all#gdp:10:Austria;resign:Austria;null
+ech; ;gdp:20:all;population:0.09:-:Germany#gdp:-60:Germany;no;euc|untergrage unterfrage unterfrage unterfrage unterfrage03|population:0.4:-:all#gdp:-15:Germany|population:0.4:+:Germany#gdp:80:Germany
+eup;Soll die Ukraine der EU beitreten?;join:Ukranie;resign:Slovenia;null
+euc;Soll Griechenland weitere Foerderungen bekommen?;resign:United Kingdom;resign:Greece;yes;ecb|untergrage unterfrage unterfrage unterfrage unterfrage04|population:0.05:-:all#gdp:10:Austria|population:0.05:+:all#gdp:-20:Austria

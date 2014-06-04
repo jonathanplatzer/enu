@@ -25,6 +25,7 @@ import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 /**
@@ -37,16 +38,13 @@ public class GameScreen extends GameComponent {
     private ArrayList<UIElement> uiElements = new ArrayList<>();
 
     public GameScreen() throws IOException {
-        map = new Map();
-        InstitutionMenu instMenu = new InstitutionMenu(ImageIO.read(Resource.INSTITUION_MENU), GameCore.Align.CENTER, 0, 0);
-        StatisticsBar bar = new StatisticsBar(new Point(0, 0), Resource.STAISTICSBAR, map.getCountries());
-        uiElements.add(instMenu);
-        uiElements.add(bar);
+        this.setUpdateRequired(false);
     }
 
     @Override
     public void update() {
-        map.update();
+        if(map != null)
+            map.update();
         for (UIElement uiElement : uiElements) {
             uiElement.update();
         }
@@ -66,6 +64,19 @@ public class GameScreen extends GameComponent {
     @Override
     public void move(float delta
     ) {
+    }
+    
+    public void newGame() throws IOException {
+        uiElements.clear();
+        map = new Map();
+        InstitutionMenu instMenu = new InstitutionMenu(ImageIO.read(Resource.INSTITUION_MENU), GameCore.Align.CENTER, 0, 0);
+        StatisticsBar bar = new StatisticsBar(new Point(0, 0), Resource.STAISTICSBAR, map.getCountries());
+        uiElements.add(instMenu);
+        uiElements.add(bar);
+        GameCore.questionDialog.setVisible(false);
+        GameCore.questions.clearQuestions();
+        GameCore.questions.loadQuestions();
+        GameCore.statistics.startGameTimeThread();
     }
 
     /**

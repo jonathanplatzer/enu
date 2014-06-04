@@ -52,6 +52,9 @@ public abstract class GameComponent implements Drawable, Moveable{
         this.updateRequired = updateRequired;
     }
     
+    /**
+     * this method gets called for every object from the core
+     */
     public abstract void update();
 
     public Point getPosition() {

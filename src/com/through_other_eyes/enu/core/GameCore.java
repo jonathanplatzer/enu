@@ -16,12 +16,14 @@
  */
 package com.through_other_eyes.enu.core;
 
+import com.through_other_eyes.enu.obj.GameScreen;
 import com.through_other_eyes.enu.obj.MainMenu;
 import com.through_other_eyes.enu.obj.Map;
-import com.through_other_eyes.enu.obj.GameScreen;
 import com.through_other_eyes.enu.obj.PauseMenu;
 import com.through_other_eyes.enu.obj.QuestionDialog;
+import com.through_other_eyes.enu.obj.Questions;
 import com.through_other_eyes.enu.obj.SplashScreen;
+import com.through_other_eyes.enu.obj.Statistics;
 import com.through_other_eyes.enu.obj.base.GameComponent;
 import com.through_other_eyes.enu.obj.base.Resource;
 import com.through_other_eyes.enu.obj.base.UIElement;
@@ -80,6 +82,14 @@ public class GameCore extends JFrame {
 
         DEFAULT, HOVER
     }
+    
+    /**
+     * Enum for setting the type of question catalog that should be displayed
+     */
+    public static enum QuestionType {
+
+        CENTRALBANK, COURTHOUSE, EUROPEAN_PARLIAMENT, EUROPEAN_COMMISSION
+    }
 
     // Static variables to access data like state of the game, fps or dt
     public static State state = State.SPLASHSCREEN;
@@ -89,10 +99,12 @@ public class GameCore extends JFrame {
     public static long startTime;
     public static MainMenu mainMenu;
     public static PauseMenu pauseMenu;
-    public static GameScreen screen;
+    public static GameScreen gameScreen;
     public static QuestionDialog questionDialog;
     public static Font font;
     public static boolean doge = false;
+    public static Statistics statistics;
+    public static Questions questions;
 
     // Instances for fullscreen handling
     private final GraphicsDevice device;
@@ -139,6 +151,9 @@ public class GameCore extends JFrame {
         initializeGame();
     }
 
+    /**
+     * sets the correct displaymode, initialized some objects for rendering
+     */
     private void initializeRenderer() {
         gamePanel = new GamePanel(WIDTH, HEIGHT, renderObjects);
         setContentPane(gamePanel);
@@ -168,6 +183,9 @@ public class GameCore extends JFrame {
         renderObjects.add(pauseRenderObjects);
     }
 
+    /**
+     * initializes classes for mouse, key and window input and sets listeners to the core
+     */
     private void initializeListeners() {
         windowController = new WindowController();
         keyInputController = new KeyInputController();
@@ -182,27 +200,44 @@ public class GameCore extends JFrame {
         addMouseMotionListener(mouseInputController);
     }
 
+    /**
+     * initializes the splashscreen object
+     * @throws IOException 
+     */
     private void initializeSplashScreen() throws IOException {
         splashscreenRenderObjects.add(new SplashScreen());
     }
 
+    /**
+     * initializes the mainmenu object and adds it to the corresponding renderlist
+     * @throws IOException
+     * @throws FontFormatException 
+     */
     private void initializeMainMenu() throws IOException, FontFormatException {
         mainMenu = new MainMenu();
         mainMenuRenderObjects.add(mainMenu);
         font = Font.createFont(Font.TRUETYPE_FONT, Resource.FONT);
     }
 
+    /**
+     * initializes pausemenu object and adds it to the corresponding renderlist
+     * @throws IOException 
+     */
     private void initializePauseMenu() throws IOException {
         pauseMenu = new PauseMenu();
         pauseRenderObjects.add(pauseMenu);
     }
 
+    /**
+     * initializes objects for the play state and adds them to the corresponding renderlist
+     * @throws IOException 
+     */
     private void initializeGame() throws IOException {
-        screen = new GameScreen();
+        gameScreen = new GameScreen();
+        questions = new Questions();
         questionDialog = new QuestionDialog(GameCore.Align.CENTER, 0, 60);
-        //questionDialog.setVisible(true);
 
-        playRenderObjects.add(screen);
+        playRenderObjects.add(gameScreen);
         playRenderObjects.add(questionDialog);
     }
 
@@ -212,6 +247,9 @@ public class GameCore extends JFrame {
         dt = 1f / fps;
     }
 
+    /**
+     * manages the complete process of rendering, updating, calculating deltatime for animations.
+     */
     private void renderLoop() {
         long startTime;
         double deltaTime;
@@ -236,18 +274,24 @@ public class GameCore extends JFrame {
         }
     }
 
+    /**
+     * gets called from the renderloop before everything is painted to calculate all sort of stuff so everything is accordingly and correct at the current state
+     */
     private void update() {
         switch (state) {
             case MAINMENU:
                 break;
             case PLAY:
+                gameScreen.setUpdateRequired(true);
                 break;
             case PAUSED:
+                gameScreen.setUpdateRequired(false);
                 break;
             case SHUTDOWN:
                 shutdown();
                 break;
         }
+        //MINOR ISSUE!! This code updates every object from every state! to improve performance just update objects from the current state
         for (ArrayList<GameComponent> activeRenderObjects : renderObjects) {
             for (GameComponent object : activeRenderObjects) {
                 if (object.isUpdateRequired()) {
@@ -258,9 +302,9 @@ public class GameCore extends JFrame {
         }
     }
 
-    private void updateGame() {
-    }
-
+    /**
+     * this is the main thread where the core runs in
+     */
     public void start() {
         Thread gameThread = new Thread() {
             @Override
